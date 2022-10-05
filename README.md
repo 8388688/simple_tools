@@ -1,38 +1,40 @@
-# simple_tools - ä¸€ä¸ªç”¨ python å†™çš„ç®€æ˜“å·¥å…·åŒ…
+# simple_tools - Ò»¸öÓÃ python Ğ´µÄ¼òÒ×¹¤¾ß°ü
 
 -----
-<span id="menu">ç´¢å¼•:</span>
+<span id="menu">Ë÷Òı:</span>
 
-1. [ç´¢å¼•](#menu)
-2. [æ¦‚è¿°](#summary)
-3. [ä¾èµ–çš„æ’ä»¶](#depend_on)
-4. [bugè¿½è¸ª](#bug_report)
-5. [æ›´æ–°æ—¥å¿—](#update_log)
-6. [æ–‡ä»¶å†å²è®°å½•](#file_history)
-7. [ä½ çŸ¥é“å—](#do_you_know)
+1. [Ë÷Òı](#menu)
+2. [¸ÅÊö](#summary)
+3. [ÎÄ¼ş](#projects)
+4. [ÒÀÀµµÄ²å¼ş](#depend_on)
+5. [bug×·×Ù](#bug_report)
+6. [ÏÂÒ»¸ö°æ±¾µÄÔ¤¸æ](#next_version)
+7. [¸üĞÂÈÕÖ¾](#update_log)
+8. [ÎÄ¼şÀúÊ·¼ÇÂ¼](#file_history)
+9. [ÄãÖªµÀÂğ](#do_you_know)
 
 -----
-<span id="summary">æ¦‚è¿°</span>
+<span id="summary">¸ÅÊö</span>
 
-[å›åˆ°é¡¶éƒ¨](#menu)
+[»Øµ½¶¥²¿](#menu)
 
-## æ¦‚è¿°
+## ¸ÅÊö
 
-ä¸­æ–‡å: ç´ æå¤§æœ¬è¥
+ÖĞÎÄÃû: ËØ²Ä´ó±¾Óª
 
-ä½œè€…: 8388688
+×÷Õß: 8388688
 
-version: Beta 4.0-pre2
+version: Beta 4.0-pre3
 
-æœ€åä¿®æ”¹æ—¶é—´ï¼š2022-10-4 09:47:17
+×îºóĞŞ¸ÄÊ±¼ä£º2022-10-5 10:17:57
 
-[æ— æ•ˆ]~~è¿™ä¸ªæ–‡ä»¶è¡Œæ•°ä¸èƒ½è¶…è¿‡ 270 è¡Œ~~
+[ÎŞĞ§]~~Õâ¸öÎÄ¼şĞĞÊı²»ÄÜ³¬¹ı 270 ĞĞ~~
 
-1.6.6 ä»¥å‰çš„ç‰ˆæœ¬å…¨éƒ¨æŸå, æ— æ³•è¯»å–ã€‚
+1.6.6 ÒÔÇ°µÄ°æ±¾È«²¿Ëğ»µ, ÎŞ·¨¶ÁÈ¡¡£
 
 All versions of module1 before 1.6.6 are broken and can't be read.
 
-2.0.1 ä»¥å‰çš„ç‰ˆæœ¬åˆ›å»ºã€ä¿®æ”¹å’Œè®¿é—®æ—¶é—´é—´éš”å¤ªé•¿, æŸåä¸¥é‡, æ— æ³•è¯»å–ã€‚
+2.0.1 ÒÔÇ°µÄ°æ±¾´´½¨¡¢ĞŞ¸ÄºÍ·ÃÎÊÊ±¼ä¼ä¸ôÌ«³¤, Ëğ»µÑÏÖØ, ÎŞ·¨¶ÁÈ¡¡£
 
 Version 2.0.1 before create, modify,
 
@@ -41,383 +43,348 @@ and access time interval is too long,
 was serious damaged and can't read
 
 -----
-<span id="depend_on">ä¾èµ–çš„æ’ä»¶</span>
+<span id="projects">ÎÄ¼ş</span>
 
-[å›åˆ°é¡¶éƒ¨](#menu)
+[»Øµ½¶¥²¿](#menu)
 
-## ä¾èµ–çš„æ’ä»¶
+## ÎÄ¼ş
 
-+ python.io
-+ python.math
-+ python.os
-+ python.random
-+ python.stat
-+ python.sys
-+ python.tkinter
-+ python.turtle
-+ . . . . . .
+[data_base]: data_base.py
+
+[data_process]: data_process.py
+
+[default]: default.py
+
+[encr_decr]: encr_decr.py
+
+[example]: example.py
+
+[game_disposition]: game_disposition.py
+
+[gui_extend]: gui_extend.py
+
+[hash_values]: hash_values.py
+
+[LICENSE]: LICENSE
+
+[maths]: maths.py
+
+[passed]: passed.py
+
+[randoms]: randoms.py
+
+[README]: README.md
+
+[README_old]: README_old.md
+
+[system_extend]: system_extend.py
+
+[times]: times.py
+
+[__init__]: __init__.py
 
 -----
-<span id="bug_report">bugè¿½è¸ª</span>
+<span id="depend_on">ÒÀÀµµÄ²å¼ş</span>
 
-[å›åˆ°é¡¶éƒ¨](#menu)
+[»Øµ½¶¥²¿](#menu)
 
-## bug è¿½è¸ª
+## ÒÀÀµµÄ²å¼ş
 
-+ st-000001. åˆå¹¶ simple_tools ä¸­çš„æ–‡ä»¶
-+ st-000002. ä¿®æ”¹ simple_tools å·¥ä½œç›®å½•
-+ st-000003. ...
+[TOC]
+
+* python.io
+* python.math
+* python.os
+* python.random
+* python.stat
+* python.sys
+* python.tkinter
+* python.turtle
+* . . . . . .
 
 -----
-<span id="update_log">æ›´æ–°æ—¥å¿—</span>
+<span id="bug_report">bug×·×Ù</span>
 
-[å›åˆ°é¡¶éƒ¨](#menu)
+[»Øµ½¶¥²¿](#menu)
 
-## æ–‡ä»¶æ›´æ–°æ—¥å¿—
+## bug ×·×Ù
 
----------- 20221003 ----------
-
-## 4.0 æ›´æ–°: [README.md æ›´æ–°]
-
-> 4.0-pre2[2022-10-4 09:13:20]
-> + merge files such as view.py, draw.py, bomb.py etc.
-> + update [README.md](README.md)
-
-> 4.0-pre1[2022-10-3 18:20:15]
-> + rename module1 to simple_tools
-> + add files named [README.md](README.md) and [LICENSE](LICENSE)
-> + upload these package to [GitHub](https://gitbub.com/)
-> + å°† [__init__](__init__.py) ä¸­çš„æ›´æ–°æ—¥å¿—è½¬ç§»è‡³ [README.md](README.md)
-> + simple_tools è¿›å…¥ Beta ç‰ˆæœ¬
-
----------- 20220925 ----------
-
-#### 3.4.6 æ›´æ–°:
-
-+ rename ~~[review.py](review.py)~~[not found] to ~~[view.py](view.py)~~[not found]
-+ åœ¨ [system_extend.py](system_extend.py) ä¸­ä¿®æ­£ä¸€ä¸ªå¾ˆç»†å¾®çš„ bug (æ‰“å°æ— ç”¨çš„ç©ºè¡Œçš„ bug)
-
-#### 3.4.5 æ›´æ–°: ä¼˜åŒ– __all__ å˜é‡, æ•´ç†å†…ç½®æ–‡ä»¶
-
----------- 20220918 ----------
-
-#### 3.4.4 æ›´æ–°:
-
-ä¿®æ­£ [system_extend.py](system_extend.py) ä¸­ä¸€äº›é”™è¯¯
-
-#### 3.4.3 æ›´æ–°:
-
-åœ¨ [system_extend.py](system_extend.py) ä¸­å°† `from os import *` æ›´æ­£ä¸º `import os`
-
-#### 3.4.2 æ›´æ–°: ä¼˜åŒ– [data_handle.py](data_process.py) å’Œ maths.py å‡½æ•°åç§°
-
-3.4.1 æ›´æ–°: ä¼˜åŒ–ç¨‹åºç»“æ„[ä¸‹]
-
-3.4 æ›´æ–°: [maths æ•°å­¦å‡½æ•°æ›´æ–°](maths.py)
-> 1. åŠ å…¥ getPrime å‡½æ•°
-> 2. rename getPrime to getPrimeRange,
-> 3. å°† [2] åˆæ”¹æˆ get_prime_range
-> 4. æ·»åŠ  get_prime_range_of_generator å‡½æ•°
-
----- 20220901 -- 20220912 ----
-
-3.3.8 æ›´æ–°:
-> ä¼˜åŒ–ç¨‹åºç»“æ„[ä¸­]
-
----------- 20220825 ----------
-
-3.3.7 æ›´æ–°:
-> åœ¨ [default.py](default.py) ä¸­åŠ å…¥ clear_module1_cache å‡½æ•°
-
-3.3.6 æ›´æ–°:
-> ä¼˜åŒ–ç¨‹åºç»“æ„[ä¸Š]
-
----------- 20220824 ----------
-
-3.3.5 æ›´æ–°:
-> rename maths.d() to maths.is_prime()
-
-3.3.4 æ›´æ–°:
-> rename [encryption.py](encr_decr.py) to [encr_decr.py](encr_decr.py)
-
----------- 20220817 ----------
-3.3.3 æ›´æ–°:
-> rename get_false_unix_time to get_time_stamp
-
-3.3.2 æ›´æ–°:
-> (æ‡’äººç¦åˆ©)ç»™ get_false_unix_time å¢åŠ  5 ä¸ªé¢„è®¾å€¼
-
-3.3.1 æ›´æ–°:
-> ä¿®å¤ [times.py](times.py) ä¸­ get_false_unix_time é¢„è®¾å€¼ä¸‹æ ‡è¶Šç•Œçš„ bug
-
----------- 20220816 ----------
-
-3.3 æ›´æ–°: [æ—¶é—´å‡½æ•°æ›´æ–°]
-> 1. å¤§å¹…æ›´æ–° get_false_unix_time
->> 1. å‡†å¤‡äº† 1,133,180,928 ç§ä¸åŒçš„æ—¶é—´æˆ³æ ¼å¼, æ‰“é€ è‡ªå·±ç‹¬ä¸€æ— äºŒçš„æ—¶é—´æˆ³
->> 2. (æ‡’äººç¦åˆ©)è‡ªåŠ¨è®¾ç½®é»˜è®¤æ—¶é—´æ ¼å¼
->> 3. ä¿®å¤ç¨‹åºä¸€å †è¯¡å¼‚çš„ bug
-
-3.2.2 æ›´æ–°:
-> åŠ å…¥ get_false_unix_time properties æ›´å¤šè£…é¥°æ ¼å¼
-
----------- 20220815 ----------
-
-3.2.1 æ›´æ–°:
-> ä¿®å¤ [system_extend.py](system_extend.py) ä¸­ get_file_name å‡½æ•°å†™å…¥æ—¥å¿—æ—¶é‡åˆ°ä¸­æ–‡ä¼šæ˜¾ç¤ºä¹±ç çš„æƒ…å†µ
-
-3.2 æ›´æ–°: [æ–‡ä»¶ç³»ç»Ÿ - å·¥ä½œç›®å½•æ›´æ–°]
-> 1. ç»™æ¯ä¸ªæ–‡ä»¶éƒ½é…ç½®äº†ç›¸åº”çš„å·¥ä½œç›®å½•
-> 2. å­˜å‚¨åœ¨ [AppData/Roaming/module1](%appdata%/Roaming/module1) ä¸­
-> 3. ä¿®æ­£æ¨¡å—å¾ªç¯å¯¼å…¥çš„ ImportError
-
-3.1 æ›´æ–°: [system_ æ›´æ–°](system_extend.py)
-> 1. rename [system_.py](system_extend.py) ä¸º [system_extend.py](system_extend.py)
-> 2. åœ¨ [system_extend.py](system_extend.py) ä¸­æ·»åŠ  safe_md å‡½æ•°
-
-3.0.2 æ›´æ–°:
-> æ›´æ–° [maths.py](maths.py) çš„ decomposition å‡½æ•°
-
----------- 20220814 ----------
-
-3.0.1 æ›´æ–°:
-> ä¿®å¤ ~~[bomb.py](bomb.py)~~[not found] çš„ä¸€ä¸ª bug
-
-3.0 æ›´æ–°: [æ–‡ä»¶ç³»ç»Ÿæ›´æ–°]
-> 1. æ‹¥æœ‰äº†è‡ªå·±çš„å·¥ä½œç›®å½•: %APPDATA%/module1
-> 2. è‡ªåŠ¨ç”Ÿæˆå·¥ä½œç›®å½•
-> 3. æ·»åŠ  MODULE1_WORK_SPACE å¸¸é‡, ç”¨äºå£°æ˜å·¥ä½œç›®å½•
-
-------------- v 2.x -------------
-
-2.9.1 æ›´æ”¹:
-> ä¿®å¤ [game_disposition.py](game_disposition.py) ä¸­ Users ç±»çš„å°‘é‡ bug
-
----------- 20220813 ----------
-
-2.9 æ›´æ”¹: [game_disposition æ›´æ–°](game_disposition.py)
-
-+ å¤§è§„æ¨¡æ›´æ–° [game_disposition.py](game_disposition.py) ä¸­çš„ Users ç±»
-
-> 1. ç”¨æˆ·
->> 1. ç”¨æˆ·ä½“éªŒ
->>> 1. é€€å‡ºæ—¶å°†ç”¨æˆ·ä¿¡æ¯å­˜å‚¨åˆ°æ–‡ä»¶ä¸­
->>> 2. ç°åœ¨ç™»é™†æ—¶éœ€è¦å¯†ç 
->>> 3. åŠ å…¥ logout é€€å‡ºå‡½æ•°
->>> 4. ç¦»çº¿ç”¨æˆ·åœ¨é€€å‡ºæ—¶è‡ªåŠ¨æ¸…ç†æ•°æ®
->> 2. ç”¨æˆ·å®‰å…¨
->>> 1. topUp ç­‰åº”ç”¨å‡½æ•°ä¼šæ‹’ç» temporary ä¸´æ—¶ç”¨æˆ·çš„è®¿é—®
->>> 2. __del__ ææ„å‡½æ•°ä¼šæ‹’ç» self.live ä¸º False ç”¨æˆ·çš„è®¿é—®
-> 2. å®‰å…¨: [ä½¿ç”¨æ›´å®‰å…¨çš„ uid]
->> 1. ç”Ÿæˆæ–¹å¼: ä½¿ç”¨ md5 ç”Ÿæˆ(é€šå¸¸çš„ uuid4)
->> 2. åœ¨ç¨‹åºä¸­ä»¥ self.info_dict['uid'] çš„å½¢å¼å­˜å‚¨
->> 3. ä»£æ›¿ç”¨æˆ·çš„ name ä½œä¸ºå”¯ä¸€çš„ ID
->> 4. å•ç‹¬å­˜å‚¨, æ¯” name æ›´å®‰å…¨
-> 3. ç¨‹åº
->> 1. åŠ å…¥ä¸€äº›å¸¸é‡
->> 2. ä¼˜åŒ–åŸæ¥çš„ç¨‹åºç»“æ„
->> 3. ä¿®å¤ä¸€å † bug
->> 4. åŠ å…¥é‡åˆ¶æ–‡ä»¶çš„åŠŸèƒ½
->> 5. è‡ªåŠ¨æ£€æµ‹æŸåçš„æ–‡ä»¶
-> 4. å¤ªå¤šäº†, è¯´ä¸è¿‡æ¥äº†. . .
-
-2.8.4 æ›´æ”¹:
-> ä¿®å¤ get_file_path_of_generator åŒºåˆ†å¤§å°å†™å‡ºé”™çš„ bug
-
----------- 20220812 ----------
-
-2.8.3 æ›´æ”¹:
-> ç»™ get_file_path_of_generator æ·»åŠ  case_sensitive é™åˆ¶æ¡ä»¶
-
-2.8.2 æ›´æ”¹:
-> æ›´æ–° [data_handle](data_process.py) çš„ __all__ å˜é‡,
-
-2.8.1 æ›´æ”¹:
-> åˆ é™¤ ~~[review.py](review.py)~~[not found] ä¸‹çš„ bl_generator å‡½æ•°
-
-2.8 æ›´æ”¹: [ç¨‹åºç»“æ„æ›´æ–°]
-> 1. æ–°å»º [game_disposition.py](game_disposition.py) æ–‡ä»¶
-> 2. å°† User ç±» å’Œ Person ç±» ç§»åˆ° [game_disposition.py](game_disposition.py) ä¸­
-> 3. åˆ é™¤ [__init__.py](__init__.py) ä¸­ä¸€äº›æ— ç”¨çš„å¼•ç”¨
-> 4. æ›´æ–° [__init__.py](__init__.py) çš„æ³¨é‡Š
-
----------- 20220810 ----------
-
-2.7.3 æ›´æ”¹:
-> åˆ é™¤ [system_.py](system_extend.py) ä¸­çš„ get_file_name_of_generator ç”Ÿæˆå™¨
-
-2.7.2 æ›´æ”¹:
-> åœ¨ [hash_values.py](hash_values.py) ä¸­åŠ å…¥ uuid_generator å‡½æ•°
-
-2.7.1 æ›´æ”¹:
-> åœ¨ [system_.py](system_extend.py) ä¸­, å°† get_file_name_of_generator ä¸ get_file_path_of_generator åˆå¹¶
-
----------- 20220809 ----------
-
-2.7 æ›´æ”¹: [system_ æ›´æ–°](system_extend.py)
-> 1.æ›´æ–° get_file_name,
->> 1. åŠ å…¥ç”Ÿæˆé”™è¯¯æ—¥å¿—çš„åŠŸèƒ½,
->> 2. åŠ å…¥ OSError é”™è¯¯ç±»å‹
-> 2. file_pattern åŠ å…¥æ–‡ä»¶è·¯å¾„æ— æ³•è¯†åˆ«çš„é”™è¯¯ç±»å‹
-> 3. æ›´æ–° get_file_path_of_generator å‡½æ•°, ä¿®æ­£å…¶ä¸­å‡ ä¸ª bug
-> 4. ä¸º get_file_path_of_generator æ·»åŠ  include å’Œ exclude é™åˆ¶æ¡ä»¶
-> 5. å¤§è§„æ¨¡æ›´æ–° File ç±», æ·»åŠ  permission, user_id ç­‰ 10 å¤šç§å±æ€§
-
----------- 20220801 ----------
-
-2.6.1 æ›´æ”¹:
-> normalEncryption çš„ coding å‚æ•° ç°åœ¨å¯é€‰é¡¹ä¸º `[getfilesystemencoding(), 'utf-8', 'gbk']`
-
-2.6 æ›´æ”¹: [åŠ å¯†æ›´æ–°](hash_values.py)
-> 1. æ›´æ–° md5_encryption
-> 2. ä¿®æ­£ normalEncryption çš„ bug
-> 3. æ›´æ–° normalEncryption, åŠ å…¥ coding å‚æ•° `['auto', 'f_byte', 'f_int']` ä¸‰ä¸ªå¯é€‰é¡¹
-
----------- 20220727 ----------
-
-2.5.1 æ›´æ”¹:
-> 1. åŠ å…¥ md5_encryption
-> 2. æ›´æ–° normal_encryption å‡½æ•°, ä¿®å¤ä¸€äº› bug
-> 3. æ›´æ–° æ›´æ–°æ—¥å¿— çš„ä½“åˆ¶
-
----------- 20220404 ----------
-
-2.5 æ›´æ”¹: [system_ æ›´æ–°](system_extend.py)
-> 1. åœ¨ [system_.py](system_extend.py) ä¸‹åˆ›å»º File ç±»
-> 2. æ·»åŠ  system_pro å˜é‡å£°æ˜å½“å‰æ“ä½œç³»ç»Ÿ
-
----------- 20220320 ----------
-
-2.4.4 æ›´æ”¹:
-> 1. åˆ›å»º [example.py](example.py) æ–‡ä»¶
-> 2. [æ—¶é—´ä¸­æ–­]
-
----------- 20220312 ----------
-
-2.4.3 æ›´æ”¹:
-> 1. ä¿®æ­£ get_file_path_of_generator æ— æ³•è¿”å›æ‰€æœ‰æ–‡ä»¶å¤¹çš„ bug
-> 2. æ›´æ–° file_remove, get_file_name, file_pattern
-
----------- 20220305 ----------
-
-2.4.2 æ›´æ”¹:
-> æ·»åŠ  random_choice å‡½æ•°
-
-2.4.1 æ›´æ”¹:
-> 1. åˆ é™¤ create_random å˜é‡
-> 2. æ›´æ–° file_pattern å‡½æ•°, æ·»åŠ  easy_options å‚æ•°
-
-2.4 æ›´æ”¹: [times æ›´æ–°](times.py)
-> 1. åˆ›å»º [times.py](times.py) æ–‡ä»¶
-> 2. åœ¨ [times.py](times.py) ä¸­åˆ›å»º get_false_unix_time å‡½æ•°
-> 3. ç§»åŠ¨ wait å‡½æ•°åˆ° [times.py](times.py) ä¸­
-> 4. æ›´æ–° [__init__.py](__init__.py) çš„ __all__ å˜é‡
-
----------- 20220226 ----------
-
-2.3.1 æ›´æ”¹:
-> 1. åˆ›å»º [hash_values.py](hash_values.py) æ–‡ä»¶
-> 2. æŠŠ get_md5 å‡½æ•°ç§»åˆ° [hash_values.py](hash_values.py) ä¸‹
-
-2.3 æ›´æ”¹: [data_handle æ›´æ–°](data_process.py)
-> 1. æ›´æ–°å¹¶å®Œå–„ filter_ çš„ other_signs å‚æ•°
-> 2. åœ¨ [data_base.py](data_base.py) ä¸­åŠ å…¥ tabs å…ƒç»„
-> 3. æ›´æ–° __all__ å˜é‡
-
----------- 20220219 ----------
-
-2.2.3 æ›´æ”¹:
-> 1. æ›´æ–° filter_ çš„ other_signs å‚æ•°
-> 2. åˆ é™¤ test() ä¸­çš„ draw1 å¼•ç”¨
-
-2.2.2 æ›´æ”¹:
-> åŠ å…¥ binarySearch å‡½æ•°
-
----------- 20220205 ----------
-
-2.2.1 æ›´æ”¹:
-> rename username to usernameList
-
-2.2 æ›´æ”¹:
-> 1. rename str_handle to data_handle
-> 2. åˆ é™¤ default ä¸­çš„ createToplevel
-> 3. åˆ›å»º ~~[test.py](test.py)~~[not found]
-
----------- 20220203 ----------
-
-2.1 æ›´æ”¹:
-> 1. æ›´æ–° file_remove å‡½æ•°æ— æ³•åˆ é™¤æ–‡ä»¶å¤¹çš„ bug,
-> 2. å¢åŠ  file_pattern å‡½æ•°.
-> 3. åœ¨ [system_.py](system_extend.py) ä¸­æ·»åŠ  fp = getcwd() å¸¸é‡
-> 4. åˆ›å»º dimensionalList åœ¨ [data_handle.py](data_process.py)
-
-2.0.1 æ›´æ”¹:
-> ä¿®æ­£æ¨¡å—å¸¸é‡æ— æ³•å¯¼å…¥çš„é—®é¢˜
-
------------ æ›´æ—© -----------
-
-2.0 æ›´æ”¹:
-> 1. åˆ›å»º file_remove, å¤§è§„æ¨¡å‡çº§ system_.py,
-> 2. ä¿®æ­£ get_file_path_of_generator çš„ bug,
-> 3. åŠ å…¥å¸¸é‡ EOF = -1, NULL = None, null = 0,
-> 4. åˆ é™¤ [__init__.py](__init__.py) çš„ absoluteEncryption,
-> 5. åˆ›å»º [data_base.py](data_base.py) æ•°æ®åº“.
-
-------------- v 1.x -------------
-1.8 æ›´æ”¹:
-> 1. åˆ›å»º [system_.py](system_extend.py),
-> 2. ç§»åŠ¨ get_file_name, get_file_name_of_generator,
-     get_file_path, get_file_path_of_generator, get_file_size,
-     get_files, get_file_names åˆ° [system_.py](system_extend.py)
-
-1.7.1 æ›´æ”¹:
-> 1. æ›´æ–° Users,
-> 2. pw ç”¨ md5 åŠ å¯†.
-
-1.7 æ›´æ”¹:
-> 1. åˆ é™¤ [__init__.py](__init__.py) çš„ review, digitalDecryption, draw1, draw2, breakpoint_,
-> 2. ä¿®æ­£ breakpoint_ ä¸­ exit_ çš„ bug,
-> 3. åˆ›å»º [randoms.py](randoms.py) å¹¶æ·»åŠ  createRandomList,
-> 4. åˆ é™¤ [__init__.py](__init__.py) çš„ passed, EuclideanAlgorithm.
-
-1.6.13 æ›´æ”¹:
-
-+ ä¿®æ­£ get_file_path çš„ bug.
-
-1.6.12 æ›´æ”¹:
-
-+ ç»™ get_file_name æ·»åŠ æ³¨é‡Š.
-
-1.6.11 æ›´æ”¹:
-
-+ 1.æ›´æ–° username è¯åº“,
-+ 2.ä¿®æ”¹éšæœºèµ·åçš„ bug.
-
-1.6.10 æ›´æ”¹:
-
-+ 1.æ›´æ–° filter_ R è¿›åˆ¶è¿‡æ»¤çš„ bug,
-+ 2.æŠŠ get_files æ”¹åä¸º get_file_path.
-
-1.6.9 æ›´æ”¹:
-
-+ 1.æ›´æ–° EuclideanAlgorithm,
-+ 2.åˆ é™¤ [__init__.py](__init__.py) çš„ bl.
-
-1.6.8 æ›´æ”¹:
-
-+ 1.æŠŠ divisionAlgorithm å‡½æ•°æ›´åä¸º EuclideanAlgorithm,
-+ 2.åˆ é™¤ [__init__.py](__init__.py) çš„ conversionSystem.
-
-1.6.7 æ›´æ”¹:
-
-+ åŠ è¿› get_file_name å’Œ get_files ä¸¤ä¸ªå‡½æ•°åœ¨ default.py ä¸­.
+- [ ] = Î´½â¾ö
+- [x] = ÒÑ½â¾ö
 
 -----
-<span id="file_history">æ–‡ä»¶å†å²è®°å½•</span>
 
-[å›åˆ°é¡¶éƒ¨](#menu)
+- [ ] st-000001. ºÏ²¢ simple_tools ÖĞµÄÎÄ¼ş
+- [x] st-000002. ĞŞ¸Ä simple_tools ¹¤×÷Ä¿Â¼
+- [x] st-000003. ...
 
-### ä¿å­˜çš„å†å²ç‰ˆæœ¬(æŒ‰ç…§æ—¶é—´é¡ºåºæ’åº)
+-----
+<span id="next_version">ÏÂÒ»¸ö°æ±¾</span>
+
+[»Øµ½¶¥²¿](#menu)
+
+## ÏÂÒ»¸ö°æ±¾µÄÔ¤¸æ
+
+- 4.1: ¸üĞÂ filter_ ×Ô¶¨Òå walls
+
+-----
+<span id="update_log">¸üĞÂÈÕÖ¾</span>
+
+[»Øµ½¶¥²¿](#menu)
+
+ÎÄ¼ş¸üĞÂÈÕÖ¾
+==========
+
+* 4.x
+    * 4.1 ¸üĞÂ: [date_process ¸üĞÂ](data_process.py)
+        * 4.1-pre1 [2022-10-5 17:07:41]
+            * ĞŞÕı filter_ ÖĞµÄÒ»¸ö bug
+            * filter_ ×Ô¶¨Òå walls
+            * Î¢µ÷ [maths.py](maths.py) ÖĞ saving_decomposition º¯Êı
+    * 4.0 ¸üĞÂ: [README.md ¸üĞÂ][20221003]
+        * 4.0 [2022-10-5 15:26:54]
+            * ÕûÀíÎÄ¼ş
+        * 4.0-pre3[2022-10-5 10:15:55]
+            * ÖØÖÆ [README.md](README.md) (¾É°æ±¾µÄ×ÔÊöÎÄ¼şÇë[µã»÷ÕâÀï](README_old.md))
+            * ÕûÀíËùÓĞµÄ `if __name__ == '__main__':` ²âÊÔ½Å±¾µ½ [example.py](example.py) ÖĞ
+        * 4.0-pre2[2022-10-4 09:13:20]
+            * merge files such as view.py, draw.py, bomb.py etc.
+            * update [README.md](README.md)
+            * update work space of simple_tools [%appdata%/simple_tools]
+        * 4.0-pre1[2022-10-3 18:20:15]
+            * rename module1 to simple_tools
+            * add files named [README.md](README.md) and [LICENSE](LICENSE)
+            * upload these package to [GitHub](https://gitbub.com/)
+            * ½« [__init__](__init__.py) ÖĞµÄ¸üĞÂÈÕÖ¾×ªÒÆÖÁ [README.md](README.md)
+            * simple_tools ½øÈë Beta °æ±¾
+* 3.x
+    * 3.4x
+        * 3.4.6 ¸üĞÂ: [20220925]
+            * rename ~~[review.py](review.py)~~[not found] to ~~[view.py](view.py)~~[not found]
+            * ÔÚ [system_extend.py](system_extend.py) ÖĞĞŞÕıÒ»¸öºÜÏ¸Î¢µÄ bug (´òÓ¡ÎŞÓÃµÄ¿ÕĞĞµÄ bug)
+        * 3.4.5 ¸üĞÂ: [20220925]
+            * ÓÅ»¯ __all__ ±äÁ¿, ÕûÀíÄÚÖÃÎÄ¼ş
+        * 3.4.4 ¸üĞÂ: [20220918]
+            * ĞŞÕı [system_extend.py](system_extend.py) ÖĞÒ»Ğ©´íÎó
+        * 3.4.3 ¸üĞÂ: [20220918]
+            * ÔÚ [system_extend.py](system_extend.py) ÖĞ½« `from os import *` ¸üÕıÎª `import os`
+        * 3.4.2 ¸üĞÂ: [20220918]
+            * ÓÅ»¯ [data_handle.py](data_process.py) ºÍ maths.py º¯ÊıÃû³Æ
+        * 3.4.1 ¸üĞÂ: [20220918]
+            * ÓÅ»¯³ÌĞò½á¹¹[ÏÂ]
+        * 3.4 ¸üĞÂ: [maths ÊıÑ§º¯Êı¸üĞÂ](maths.py)[20220918]
+            * ¼ÓÈë getPrime º¯Êı
+            * rename getPrime to getPrimeRange,
+            * ½« [2] ÓÖ¸Ä³É get_prime_range
+            * Ìí¼Ó get_prime_range_of_generator º¯Êı
+    * 3.3x
+        * 3.3.8 ¸üĞÂ: [from 20220901 to 20220912]
+            * ÓÅ»¯³ÌĞò½á¹¹[ÖĞ]
+        * 3.3.7 ¸üĞÂ: [20220825]
+            * ÔÚ [default.py](default.py) ÖĞ¼ÓÈë clear_module1_cache º¯Êı
+        * 3.3.6 ¸üĞÂ: [20220825]
+            * ÓÅ»¯³ÌĞò½á¹¹[ÉÏ]
+        * 3.3.5 ¸üĞÂ: [20220824]
+            * rename maths.d() to maths.is_prime()
+        * 3.3.4 ¸üĞÂ: [20220824]
+            * rename [encryption.py](encr_decr.py) to [encr_decr.py](encr_decr.py)
+        * 3.3.3 ¸üĞÂ: [20220817]
+            * rename get_false_unix_time to get_time_stamp
+        * 3.3.2 ¸üĞÂ: [20220817]
+            * (ÀÁÈË¸£Àû)¸ø get_false_unix_time Ôö¼Ó 5 ¸öÔ¤ÉèÖµ
+        * 3.3.1 ¸üĞÂ: [20220817]
+            * ĞŞ¸´ [times.py](times.py) ÖĞ get_false_unix_time Ô¤ÉèÖµÏÂ±êÔ½½çµÄ bug
+        * 3.3 ¸üĞÂ: [Ê±¼äº¯Êı¸üĞÂ][20220816]
+            * ´ó·ù¸üĞÂ get_false_unix_time
+                * ×¼±¸ÁË 1,133,180,928 ÖÖ²»Í¬µÄÊ±¼ä´Á¸ñÊ½, ´òÔì×Ô¼º¶ÀÒ»ÎŞ¶şµÄÊ±¼ä´Á
+                * (ÀÁÈË¸£Àû)×Ô¶¯ÉèÖÃÄ¬ÈÏÊ±¼ä¸ñÊ½
+                * ĞŞ¸´³ÌĞòÒ»¶Ñ¹îÒìµÄ bug
+    * 3.2x
+        * 3.2.2 ¸üĞÂ: [20220816]
+            * ¼ÓÈë get_false_unix_time properties ¸ü¶à×°ÊÎ¸ñÊ½
+        * 3.2.1 ¸üĞÂ: [20220815]
+            * ĞŞ¸´ [system_extend.py](system_extend.py) ÖĞ get_file_name º¯ÊıĞ´ÈëÈÕÖ¾Ê±Óöµ½ÖĞÎÄ»áÏÔÊ¾ÂÒÂëµÄÇé¿ö
+        * 3.2 ¸üĞÂ: [ÎÄ¼şÏµÍ³ - ¹¤×÷Ä¿Â¼¸üĞÂ][20220815]
+            * ¸øÃ¿¸öÎÄ¼ş¶¼ÅäÖÃÁËÏàÓ¦µÄ¹¤×÷Ä¿Â¼
+            * ´æ´¢ÔÚ [AppData/Roaming/module1](%appdata%/Roaming/module1) ÖĞ
+            * ĞŞÕıÄ£¿éÑ­»·µ¼ÈëµÄ ImportError
+    * 3.1x
+        * 3.1 ¸üĞÂ: [system_ ¸üĞÂ](system_extend.py)[20220815]
+        * rename [system_.py](system_extend.py) Îª [system_extend.py](system_extend.py)
+        * ÔÚ [system_extend.py](system_extend.py) ÖĞÌí¼Ó safe_md º¯Êı
+    * 3.0x
+        * 3.0.2 ¸üĞÂ: [20220815]
+            * ¸üĞÂ [maths.py](maths.py) µÄ decomposition º¯Êı
+        * 3.0.1 ¸üĞÂ: [20220814]
+            * ĞŞ¸´ ~~[bomb.py](bomb.py)~~[not found] µÄÒ»¸ö bug
+        * 3.0 ¸üĞÂ: [ÎÄ¼şÏµÍ³¸üĞÂ][20220814]
+            * ÓµÓĞÁË×Ô¼ºµÄ¹¤×÷Ä¿Â¼: %APPDATA%/module1
+            * ×Ô¶¯Éú³É¹¤×÷Ä¿Â¼
+            * Ìí¼Ó MODULE1_WORK_SPACE ³£Á¿, ÓÃÓÚÉùÃ÷¹¤×÷Ä¿Â¼
+* 2.x
+    * 2.9x
+        * 2.9.1 ¸ü¸Ä: [20220814]
+            * ĞŞ¸´ [game_disposition.py](game_disposition.py) ÖĞ Users ÀàµÄÉÙÁ¿ bug
+        * 2.9 ¸ü¸Ä: [game_disposition ¸üĞÂ](game_disposition.py)[20220813]
+            * ´ó¹æÄ£¸üĞÂ [game_disposition.py](game_disposition.py) ÖĞµÄ Users Àà
+                * ÓÃ»§
+                    * ÓÃ»§ÌåÑé
+                        * ÍË³öÊ±½«ÓÃ»§ĞÅÏ¢´æ´¢µ½ÎÄ¼şÖĞ
+                        * ÏÖÔÚµÇÂ½Ê±ĞèÒªÃÜÂë
+                        * ¼ÓÈë logout ÍË³öº¯Êı
+                        * ÀëÏßÓÃ»§ÔÚÍË³öÊ±×Ô¶¯ÇåÀíÊı¾İ
+                * ÓÃ»§°²È«
+                    * topUp µÈÓ¦ÓÃº¯Êı»á¾Ü¾ø temporary ÁÙÊ±ÓÃ»§µÄ·ÃÎÊ
+                    * __del__ Îö¹¹º¯Êı»á¾Ü¾ø self.live Îª False ÓÃ»§µÄ·ÃÎÊ
+                * °²È«: [Ê¹ÓÃ¸ü°²È«µÄ uid]
+                    * Éú³É·½Ê½: Ê¹ÓÃ md5 Éú³É(Í¨³£µÄ uuid4)
+                    * ÔÚ³ÌĞòÖĞÒÔ self.info_dict['uid'] µÄĞÎÊ½´æ´¢
+                    * ´úÌæÓÃ»§µÄ name ×÷ÎªÎ¨Ò»µÄ ID
+                    * µ¥¶À´æ´¢, ±È name ¸ü°²È«
+                * ³ÌĞò
+                    * ¼ÓÈëÒ»Ğ©³£Á¿
+                    * ÓÅ»¯Ô­À´µÄ³ÌĞò½á¹¹
+                    * ĞŞ¸´Ò»¶Ñ bug
+                    * ¼ÓÈëÖØÖÆÎÄ¼şµÄ¹¦ÄÜ
+                    * ×Ô¶¯¼ì²âËğ»µµÄÎÄ¼ş
+                * Ì«¶àÁË, Ëµ²»¹ıÀ´ÁË. . .
+    * 2.8x
+        * 2.8.4 ¸ü¸Ä: [20220813]
+            * ĞŞ¸´ get_file_path_of_generator Çø·Ö´óĞ¡Ğ´³ö´íµÄ bug
+        * 2.8.3 ¸ü¸Ä: [20220812]
+            * ¸ø get_file_path_of_generator Ìí¼Ó case_sensitive ÏŞÖÆÌõ¼ş
+        * 2.8.2 ¸ü¸Ä: [20220812]
+            * ¸üĞÂ [data_handle](data_process.py) µÄ __all__ ±äÁ¿
+        * 2.8.1 ¸ü¸Ä: [20220812]
+            * É¾³ı ~~[review.py](review.py)~~[not found] ÏÂµÄ bl_generator º¯Êı
+        * 2.8 ¸ü¸Ä: [³ÌĞò½á¹¹¸üĞÂ][20220812]
+            * ĞÂ½¨ [game_disposition.py](game_disposition.py) ÎÄ¼ş
+            * ½« User Àà ºÍ Person Àà ÒÆµ½ [game_disposition.py](game_disposition.py) ÖĞ
+            * É¾³ı [__init__.py](__init__.py) ÖĞÒ»Ğ©ÎŞÓÃµÄÒıÓÃ
+            * ¸üĞÂ [__init__.py](__init__.py) µÄ×¢ÊÍ
+    * 2.7x
+        * 2.7.3 ¸ü¸Ä: [20220810]
+            * É¾³ı [system_.py](system_extend.py) ÖĞµÄ get_file_name_of_generator Éú³ÉÆ÷
+        * 2.7.2 ¸ü¸Ä: [20220810]
+            * ÔÚ [hash_values.py](hash_values.py) ÖĞ¼ÓÈë uuid_generator º¯Êı
+        * 2.7.1 ¸ü¸Ä: [20220810]
+            * ÔÚ [system_.py](system_extend.py) ÖĞ, ½« get_file_name_of_generator Óë get_file_path_of_generator ºÏ²¢
+        * 2.7 ¸ü¸Ä: [system_ ¸üĞÂ](system_extend.py)[20220809]
+            * ¸üĞÂ get_file_name
+                * ¼ÓÈëÉú³É´íÎóÈÕÖ¾µÄ¹¦ÄÜ
+                * ¼ÓÈë OSError ´íÎóÀàĞÍ
+            * file_pattern ¼ÓÈëÎÄ¼şÂ·¾¶ÎŞ·¨Ê¶±ğµÄ´íÎóÀàĞÍ
+            * ¸üĞÂ get_file_path_of_generator º¯Êı, ĞŞÕıÆäÖĞ¼¸¸ö bug
+            * Îª get_file_path_of_generator Ìí¼Ó include ºÍ exclude ÏŞÖÆÌõ¼ş
+            * ´ó¹æÄ£¸üĞÂ File Àà, Ìí¼Ó permission, user_id µÈ 10 ¶àÖÖÊôĞÔ
+    * 2.6x
+        * 2.6.1 ¸ü¸Ä: [20220801]
+            * normalEncryption µÄ coding ²ÎÊı ÏÖÔÚ¿ÉÑ¡ÏîÎª `[getfilesystemencoding(), 'utf-8', 'gbk']`
+        * 2.6 ¸ü¸Ä: [¼ÓÃÜ¸üĞÂ](hash_values.py)[20220801]
+            * ¸üĞÂ md5_encryption
+            * ĞŞÕı normalEncryption µÄ bug
+            * ¸üĞÂ normalEncryption, ¼ÓÈë coding ²ÎÊı `['auto', 'f_byte', 'f_int']` Èı¸ö¿ÉÑ¡Ïî
+    * 2.5x
+        * 2.5.1 ¸ü¸Ä: [20220727]
+            * ¼ÓÈë md5_encryption
+            * ¸üĞÂ normal_encryption º¯Êı, ĞŞ¸´Ò»Ğ© bug
+            * ¸üĞÂ [¸üĞÂÈÕÖ¾](#update_log) µÄÌåÖÆ
+        * 2.5 ¸ü¸Ä: [system_ ¸üĞÂ](system_extend.py)[20220404]
+        * ÔÚ [system_.py](system_extend.py) ÏÂ´´½¨ File Àà
+        * Ìí¼Ó system_pro ±äÁ¿ÉùÃ÷µ±Ç°²Ù×÷ÏµÍ³
+    * 2.4x
+        * 2.4.4 ¸ü¸Ä: [20220320]
+            * ´´½¨ [example.py](example.py) ÎÄ¼ş
+            * [Ê±¼äÖĞ¶Ï]
+        * 2.4.3 ¸ü¸Ä: [20220312]
+            * ĞŞÕı get_file_path_of_generator ÎŞ·¨·µ»ØËùÓĞÎÄ¼ş¼ĞµÄ bug
+            * ¸üĞÂ file_remove, get_file_name, file_pattern
+        * 2.4.2 ¸ü¸Ä: [20220305]
+            * Ìí¼Ó random_choice º¯Êı
+        * 2.4.1 ¸ü¸Ä: [20220305]
+            * É¾³ı create_random ±äÁ¿
+            * ¸üĞÂ file_pattern º¯Êı, Ìí¼Ó easy_options ²ÎÊı
+        * 2.4 ¸ü¸Ä: [times ¸üĞÂ](times.py)[20220305]
+            * ´´½¨ [times.py](times.py) ÎÄ¼ş
+            * ÔÚ [times.py](times.py) ÖĞ´´½¨ get_false_unix_time º¯Êı
+            * ÒÆ¶¯ wait º¯Êıµ½ [times.py](times.py) ÖĞ
+            * ¸üĞÂ [__init__.py](__init__.py) µÄ __all__ ±äÁ¿
+    * 2.3x
+        * 2.3.1 ¸ü¸Ä: [20220226]
+            * ´´½¨ [hash_values.py](hash_values.py) ÎÄ¼ş
+            * °Ñ get_md5 º¯ÊıÒÆµ½ [hash_values.py](hash_values.py) ÏÂ
+        * 2.3 ¸ü¸Ä: [data_handle ¸üĞÂ](data_process.py)[20220226]
+            * ¸üĞÂ²¢ÍêÉÆ filter_ µÄ other_signs ²ÎÊı
+            * ÔÚ [data_base.py](data_base.py) ÖĞ¼ÓÈë tabs Ôª×é
+            * ¸üĞÂ __all__ ±äÁ¿
+    * 2.2x
+        * 2.2.3 ¸ü¸Ä: [20220219]
+            * ¸üĞÂ filter_ µÄ other_signs ²ÎÊı
+            * É¾³ı test() ÖĞµÄ draw1 ÒıÓÃ
+        * 2.2.2 ¸ü¸Ä: [20220219]
+            * ¼ÓÈë binarySearch º¯Êı
+        * 2.2.1 ¸ü¸Ä: [20220205]
+            * rename username to usernameList
+        * 2.2 ¸ü¸Ä: [20220205]
+            * rename str_handle to data_handle
+            * É¾³ı default ÖĞµÄ createToplevel
+            * ´´½¨ ~~[test.py](test.py)~~[not found]
+    * 2.1x
+        * 2.1 ¸ü¸Ä: [20220203]
+            * ¸üĞÂ file_remove º¯ÊıÎŞ·¨É¾³ıÎÄ¼ş¼ĞµÄ bug
+            * Ôö¼Ó file_pattern º¯Êı.
+            * ÔÚ [system_.py](system_extend.py) ÖĞÌí¼Ó fp = getcwd() ³£Á¿
+            * ´´½¨ dimensionalList ÔÚ [data_handle.py](data_process.py)
+    * 2.0x
+        * 2.0.1 ¸ü¸Ä: [20220203]
+            * ĞŞÕıÄ£¿é³£Á¿ÎŞ·¨µ¼ÈëµÄÎÊÌâ
+        * 2.0 ¸ü¸Ä: [20220203¸üÔç, ÏÂÍ¬]
+            * ´´½¨ file_remove, ´ó¹æÄ£Éı¼¶ system_.py
+            * ĞŞÕı get_file_path_of_generator µÄ bug
+            * ¼ÓÈë³£Á¿ EOF = -1, NULL = None, null = 0
+            * É¾³ı [__init__.py](__init__.py) µÄ absoluteEncryption
+            * ´´½¨ [data_base.py](data_base.py) Êı¾İ¿â.
+* 1.x
+    * 1.8x
+        * 1.8 ¸ü¸Ä:
+            * ´´½¨ [system_.py](system_extend.py)
+            * ÒÆ¶¯ get_file_name, get_file_name_of_generator,get_file_path, get_file_path_of_generator,
+              get_file_size,get_files, get_file_names µ½ [system_.py](system_extend.py)
+    * 1.7x
+        * 1.7.1 ¸ü¸Ä:
+            * ¸üĞÂ Users,
+            * pw ÓÃ md5 ¼ÓÃÜ.
+        * 1.7 ¸ü¸Ä:
+            * É¾³ı [__init__.py](__init__.py) µÄ review, digitalDecryption, draw1, draw2, breakpoint_
+            * ĞŞÕı breakpoint_ ÖĞ exit_ µÄ bug
+            * ´´½¨ [randoms.py](randoms.py) ²¢Ìí¼Ó createRandomList
+            * É¾³ı [__init__.py](__init__.py) µÄ passed, EuclideanAlgorithm.
+    * 1.6x
+        * 1.6.13 ¸ü¸Ä:
+            * ĞŞÕı get_file_path µÄ bug.
+        * 1.6.12 ¸ü¸Ä:
+            * ¸ø get_file_name Ìí¼Ó×¢ÊÍ.
+        * 1.6.11 ¸ü¸Ä:
+            * 1.¸üĞÂ username ´Ê¿â
+            * 2.ĞŞ¸ÄËæ»úÆğÃûµÄ bug.
+        * 1.6.10 ¸ü¸Ä:
+            * 1.¸üĞÂ filter_ R ½øÖÆ¹ıÂËµÄ bug
+            * 2.°Ñ get_files ¸ÄÃûÎª get_file_path.
+        * 1.6.9 ¸ü¸Ä:
+            * 1.¸üĞÂ EuclideanAlgorithm
+            * 2.É¾³ı [__init__.py](__init__.py) µÄ bl.
+        * 1.6.8 ¸ü¸Ä:
+            * 1.°Ñ divisionAlgorithm º¯Êı¸üÃûÎª EuclideanAlgorithm,
+            * 2.É¾³ı [__init__.py](__init__.py) µÄ conversionSystem.
+        * 1.6.7 ¸ü¸Ä:
+            * ¼Ó½ø get_file_name ºÍ get_files Á½¸öº¯ÊıÔÚ default.py ÖĞ.
+
+-----
+<span id="file_history">ÎÄ¼şÀúÊ·¼ÇÂ¼</span>
+
+[»Øµ½¶¥²¿](#menu)
+
+### ±£´æµÄÀúÊ·°æ±¾(°´ÕÕÊ±¼äË³ĞòÅÅĞò)
 
 1. module1_v2.5_2022_06_25_18_19_59
 2. module1_v2.5.1_2022_07_27_15_32_38
@@ -433,12 +400,9 @@ was serious damaged and can't read
 12. simple_tools_v4.0-pre2_2022_10_4_09_47_17
 
 -----
-<span id="do_you_know">ä½ çŸ¥é“å—</span>
+<span id="do_you_know">ÄãÖªµÀÂğ</span>
 
-### ä½ çŸ¥é“å—
+[»Øµ½¶¥²¿](#menu)
 
-
-
-
-
+### ÄãÖªµÀÂğ
 
