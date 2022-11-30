@@ -1,45 +1,48 @@
-# simple_tools - һ���� python д�ļ��׹��߰�
+# simple_tools - 一个用 python 写的简易工具包
 
 -----
-<span id="menu">����:</span>
 
-1. [����](#menu)
-2. [����](#summary)
-3. [�ļ�](#projects)
-4. [�����Ĳ��](#depend_on)
-5. [bug׷��](#bug_report)
-6. [��һ���汾��Ԥ��](#next_version)
-7. [������־](#changelog)
-8. [�ļ���ʷ��¼](#file_history)
-9. [��֪����](#do_you_know)
+[TOC]
+
+<span id="menu">索引:</span>
+
+1. [索引](#menu)
+2. [概述](#summary)
+3. [文件](#projects)
+4. [依赖的插件](#depend_on)
+5. [bug追踪](#bug_report)
+6. [下一个版本的预告](#next_version)
+7. [更新日志](#changelog)
+8. [文件历史记录](#file_history)
+9. [你知道吗](#do_you_know)
 
 -----
-<span id="summary">����</span>
+<span id="summary">概述</span>
 
-[�ص�����](#menu)
+[回到顶部](#menu)
 
-## ����
+## 概述
 
-����: 8388688
+作者: 8388688
 
 version: Alpha 4.1-pre2
 
-����޸�ʱ�䣺2022-11-20 19:31:26
-~~(�Դ�֤���һ�����)~~
+最后修改时间：2022-11-20 19:31:26
+~~(以此证明我还活着)~~
 
 -----
-<span id="projects">�ļ�</span>
+<span id="projects">文件</span>
 
-[�ص�����](#menu)
+[回到顶部](#menu)
 
-## �ļ�
+## 文件
 
 -----
-<span id="depend_on">�����Ĳ��</span>
+<span id="depend_on">依赖的插件</span>
 
-[�ص�����](#menu)
+[回到顶部](#menu)
 
-## �����Ĳ��
+## 依赖的插件
 
 [TOC]
 
@@ -55,56 +58,56 @@ version: Alpha 4.1-pre2
 * . . . . . .
 
 -----
-<span id="bug_report">bug׷��</span>
+<span id="bug_report">bug追踪</span>
 
-[�ص�����](#menu)
+[回到顶部](#menu)
 
-## bug ׷��
+## bug 追踪
 
-- [ ] = δ���
-- [x] = �ѽ��
+- [ ] = 未解决
+- [x] = 已解决
 
 -----
 
-- [ ] st-000001. �ϲ� simple_tools �е��ļ�
-- [x] st-000002. �޸� simple_tools ����Ŀ¼
+- [ ] st-000001. 合并 simple_tools 中的文件
+- [x] st-000002. 修改 simple_tools 工作目录
 - [x] st-000003. ...
 
 -----
-<span id="next_version">��һ���汾</span>
+<span id="next_version">下一个版本</span>
 
-[�ص�����](#menu)
+[回到顶部](#menu)
 
-## ��һ���汾��Ԥ��
+## 下一个版本的预告
 
 Release-4.1:
 
-- ���� filter_ �Զ��� walls
+- 更新 filter_ 自定义 walls
 
 -----
-<span id="changelog">������־</span>
+<span id="changelog">更新日志</span>
 
-[������־](changelog.md)
+[更新日志](changelog.md)
 
-[�ص�����](#menu)
-
------
-<span id="file_history">�ļ���ʷ��¼</span>
-
-[�ص�����](#menu)
-
-### �������ʷ�汾(����ʱ��˳������)
+[回到顶部](#menu)
 
 -----
-<span id="do_you_know">��֪����</span>
+<span id="file_history">文件历史记录</span>
 
-[�ص�����](#menu)
+[回到顶部](#menu)
 
-### ��֪����
+### 保存的历史版本(按照时间顺序排序)
 
-1. �� 1.6x �汾֮ǰ, simple_tools ���ļ������� [������]�زĴ�Ӫ, �� 2.0 �汾֮���Ϊ module1
-2. �� [GitHub](https://github.com/) ��, Ҳ��һ��ͬ���� [simple_tools](https://www.github.com/afriemann/simple_tools.git)
-   ������� simple_tools ֮��û���κι�ϵ
-3. 1.6.6 ��ǰ�İ汾ȫ����, �޷���ȡ��
-4. 2.0.1 ��ǰ�İ汾�������޸ĺͷ���ʱ����̫��, ������, �޷���ȡ��
-5. �� 3.x ֮ǰ�İ汾, �����ļ����������涨���ܳ��� 270 ��, ����Ŀ���� 2022-10-01 ���ϳ�
+-----
+<span id="do_you_know">你知道吗</span>
+
+[回到顶部](#menu)
+
+### 你知道吗
+
+1. 在 1.6x 版本之前, simple_tools 的文件名叫作 [中文名]素材大本营, 在 2.0 版本之后改为 module1
+2. 在 [GitHub](https://github.com/) 上, 也有一个同名的 [simple_tools](https://www.github.com/afriemann/simple_tools.git)
+   但和这个 simple_tools 之间没有任何关系
+3. 1.6.6 以前的版本全部损坏, 无法读取。
+4. 2.0.1 以前的版本创建、修改和访问时间间隔太长, 损坏严重, 无法读取。
+5. 在 3.x 之前的版本, 自述文件的行数被规定不能超过 270 行, 此条目已在 2022-10-01 被废除
