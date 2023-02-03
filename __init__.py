@@ -1,4 +1,4 @@
-__version__ = 'Beta 4.0-pre3'
+__version__ = '4.3'
 
 from simple_tools.data_base import *
 
@@ -14,7 +14,7 @@ from simple_tools.randoms import *
 from simple_tools.system_extend import *
 from simple_tools.times import *
 
-__all__ = [
+__all__ = dimensional_list([
     'ST_WORK_SPACE',
 
     'data_base', 'data_process', 'default', 'encr_decr', 'game_disposition',
@@ -23,4 +23,11 @@ __all__ = [
     data_base.__all__, data_process.__all__, default.__all__,
     encr_decr.__all__, game_disposition.__all__, gui_extend.__all__, hash_values.__all__,
     maths.__all__, passed.__all__, randoms.__all__, system_extend.__all__, times.__all__,
-]
+])
+
+if __name__ == '__main__':
+    print(data_base.__all__, data_process.__all__, default.__all__,
+          encr_decr.__all__, game_disposition.__all__, gui_extend.__all__, hash_values.__all__,
+          maths.__all__, passed.__all__, randoms.__all__, system_extend.__all__, times.__all__, )
+else:
+    print(__name__, __version__)

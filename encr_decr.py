@@ -1,6 +1,5 @@
 from random import randint
-from sys import byteorder
-from sys import getfilesystemencoding
+from sys import byteorder, getfilesystemencoding
 
 from simple_tools.data_process import filter_
 from simple_tools.data_base import NULL
@@ -8,14 +7,12 @@ from simple_tools.hash_values import get_md5
 
 __all__ = [
     'absolute_encryption', 'digital_decryption', 'file_encryption',
-    'md5_encryption', 'normal_encryption',
-    'absoluteEncryption', 'digitalDecryption', 'fileEncryption',
-    'md5Encryption', 'normalEncryption'
+    'md5_encryption', 'normal_encryption', 'normal_encryption_with_bytes',
 ]
 
 
-def absolute_encryption(value1, print_=False, steps=',', pattern=NULL, signed=True):  # 绝对加密
-    """
+def absolute_encryption(value1, print_=False, steps=',', pattern=NULL, signed=True):
+    """绝对加密
 
     :param value1: 加密的字符串
     :param print_: 是否打印
@@ -84,6 +81,12 @@ def digital_decryption(value1, print_=False, steps='\\'):  # 数字解密
 
 
 def file_encryption(string, mode):
+    """from [zifan.site](https://zifan.site/)
+
+    @param string:
+    @param mode:
+    @return:
+    """
     old_str = string
     old_list = []
     new_str = ''
@@ -133,6 +136,13 @@ def file_encryption(string, mode):
 
 
 def md5_encryption(string, encr_func=get_md5):
+    """WARNING: function md5_encryption is still a Experimental Features.
+    
+    :param string: 
+    :param encr_func: 
+    :return: 
+    """
+    print('\033[1;31m' + md5_encryption.__doc__ + '\033[0m')
     v_str = list(string)
     a_str = []
     for a000 in range(0, len(v_str), 1):
@@ -141,16 +151,27 @@ def md5_encryption(string, encr_func=get_md5):
     return a_str
 
 
-def normal_encryption(string, mode, key=NULL, key_length=16, details=False, coding=getfilesystemencoding()):
-    """ 普通的加密
+def normal_encryption(string, mode, key=NULL, key_length=16, details=False, coding=getfilesystemencoding(), **kwargs):
+    """`normal_encryption` has been stopped supporting in 4.2-beta2+"""
+    print('\033[1;31m' + normal_encryption.__doc__ + '\033[0m')
+    string_transit = string.encode(coding)
+    return normal_encryption_with_bytes(string_transit, mode, key, key_length, details, coding,
+                                        quiet=kwargs.get('quiet', True)).decode(coding)
 
-    :param string: 加密的字符串。
+
+def normal_encryption_with_bytes(string: bytes, mode, key=NULL, key_length=16, details=False,
+                                 coding=getfilesystemencoding(), **kwargs):
+    """普通的加密
+
+    :param string: 加密的字节串 (废话)。
     :param mode: 指定是加密还是解密：True 是加密，False 是解密。
     :param key: 指定加密所用的 KEY，不指定或指定为 NULL 就是自动生成密码，[注1]
     :param key_length: 密钥长度：只有在 key 形参被指定为 NULL 的时候才被执行，[注2]
-    :param details: 详细返回[注3]
+    :param details: 详细返回 [注3]
     :param coding: 三个取值 [getfilesystemencoding(), 'utf-8', 'gbk',] 默认为 getfilesystemencoding
     :return: 详见 details
+
+    kwargs: quiet: 默认为 True
 
     \n 注1: 注意：key 的长度不能小于4位。
     \n 注2: 当 len(key) 和 key_length 不一致时，以 len(key) 的长度为准。
@@ -160,15 +181,15 @@ def normal_encryption(string, mode, key=NULL, key_length=16, details=False, codi
 
     if key is NULL:
         KEY = ''
-        lengthening = key_length
-        # 生成KEY
+        lengthening = max(key_length, 4)
+        # 生成 KEY
         for a001 in range(0, lengthening, 1):
             KEY += str(randint(0, 9))
     elif len(str(key)) <= 4:
-        print('输入key长度不能小于4。')
+        print('输入key长度不能小于4。已为你自动生成一个随机的 KEY.')
         KEY = ''
-        lengthening = key_length
-        # 生成KEY
+        lengthening = max(key_length, 4)
+        # 生成 KEY
         for a002 in range(0, lengthening, 1):
             KEY += str(randint(0, 9))
     else:
@@ -176,29 +197,36 @@ def normal_encryption(string, mode, key=NULL, key_length=16, details=False, codi
         lengthening = len(KEY)
 
     v_str = string
-    a_str = ''  # 输出目录
+    a_str = b''  # 输出目录
     code = coding
+    quiet = kwargs.get('quiet', True)
     if mode:
         pattern = 1
     else:
         pattern = -1
-    if code.lower() in ['utf-8', 'gbk', ]:
-        # print('code:', code)
-        if type(v_str) == bytes:
-            v_str = v_str.decode(coding)
+    if code.lower() in ['utf-8', 'gbk', 'utf-16', 'utf-32', 'gb2312', 'gb18030']:
+        if not quiet:
+            print(f'准备加密/解密，校验：{string=},{mode=},{key=},{key_length=},{details=},{coding=},{kwargs=}')
+        else:
+            pass
     else:
         print('未知 - encode 键入了一个错误的值:', coding)
         raise ValueError
+    '''
+    # 原始加密代码核心 (str)
     for a001 in range(0, len(v_str), 1):
         a_str += chr(ord(v_str[a001]) + filter_(KEY[a001 % lengthening], ('unsigned', 'f_dec', 'int')) * pattern)
+    '''
+    # 以下为 bytes 模式加密的代码
+    key_index = -1
+    for a001 in v_str:
+        key_index = (key_index + 1) % len(KEY)
+        a_str += ((a001 + filter_(KEY[key_index % lengthening], ('unsigned', 'f_dec', 'int')) * pattern) % 256) \
+            .to_bytes(1, byteorder='big', signed=False)
+        # If you set `signed = True` you will set `length = 2` in `to_bytes()` together,
+        # Otherwise return `OverflowError`
+
     if details:
         return a_str, KEY
     else:
         return a_str
-
-
-absoluteEncryption = absolute_encryption
-digitalDecryption = digital_decryption
-normalEncryption = normal_encryption
-md5Encryption = md5_encryption
-fileEncryption = file_encryption

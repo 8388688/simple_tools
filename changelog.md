@@ -29,8 +29,6 @@
 
 [README]: README.md
 
-[README_old]: README_old.md
-
 [system_extend]: system_extend.py
 
 [times]: times.py
@@ -38,9 +36,41 @@
 [__init__]: __init__.py
 
 * 4.x
-    * 4.1 更新: [date_process 更新][data_process]
+    * 4.4 更新: [版本自动升级更新][default]
+        * 4.4-pre1 [2023-02-03-20-10-46] (version_code: 20230203)
+            * Owned version code (yyyymmdd\<num\>)  
+              example: 20230203001
+    * 4.3 更新: [简化更新][__init__]
+        * 4.3 [2023-02-03 18:08:59] (version_code: 2023020320)
+            * Remove `bl()`, `receive()`, `cacheTimes`, `money` (2 function, 2 variable).
+            * Migrate `review()` as `review_2()`
+            * Remove a few scripts that for test.
+        * 4.3-alpha1 [2023-01-31 20:21:59]
+            * Remove `bomb1()`, `bomb2()`, `create_toplevel()`,
+              `draw1()`, `draw2()` (5 function).
+            * Remove the tips of creating files.
+            * Fix a bug: Repeat tip `<filepath> 文件不存在或已损坏\n正在重制此文件`.
+              when the file `namelist.txt` was empty.
+    * 4.2 更新: [maths 数学函数更新][maths]
+        * 4.2-beta3 [2023-01-26 11:11:20]
+            * Update `get_hash_values`, `get_md5`, add ratio-choice.
+            * Delete 5 variables in [encr_decr][encr_decr].
+        * 4.2-beta2 [2023-01-24 17:53:05]
+            * Add `quiet` param to `normal_encryption_with_bytes`.
+            * Migrate `normal_encryption` as `normal_encryption_with_byte`(constitutional with `class bytes`).
+            * Fix `generate_prime_range` a tiny bug.
+        * 4.2-beta1 [2023-01-12 17:11:01]
+            * 用埃拉托斯特尼筛法重写 `get_prime_range()` 函数。
+            * 修正 `is_prime()` 函数中 n=4 时返回 True 的 bug.
+            * 发现 `generate_prime_range()` 函数的一个 bug.
+    * 4.1 更新: [data_process 更新][data_process]
+        * 4.1-pre4 [2022-12-17 19:49:40]
+            * 合并 get_prime_range 和 generate_prime_range, 但仍保留 get_prime_range 作为一个匿名函数。
+        * 4.1-pre3 [2022-12-10 19:49:30]
+            * 让所有的目录在后台静默创建, 创建成功与否情况记录到对应的文件日志中。
+            * 更新 dec_to_r_convert() 函数, 修正 强制将非数字字符转换成数字字符 的 bug.
         * 4.1-pre2 [2022-11-20 19:31:26]
-            * 更新工作目录为 %APPDATA%\8388688\py_workspace\simple_tools (如下图)
+            * 更新工作目录为 %APPDATA%\8388688\py_workspace\simple_tools (如下图)。
             ```
           from os import getenv, system, chdir as cd
           from os.path import join
@@ -49,21 +79,21 @@
           cd(work_space)
           ```
             * 对 encr_decr 中的函数重命名, 例如 'absoluteEncryption' -> 'absolute_encryption'. 同时, 为了防止老版本调用
-              simple_tools 兼容性问题, 使用变量解决
-            * 更新 [changelog.md] 的文件链接格式
-              > [README.md](README.md)
-              > ->
-              > [README]: README.md
-              > [README.md][README]
+              simple_tools 兼容性问题, 使用变量解决。
+            * 更新 [changelog.md] 的文件链接格式。
+          >     [README.md](README.md)
+          >     ->
+          >     [README]: README.md
+          >     [README.md][README]
         * 4.1-pre1 [2022-10-5 17:07:41]
-            * 修正 filter_ 中的一个 bug
-            * filter_ 自定义 walls
-            * 微调 [maths.py][maths] 中 saving_decomposition 函数
+            * 修正 filter_ 中的一个 bug.
+            * filter_ 自定义 walls.
+            * 微调 [maths.py][maths] 中 saving_decomposition 函数。
     * 4.0 更新: \[[README.md][README] 更新\] [20221003]
         * 4.0 [2022-10-5 15:26:54]
-            * 整理文件
+            * 整理文件。
         * 4.0-pre3[2022-10-5 10:15:55]
-            * 重制 [README.md][README] (旧版本的自述文件请 ~~[点击这里](README_old.md)~~ [已删除])
+            * 重制 [README.md][README] (旧版本的自述文件请 ~~[README_old.md](README_old.md)~~ [已删除])
             * 整理所有的 `if __name__ == '__main__':` 测试脚本到 [example.py][example] 中
         * 4.0-pre2[2022-10-4 09:13:20]
             * merge files such as view.py, draw.py, bomb.py etc.
@@ -71,7 +101,7 @@
             * update work space of simple_tools [%appdata%/simple_tools]
         * 4.0-pre1[2022-10-3 18:20:15]
             * rename module1 to simple_tools
-            * add files named [README.md][README.md] and [LICENSE][LICENSE]
+            * add files named [README.md][README] and [LICENSE][LICENSE]
             * upload these package to [GitHub](https://gitbub.com/)
             * 将 [__init__][__init__] 中的更新日志转移至 [README.md][README]
             * simple_tools 进入 Beta 版本
@@ -121,7 +151,7 @@
         * 3.2.2 更新: [20220816]
             * 加入 get_false_unix_time properties 更多装饰格式
         * 3.2.1 更新: [20220815]
-            * 修复 [system_extend.py][system_extend.py] 中 get_file_name 函数写入日志时遇到中文会显示乱码的情况
+            * 修复 [system_extend.py][system_extend] 中 get_file_name 函数写入日志时遇到中文会显示乱码的情况
         * 3.2 更新: [文件系统 - 工作目录更新] [20220815]
             * 给每个文件都配置了相应的工作目录
             * 存储在 [AppData/Roaming/module1](%appdata%/Roaming/module1) 中
@@ -178,8 +208,8 @@
         * 2.8 更改: [程序结构更新] [20220812]
             * 新建 [game_disposition.py][game_disposition] 文件
             * 将 User 类 和 Person 类 移到 [game_disposition.py][game_disposition] 中
-            * 删除 [__init__.py][__init__] 中一些无用的引用
-            * 更新 [__init__.py][__init__] 的注释
+            * 删除 [\_\_init\_\_.py][__init__] 中一些无用的引用
+            * 更新 [\_\_init\_\_.py][__init__] 的注释
     * 2.7x
         * 2.7.3 更改: [20220810]
             * 删除 [system_.py][system_extend] 中的 get_file_name_of_generator 生成器
@@ -206,7 +236,7 @@
         * 2.5.1 更改: [20220727]
             * 加入 md5_encryption
             * 更新 normal_encryption 函数, 修复一些 bug
-            * 更新 [更新日志](#changelog) 的体制
+            * 更新 [更新日志](changelog) 的体制
         * 2.5 更改: [system_ 更新][system_extend] [20220404]
         * 在 [system_.py][system_extend] 下创建 File 类
         * 添加 system_pro 变量声明当前操作系统
@@ -229,7 +259,7 @@
             * 更新 [__init__.py][__init__] 的 __all__ 变量
     * 2.3x
         * 2.3.1 更改: [20220226]
-            * 创建 [hash_values.py](hash_values] 文件
+            * 创建 [hash_values.py][hash_values] 文件
             * 把 get_md5 函数移到 [hash_values.py][hash_values] 下
         * 2.3 更改: [data_handle 更新][data_process] [20220226]
             * 更新并完善 filter_ 的 other_signs 参数

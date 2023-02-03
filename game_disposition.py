@@ -6,7 +6,7 @@ from os.path import exists, join
 
 from simple_tools.data_base import usernameList, EMPTY_UUID
 from simple_tools.hash_values import get_md5, uuid_generator
-from simple_tools.system_extend import file_remove
+from simple_tools.system_extend import file_remove, safe_md
 
 __all__ = ['Person', 'Users']
 
@@ -30,8 +30,8 @@ class Person:
 
     def __str__(self):
         return self.name + '的资料：\n生命值:' + str(self.life) + '\n饥饿值:' + str(self.hunger) \
-               + '\n经验值' + str(self.experience) + '\n体力:' + str(self.physicalStrength) \
-               + '\n防御值' + str(self.defense)
+            + '\n经验值' + str(self.experience) + '\n体力:' + str(self.physicalStrength) \
+            + '\n防御值' + str(self.defense)
 
     def __del__(self):
         del self.life, self.hunger, self.experience, self.physicalStrength, self.defense, self.foods
@@ -45,15 +45,11 @@ class Users:
     WORK_SPACE = join(getenv('APPDATA'), 'module1', 'game_disposition', 'class_users')
     TEMP_USER_NAME = '临时用户'
 
-    try:
-        md(WORK_SPACE) if not exists(WORK_SPACE) else print('%s 存在' % WORK_SPACE)
-    except FileNotFoundError:
-        print('创建文件夹时出现错误 - 指定的文件夹不存在\n正在重新创建. . .')
-        system('md ' + WORK_SPACE)
+    safe_md(WORK_SPACE, quiet=True)
     SERVER_WORK_SPACE = join(WORK_SPACE, 'server')
-    md(SERVER_WORK_SPACE) if not exists(SERVER_WORK_SPACE) else print('%s 存在' % SERVER_WORK_SPACE)
+    safe_md(SERVER_WORK_SPACE, quiet=True)
     USER_WORK_SPACE = join(WORK_SPACE, 'users')
-    md(USER_WORK_SPACE) if not exists(USER_WORK_SPACE) else print('%s 存在' % USER_WORK_SPACE)
+    safe_md(USER_WORK_SPACE, quiet=True)
 
     USER_INFO_FILE_NAME = 'info.txt'
     NAME_LIST_FILE_NAME = join(SERVER_WORK_SPACE, 'namelist.txt')
@@ -64,7 +60,7 @@ class Users:
     except SyntaxError:
         print(NAME_LIST_FILE_NAME, '文件不存在或已损坏\n正在重制此文件')
         cache_naf = open(NAME_LIST_FILE_NAME, 'w')
-        cache_naf.write('')
+        cache_naf.write('[]')
 
         UserNameList = []
     finally:

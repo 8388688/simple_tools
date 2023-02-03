@@ -11,12 +11,13 @@ from simple_tools.passed import pass_
 __all__ = [
     'add1', 'average_generator', 'convert_system', 'is_prime',
     'dec_to_r_convert', 'decomposition',
-    'divisionAlgorithm', 'euclidean_algorithm', 'get_prime_range',
+    'divisionAlgorithm', 'euclidean_algorithm',
+    'get_prime_range', 'generate_prime_range',
     'r_to_dec_convert', 'saving_decomposition',
 ]
 
 LOCAL_WORK_SPACE = join(ST_WORK_SPACE, 'maths')
-safe_md(LOCAL_WORK_SPACE)
+safe_md(LOCAL_WORK_SPACE, quiet=True)
 
 
 def average_generator(*args):
@@ -80,10 +81,10 @@ def convert_system(value1, cm1='', cm2='', cm3='', returns=False, error_tips_='�
 def is_prime(n=NULL):
     key_ = True
     if n is NULL:
-        n = filter_(input('>>>'), 'int')
+        n = filter_(input('>>>'), ('unsigned', 'f_dec', 'int'))
     else:
-        n = filter_(n, 'int')
-    for a000 in range(2, math.ceil(math.sqrt(n)), 1):
+        n = filter_(n, ('unsigned', 'f_dec', 'int'))
+    for a000 in range(2, math.ceil(math.sqrt(n + 1)), 1):
         if n % a000 == 0:
             key_ = False
             break
@@ -283,45 +284,51 @@ def add1(*args):
     return count
 
 
-def get_prime_range(start=2, end=100, step=1):
-    """获取 start - end 区间的质数
+def get_prime_range(start=2, end=100, step=1):  # 埃拉托斯特尼筛法 - 改进版
+    DELETED_CODE = -2  # -2 表示将要被删除的
+    prime_list = list(range(2, end, 1))
+    # prime_list = list(range(start, end, step))
+    lim_max = math.sqrt(end)
+    start_n = -1
+    while start_n <= lim_max:
+        start_n += 1
+        for i in range(len(prime_list)):
+            if prime_list[i] != prime_list[start_n] and prime_list[i] % prime_list[start_n] == 0:
+                prime_list[i] = DELETED_CODE
+            else:
+                pass
 
-    @param start: 起始值(包括)
-    @param end: 结束值(不包括)
-    @param step: 步长值
-    @return: 计算出的质数列表
-    """
-    prime_list = []
-    for x in range(start, end, step):
-        x_sqrt = math.sqrt(x)
-        for prime in prime_list:
-            if prime > x_sqrt:
-                prime_list.append(x)
-                break
-            if x % prime == 0:
-                break
-        else:
-            prime_list.append(x)
-    return prime_list
+        while DELETED_CODE in prime_list:
+            # 重复执行删除 prime_list 中第一个值为 -2 的元素, 直到 prime_list 中没有值为 -2 的元素
+            prime_list.remove(DELETED_CODE)
+
+    db = set(list(range(start, end, step)))
+    final_prime_list = sorted(list(db & set(prime_list)))
+
+    return final_prime_list
 
 
 def generate_prime_range(start=2, end=100, step=1):
     """用生成器获取 start - end 区间的质数
 
+    一个 bug: 当调用 `generate_prime_range(start=10, end=100, step=1)` 时会返回 10 - 100 区间所有不能被 10 整除的数.
+    是由于 prime_list 会默认传入的第一个参数是质数, 导致后面的计算全部出错(解决方法: 禁止用户修改 start 参数[滑稽]).
+
     @param start: 起始值(包括)
     @param end: 结束值(不包括)
     @param step: 步长值
     @return: 计算出的质数列表
     """
+    print(f'\033[1;31m{generate_prime_range.__name__} is probably including many bugs.\033[0m')
     prime_list = []
     for x in range(start, end, step):
         x_sqrt = math.sqrt(x)
         for prime in prime_list:
+            if x % prime == 0:
+                break
             if prime > x_sqrt:
                 prime_list.append(x)
                 yield x
-                break
-            if x % prime == 0:
                 break
         else:
             prime_list.append(x)
@@ -331,9 +338,9 @@ def generate_prime_range(start=2, end=100, step=1):
 def r_to_dec_convert(values, r):  # R:无符号十进制整型数
     """进制转换
 
-    @param values:
-    @param r:
-    @return:
+    :param values:
+    :param r:
+    :return:
     """
     value_r = filter_(r, ('unsigned', 'int'))
     output = count = 0
@@ -350,15 +357,47 @@ def r_to_dec_convert(values, r):  # R:无符号十进制整型数
     return output / r
 
 
-def dec_to_r_convert(val, r):
+def dec_to_r_convert(val, r, **kwargs):
+    """10 进制转 R 进制
+
+    **kwargs 选项:
+    - charset: 字符表, 默认为 DEFAULT_CHARSET 的值:
+    这个数组决定 return 扔出的 str 每一位上的字符显示.
+
+    例如, 十进制的 28, 转换成 16 进制后本应为 1C, 但实际为 112.
+    前一个 1 是十六进制的一个十六, 后面的 12, 是十六进制的 C 转换为十进制所得的数字.
+    return 的时候, 两个数位上的三个数字转化成 str 后被平铺返回, 就失去了原本数位的占位位置.
+
+    add: DEFAULT_CHARSET 中提供的字符集最多只能支持到三十六进制, 如果你使用六十进位制, 可以参考下面我们的预设:
+
+    ('A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J',
+    'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T',
+    'U', 'V', 'W', 'X', 'Y', 'Z', 'a', 'b', 'c', 'd',
+    'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n',
+    'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x',
+    'y', 'z', '0', '1', '2', '3', '4', '5', '6', '7',
+    '8', '9', '-', '/') # 64 进位制, 很少用到
+
+    注意: 这里的字符 A 代表的是十进制的数字 0.
+    同样的, 这里的数字 0 也不代表十进制的 0, 而是十进制的 52.
+
+    :param val:
+    :param r:
+    :param kwargs:
+    :return:
+    """
     # val = int(val)
+    DEFAULT_CHARSET = ('0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H',
+                       'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z')
+    charset = kwargs.get('charset', DEFAULT_CHARSET)
+
     val = filter_(val, ('unsigned', 'int'))
-    output = str(val % r)
+    output = str(charset[val % r])
 
     while val // r > 0:  # repeat until "val < r"
         val //= r
-        output = str(val % r) + output
-        print(f'{val=},{r=},{output=}')
+        output = str(charset[val % r]) + output
+        # print(f'{val=},{r=},{output=}') # 早期的调试程序段
 
     return output
 
@@ -368,3 +407,4 @@ def r1_to_r2_convert(val, r1, r2):
 
 
 divisionAlgorithm = euclidean_algorithm
+# get_prime_range = lambda start, end, step: list(generate_prime_range(start=start, end=end, step=step))
