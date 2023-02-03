@@ -1,13 +1,9 @@
 {
-    "version_code":20230203,
-    "version":"Release 4.3",
-    "releasetime":"2023-02-03",
-    "updatecontent":{
-        20230203:{
-            "4.3":"简化更新"
-        },
-        20230126:{
-            "4.2":"data_process 更新"
-        }
-    }
+	"version_code": 20230203,
+	"version": "Release 4.3",
+	"releasetime": "2023-02-03",
+	"updatecontent": {
+		"4.3": [20230203, "简化更新"],
+		"4.2": [20230126, "data_process 更新"]
+	}
 }
