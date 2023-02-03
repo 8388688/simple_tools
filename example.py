@@ -85,26 +85,6 @@ def get_suffix():
     print(k)
 
 
-def bl_properties():
-    # from data_process.py
-    seq = [0, [[1, 2, (3, [4, 5, 6, {7.1: 'a', 7.2: 'b'}],), [8, {}, [9, (10, 11), 12], ], [], ], 13, {14, 15, }, 16],
-           17, 18]
-    print(seq)
-    for d in generate_bl_properties(seq):
-        print(d)
-    print('-' * 50)
-    bl_properties(seq, True, True)
-    print('-' * 50)
-    bl_properties({1: 2, 3: 4})
-    print('-' * 50)
-    bl_properties([[], [[], [[], [[], [[], [[], [[], [[], [[], [[], [[], [[], ['a', ], 'f', ],
-                                                                     'f', ], 'f', ], 'f', ],
-                                                      'f', ], 'f', ], 'f', ], 'f', ], 'f', ],
-                             'f', ], 'f', ], 'f', ],
-                  True, True)
-    print('-' * 50)
-
-
 def file_class_test():
     # from system_extend.py
     # file_example = File(r'I:\2020\8388688\病毒隔离区\kw\kw1_2_7.bat')
@@ -122,24 +102,27 @@ def file_class_test():
     print('大小size=', file_example.size)
 
 
-def normal_encr_test():
-    # from encr_decr
-    for a004 in range(0, 10, 1):
-        s = input('>>>')
-        print(s)
-        print(get_md5(s))
-        print(normal_encryption(s, True, key='1234567', key_length=8, details=True))
-        # print(normal_encryption(normal_encryption(s, True), False))
-
-    # e = md5Encryption('I am a string.')
-    # print(e)
-
-
 def user_registry():
     # from game_disposition.py
     user1 = Users(name='6c4f2bbf-30a2-326c-90fe-', mode=0, psd='胡')
     user1.topUp(25)
     user1.save_user_info()
+
+
+def normal_encr1():
+    string1 = 'ABC! I am a sorting. ~!@#$%^&*()_+}{\"|?><:,/.\';\\[]-=' \
+              '中文语言字符串, 〩~！@#￥%……&……*（）{——+}|“：》《？，。、；’【、-】=ffs___    df'
+    bin_test = b'\xb0\xa1\xca\xd6\xb6\xaf\xb7\xa7\xb7\xa2\xc9\xe4\xb5\xe3\xb7\xa2\xc9\xfadads\xb7\xb6\xb5\xc2\xc8\xf8\xb7' \
+               b'\xa2\xc9\xfa\xb5\xc4 % file_c % file_c % file_c % file_c % file_c % ' \
+               b'file_c\xc8\xcb\xc9\xf9\xb6\xa6\xb7\xd0\xb9\xe3\xb6\xab\xca\xa1\r\n\r\n\r\n\xb5\xab\xca\xc7 ' \
+               b'\\b\\nn\\n\\\\bb\\vb\\\\\r\nvvs 23g1ewr164\xa1\xb7\xa1\xb6\xa3\xbf\xa1\xb1|\xa3\xba}{' \
+               b'+\xa3\xa9\xa1\xaa\xa1\xaa*\xa3\xa8*\xa1\xad\xa1\xad%\xa1\xad\xa1\xad\xa3\xa4#@\xa3\xa1~1\xa1\xa423299806' \
+               b'\xa3\xac\xa1\xa2\xa1\xa3\xa1\xae\xa3\xbb\xa1\xa2\xa1\xbe\xa1\xbf-4=gbhdrehg\r\n\r\n\xb5\xc3\xb5\xbd\r\nf' \
+               b'\r\n\r\nc\r\n '
+    c = normal_encryption(bin_test, False, key='123456', coding='gbk')
+    # print('-' * 80, c, type(c))
+    # d = normalEncryption(c, False, encode='auto', key='123456')
+    # print('-' * 80, d)
 
 
 if __name__ == '__main__':

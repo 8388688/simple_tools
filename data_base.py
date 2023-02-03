@@ -1,4 +1,3 @@
-from time import time
 from os import getcwd, getenv, mkdir, system
 from os.path import join
 
@@ -9,9 +8,6 @@ fp = getcwd()
 
 EMPTY_UUID = '00000000-0000-0000-0000-000000000000'
 ST_WORK_SPACE = join(getenv('APPDATA'), 'simple_tools')
-
-money = null
-cacheTimes = time()
 
 science_tuple = ('', 'K', 'M', 'B', 'T', 'P', 'E', 'Z', 'Y', 'S', 'L', 'X', 'D', 'C', 'H', 'I', 'N', 'A', 'F', 'G',
                  'J', 'O')
@@ -126,36 +122,46 @@ usernameList = (('高大', '英俊', '美丽', '优雅', '活泼', '时尚', '�
                  ),)
 
 
-def _md_dir(__file_path):
+def _md_dir(__file_path, quiet=False):
     try:
         mkdir(__file_path)
     except FileNotFoundError:
-        print('创建文件夹时出现错误: 指定的文件夹不存在 - %s\n正在重新创建. . .' % __file_path)
+        if not quiet:
+            print('创建文件夹时出现错误: 指定的文件夹不存在 - %s\n正在重新创建. . .' % __file_path)
+        else:
+            pass
         system('md ' + __file_path)
     except FileExistsError:
-        print('创建文件夹时出现错误 - %s 文件已存在' % __file_path)
+        if not quiet:
+            print('创建文件夹时出现错误 - %s 文件已存在' % __file_path)
+        else:
+            pass
     else:
-        print('成功创建 %s 文件夹' % __file_path)
+        if not quiet:
+            print('成功创建 %s 文件夹' % __file_path)
+        else:
+            pass
 
 
-_md_dir(ST_WORK_SPACE)
-_md_dir(join(ST_WORK_SPACE, 'bomb'))
-_md_dir(join(ST_WORK_SPACE, 'data_base'))
-_md_dir(join(ST_WORK_SPACE, 'data_handle'))
-_md_dir(join(ST_WORK_SPACE, 'default'))
-_md_dir(join(ST_WORK_SPACE, 'draws'))
-_md_dir(join(ST_WORK_SPACE, 'encryption'))
-_md_dir(join(ST_WORK_SPACE, 'example'))
-_md_dir(join(ST_WORK_SPACE, 'game_disposition'))
-_md_dir(join(ST_WORK_SPACE, 'hash_values'))
-_md_dir(join(ST_WORK_SPACE, 'maths'))
-_md_dir(join(ST_WORK_SPACE, 'passed'))
-_md_dir(join(ST_WORK_SPACE, 'randoms'))
-_md_dir(join(ST_WORK_SPACE, 'review'))
-_md_dir(join(ST_WORK_SPACE, 'system_extend'))
-_md_dir(join(ST_WORK_SPACE, 'test'))
-_md_dir(join(ST_WORK_SPACE, 'times'))
+QUIET_P = True
+_md_dir(ST_WORK_SPACE, quiet=QUIET_P)
+_md_dir(join(ST_WORK_SPACE, 'bomb'), quiet=QUIET_P)
+_md_dir(join(ST_WORK_SPACE, 'data_base'), quiet=QUIET_P)
+_md_dir(join(ST_WORK_SPACE, 'data_handle'), quiet=QUIET_P)
+_md_dir(join(ST_WORK_SPACE, 'default'), quiet=QUIET_P)
+_md_dir(join(ST_WORK_SPACE, 'draws'), quiet=QUIET_P)
+_md_dir(join(ST_WORK_SPACE, 'encryption'), quiet=QUIET_P)
+_md_dir(join(ST_WORK_SPACE, 'game_disposition'), quiet=QUIET_P)
+_md_dir(join(ST_WORK_SPACE, 'hash_values'), quiet=QUIET_P)
+_md_dir(join(ST_WORK_SPACE, 'maths'), quiet=QUIET_P)
+_md_dir(join(ST_WORK_SPACE, 'passed'), quiet=QUIET_P)
+_md_dir(join(ST_WORK_SPACE, 'randoms'), quiet=QUIET_P)
+_md_dir(join(ST_WORK_SPACE, 'review'), quiet=QUIET_P)
+_md_dir(join(ST_WORK_SPACE, 'system_extend'), quiet=QUIET_P)
+_md_dir(join(ST_WORK_SPACE, 'test'), quiet=QUIET_P)
+_md_dir(join(ST_WORK_SPACE, 'times'), quiet=QUIET_P)
 
-__all__ = ['ST_WORK_SPACE',
-
-           'usernameList', 'cacheTimes', 'money', 'EOF', 'EMPTY_UUID', 'fp', 'NULL', 'null', 'science_tuple', 'tabs']
+__all__ = [
+    'ST_WORK_SPACE',
+    'usernameList', 'EOF', 'EMPTY_UUID', 'fp', 'NULL', 'null', 'science_tuple', 'tabs'
+]

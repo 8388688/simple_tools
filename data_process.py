@@ -2,7 +2,7 @@ from simple_tools.data_base import NULL
 
 __all__ = ['binary_search', 'bl_properties', 'generate_bl_properties',
            'dimensional_list', 'filter_', 'search_to_str_in_list',
-           'bl', 'review', 'review_2']
+           'bl', 'review', 'review']
 
 
 def binary_search(list2, item):
@@ -20,13 +20,15 @@ def binary_search(list2, item):
     return None
 
 
-def bl_properties(seqs, line_num=False, truly_number=False, __deep=0, __lines='', __numbers=()):
+def bl_properties(seqs, line_num=False, truly_number=False, __deep=0, __lines='', __numbers=(), **kwargs):
     """bl 装饰
+
+    kwargs: title = None, 对于大列表套小列表的情况时的自定义表头
 
     提出时间：202204051955xx
     创建时间：20220406080946
-    最后修改时间：20220423160134
-    最后运行时间：20220423160149
+    最后修改时间：20230126113413
+    最后运行时间：20230126113422
 
     :param seqs: 要遍历的元素
     :param line_num: 是否加行号，默认为 False
@@ -53,10 +55,19 @@ def bl_properties(seqs, line_num=False, truly_number=False, __deep=0, __lines=''
 
     fill_name = '<List>'
     values = list(seqs) if type(seqs) == set else seqs
-    sequence_class_list = {set, list, tuple}
+    sequence_class_list = {set, list, tuple, dict}
+    special_list = {dict, }
     signs = __lines
+
+    title = kwargs.get('title', NULL)
+
     for x in range(len(values)):
-        if type(values[x]) in sequence_class_list:
+        if type(values) in special_list:
+            bl_properties(seqs=tuple(zip(values.keys(), values.values())), line_num=line_num,
+                          truly_number=truly_number, __deep=__deep, __lines=__lines, __numbers=__numbers,
+                          title='dict')
+            return type(values)
+        elif type(values[x]) in sequence_class_list:  # 大列表套小列表（大数组套小数组）
             if line_num:
                 cb = convert_list_to_str(__numbers, '>') + str(x + 1 if truly_number else x) + ':'
             else:
@@ -71,23 +82,7 @@ def bl_properties(seqs, line_num=False, truly_number=False, __deep=0, __lines=''
             else:
                 cb2 = x
             bl_properties(seqs=values[x], line_num=line_num, truly_number=truly_number, __deep=__deep + 1,
-                          __lines=signs + cb, __numbers=tuple(list(__numbers) + [cb2, ]))
-        elif type(values) == dict:
-            if line_num:
-                cb = convert_list_to_str(__numbers, '>') + str(x + 1 if truly_number else x) + ':'
-            else:
-                cb = ''
-            print(signs + ('└-' if x == len(values) - 1 else '├-') + cb + type(values[x]).__name__)
-            if x == len(values) - 1:
-                cb = '  '
-            else:
-                cb = '│ '
-            if truly_number:
-                cb2 = x + 1
-            else:
-                cb2 = x
-            bl_properties(seqs=values[x], line_num=line_num, truly_number=truly_number, __deep=__deep + 1,
-                          __lines=signs + cb, __numbers=tuple(list(__numbers) + [cb2, ]))
+                          __lines=signs + cb, __numbers=tuple(list(__numbers) + [cb2, ]), title=title)
         else:
             if x == len(values) - 1:
                 cb = '└-'
@@ -245,12 +240,12 @@ def filter_(v_str, pattern=('int',), contrary=False, returns=False, auto_convert
     \n [unsigned, no_break, f_dec(强制转换十进制), 'non_chinese', 'non_english']
     \n 有待改进的地方：过滤时忽略 空格、tab和回车
 
-    @param v_str: 必填，过滤的源文件
-    @param pattern: 过滤参数
-    @param contrary: 反向过滤
-    @param returns: 当 returns 为 True 时以元组的形式返回 cache_dict 和 trash，否则只返回 cache_dict
-    @param auto_convert: 过滤完成后自动转换成目标类型, 默认为 True
-    @return: 当 returns 为 True 时以元组的形式返回 cache_dict 和 trash，否则只返回 cache_dict
+    :param v_str: 必填，过滤的源文件
+    :param pattern: 过滤参数
+    :param contrary: 反向过滤
+    :param returns: 当 returns 为 True 时以元组的形式返回 cache_dict 和 trash，否则只返回 cache_dict
+    :param auto_convert: 过滤完成后自动转换成目标类型, 默认为 True
+    :return: 当 returns 为 True 时以元组的形式返回 cache_dict 和 trash，否则只返回 cache_dict
 
     """
     base_string = v_str
@@ -466,8 +461,6 @@ def filter_(v_str, pattern=('int',), contrary=False, returns=False, auto_convert
         if auto_convert:
             cache_dict = str(cache_dict)
     else:
-        # 这里有问题
-        # such as filter_('wertyuioploiuytrewaswerfde', ('wer', 'op')) -> object: tyuiloiuytrewasfde
         a000 = []
         cache_dict = base_string
         for item in range(len(class_)):
@@ -532,101 +525,13 @@ def search_to_str_in_list(testlist=NULL, input_object=NULL, list_tips='输入一
 
 
 def bl(value, sep=':', line_sign=0, lines=False, all_values=False):
-    """bl是遍历的意思
-
-    注：这里的bl只是“遍历”的首字母缩写，与原耽无关
-    :param value: 判断输入的是什么类型
-    :param sep: 第 n 项和第 n+1 项之间的分隔符
-    :param line_sign: 加行号标志
-    :param lines: 空行，默认为 False
-    :param all_values: 全部遍历
-    :return: void
-    """
-    count = 0
-    if type(value) == dict:
-        if lines:
-            print()
-        for a000 in value:
-            if type(a000) == list or type(a000) == tuple or type(a000) == set or type(a000) == dict:
-                bl(a000, sep=sep, line_sign=line_sign, lines=lines, all_values=all_values)
-            elif line_sign:
-                count += 1
-                print(str(count) + sep + str(a000) + sep + str(value[a000]))
-            else:
-                print(str(a000) + sep + str(value[a000]))
-    elif type(value) == str or type(value) == list or type(value) == tuple or type(value) == set:
-        if lines:
-            print()
-        for a000 in value:
-            if type(a000) == list or type(a000) == tuple or type(a000) == set or type(a000) == dict:
-                bl(a000, sep=sep, line_sign=line_sign, lines=lines, all_values=all_values)
-            elif line_sign:
-                count += 1
-                print(count, sep, str(a000), sep='')
-            else:
-                print(a000)
-    # elif type(value) == __generator:
-    else:
-        print('输入类型不正确')
-        return 1
+    """WARNING: `bl` has stopped supporting in simple_tools 4.3-alpha2+"""
+    print('\033[0;31m' + bl.__doc__ + '\033[0m')
+    review(value, sep, line_sign, lines, all_values)
+    return -1
 
 
-def review(value, sep=':', line_sign=0, lines=False, all_values=True, deep=0, decorate=True):
-    """review是检视的意思，它的作用等价于bl
-
-    :param line_sign: 加行号标志
-    :param value: 判断输入的是什么类型
-    :param sep: 第n项和第n+1项之间的分隔符
-    :param lines: 空行，默认为 False
-    :param all_values: 全部遍历
-    :param deep: 递归深度，不要更改这个参数
-    :param decorate: 装饰
-    :return: void
-    """
-
-    count = cache_count = 0
-    deeps = deep
-    if type(value) == dict:
-        if lines:
-            print()
-        for a000 in value:
-            if type(a000) == list or type(a000) == tuple or type(a000) == set or type(a000) == dict:
-                review(a000, sep=sep, line_sign=line_sign, lines=lines, all_values=all_values, deep=deep + 1,
-                       decorate=decorate)
-            elif line_sign:
-                count += 1
-                print(str(count) + sep + str(a000) + sep + str(value[a000]))
-            elif decorate:
-                if a000 == value[-1]:
-                    print('├ ' * (deeps - 1) + '└ ', str(a000) + sep + str(value[a000]), sep='')
-                else:
-                    print('├ ' * deeps, str(a000) + sep + str(value[a000]), sep='')
-            else:
-                print(str(a000) + sep + str(value[a000]))
-    elif type(value) == str or type(value) == list or type(value) == tuple or type(value) == set:
-        if lines:
-            print()
-        for a000 in value:
-            if type(a000) == list or type(a000) == tuple or type(a000) == set or type(a000) == dict:
-                review(a000, sep=sep, line_sign=line_sign, lines=lines, all_values=all_values, deep=deep + 1,
-                       decorate=decorate)
-            elif line_sign:
-                count += 1
-                print(count, sep, str(a000), sep='')
-            elif decorate:
-                if a000 == value[-1]:
-                    print('├ ' * (deeps - 1) + '└ ', a000, sep='')
-                else:
-                    print('├ ' * deeps, a000, sep='')
-            else:
-                print(a000)
-    else:
-        print('输入类型不正确')
-        return 1
-    del cache_count
-
-
-def review_2(value, sep=':', line_sign=0, lines=False, _all=True, deep=0, decorate=True, dict_sign=':'):
+def review(value, sep=':', line_sign=0, lines=False, all_values=True, deep=0, decorate=True, dict_sign=':'):
     """review是检视的意思，它的作用等价于bl
 
     line_sign 和 decorate 互相冲突，line_sign 的优先级高于 decorate
@@ -636,12 +541,13 @@ def review_2(value, sep=':', line_sign=0, lines=False, _all=True, deep=0, decora
     :param value: 判断输入的是什么类型
     :param sep: 第n项和第n+1项之间的分隔符
     :param lines: 空行，默认为 False
-    :param _all: 全部遍历
+    :param all_values: 全部遍历
     :param deep: 递归深度，不要更改这个参数
     :param decorate: 装饰
     :param dict_sign: 字典分隔符
     :return: void
     """
+
     count = cache_count = 0
     deeps = deep
     if type(value) == dict:
@@ -649,7 +555,7 @@ def review_2(value, sep=':', line_sign=0, lines=False, _all=True, deep=0, decora
             print()
         for a000 in value:
             if type(a000) == list or type(a000) == tuple or type(a000) == set or type(a000) == dict:
-                review(a000, sep=sep, line_sign=line_sign, lines=lines, all_values=_all, deep=deep + 1,
+                review(a000, sep=sep, line_sign=line_sign, lines=lines, all_values=all_values, deep=deep + 1,
                        decorate=decorate)
             elif line_sign:
                 count += 1
@@ -666,7 +572,7 @@ def review_2(value, sep=':', line_sign=0, lines=False, _all=True, deep=0, decora
             print()
         for a000 in value:
             if type(a000) == list or type(a000) == tuple or type(a000) == set or type(a000) == dict:
-                review(a000, sep=sep, line_sign=line_sign, lines=lines, all_values=_all, deep=deep + 1,
+                review(a000, sep=sep, line_sign=line_sign, lines=lines, all_values=all_values, deep=deep + 1,
                        decorate=decorate)
             elif line_sign:
                 count += 1
@@ -679,9 +585,6 @@ def review_2(value, sep=':', line_sign=0, lines=False, _all=True, deep=0, decora
             else:
                 print(a000)
     else:
-        exit(ValueError)
+        print('输入类型不正确')
+        return 1
     del cache_count
-
-
-if __name__ == '__main__':
-    print(filter_('wertyuioploiuytrewaswerfde', ('wer', 'op')))

@@ -11,8 +11,8 @@ from traceback import print_exc, format_exc
 
 SYSTEM_EXTEND_WORK_SPACE = os.path.join(ST_WORK_SPACE, 'system_extend')
 
-lof_file_path = os.path.join(SYSTEM_EXTEND_WORK_SPACE, 'logs.txt')
-log_file_entity = fopen(lof_file_path, 'a')
+log_file_path = os.path.join(SYSTEM_EXTEND_WORK_SPACE, 'logs.txt')
+log_file_entity = fopen(log_file_path, 'a')
 log_file_entity.write('-' * 10 + gettime() + '-' * 10 + '\n' + 'file:' + __name__ + '\n' + 'path:' + __file__)
 log_file_entity.close()
 
@@ -199,7 +199,7 @@ def file_remove(file_path=fp, all_files=False, all_folders=False,
     :param forces: 强制删除只读文件.
     :param confirms: 删除每一个文件之前提示确认.
     :param quiet: 安静模式(此参数与 confirms 参数不能同时为 True)。
-    :return: 如果删除成功的话返回 0，否则返回非0值
+    :return: 如果删除成功的话返回 0，否则返回非 0 值
     """
 
     new_path = file_path  # 文件路径
@@ -506,7 +506,7 @@ def get_file_suffix(file_path=fp, sort=True, show_details=False):
 
 
 def safe_md(file_name_or_file_path, quiet=False):
-    lfe = fopen(lof_file_path, 'a')
+    lfe = fopen(log_file_path, 'a')
     try:
         tell = '%s 存在\n' % file_name_or_file_path
         os.mkdir(file_name_or_file_path) if not os.path.exists(file_name_or_file_path) else pass_()
@@ -515,7 +515,7 @@ def safe_md(file_name_or_file_path, quiet=False):
         os.system('md \"' + file_name_or_file_path + '\"')
     except FileExistsError:
         tell = '创建文件夹时出现错误 - %s 文件已存在\n' % file_name_or_file_path
-    except Exception as e:
+    except:
         tell = '[未知错误]错误如下:\n' + format_exc()
     else:
         tell = '%s 已成功创建\n' % file_name_or_file_path

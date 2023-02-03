@@ -7,15 +7,12 @@ __all__ = ['get_time_stamp', 'wait']
 def get_time_stamp(v_time=NULL, busy=False, **kwargs) -> str:
     """获取美化的时间
 
-    在 module1 v3.3 更新的版本上, 我们准备了 23,529,242,880 种不同的时间戳格式,
-    以及 5 个预设值,
-    打造属于自己的时间戳
+    在 module1 v3.3 更新的版本上，我们准备了 23,529,242,880 种不同的时间戳格式以及 5 个预设值，打造属于自己的时间戳。
     注意: kwargs 中 presets 可选项是一个 int 值:
     > 为 0 表示不使用预设值
     > 大于 0 时使用预设值的第 (presets - 1) 个值
     > 不设置或设置为负数时则使用默认预设值
     no_beauty: 不使用任何装饰
-
 
     @param v_time: 要转换的 unix 时间戳
     @param busy: 精确到小数点后的时间
@@ -115,10 +112,10 @@ def wait(seconds=null, busy_loop=NULL):
 
     具体略
 
-    :param seconds: 等待的秒数
-    :param busy_loop: 精确等待, 默认为 NULL(自动判断)
-    \n 如果 busy_loop 为 True, 则精确更新，如果为 False，则只用 sleep() 函数
-    \n 当 busy_loop 被启用时, 如果 seconds 的值很大, 将会非常占用系统资源, 所以一般不建议启用 busy_loop
+    :param seconds: 等待的秒数。
+    :param busy_loop: 精确等待，默认为 NULL（自动判断）。
+    \n 如果 busy_loop 为 True，则精确更新，如果为 False，则只用 sleep() 函数。
+    \n 当 busy_loop 被启用时，如果 seconds 的值很大，将会非常占用系统资源，所以除非对精确度要求很高，否则一般不建议启用 busy_loop。
     """
     cache_times = time()
     if busy_loop is NULL:
