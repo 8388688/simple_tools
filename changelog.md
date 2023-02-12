@@ -1,7 +1,7 @@
 文件更新日志
 ==========
 
-[changelod]: changelog.md
+[changelog]: changelog.md
 
 [data_base]: data_base.py
 
@@ -37,11 +37,21 @@
 
 * 4.x
     * 4.4 更新: [版本自动升级更新][default]
-        * 4.4-pre1 [2023-02-03-20-10-46] (version_code: 20230203)
+        * 4.4-beta1 [2023-02-12-16-40-12] (version_code: 20230212001)
+            * Fix `get_time_stamp` a serious bug that make user use preset values compulsorily.
+            * Update `generate_file_path`, add a **Distributed operations** option
+              and supplemented its documents.
+        * 4.4-pre2 [2023-02-03-21-35-38] (version_code: 20230203003)
+            * Add some error code in `get_update()`
+            * Update `get_update()` as headers and mirror source code.
+        * 4.4-pre1 [2023-02-03-20-10-46] (version_code: 20230203002)
             * Owned version code (yyyymmdd\<num\>)  
               example: 20230203001
+            * Auto upgrade itself
+            * Publish [first release](https://github.com/8388688/simple_tools/releases/tag/4.4-pre1)
+              on [GitHub](https://github.com/)
     * 4.3 更新: [简化更新][__init__]
-        * 4.3 [2023-02-03 18:08:59] (version_code: 2023020320)
+        * 4.3 [2023-02-03 18:08:59] (version_code: 20230203001)
             * Remove `bl()`, `receive()`, `cacheTimes`, `money` (2 function, 2 variable).
             * Migrate `review()` as `review_2()`
             * Remove a few scripts that for test.
@@ -103,7 +113,7 @@
             * rename module1 to simple_tools
             * add files named [README.md][README] and [LICENSE][LICENSE]
             * upload these package to [GitHub](https://gitbub.com/)
-            * 将 [__init__][__init__] 中的更新日志转移至 [README.md][README]
+            * 将 [\_\_init\_\_][__init__] 中的更新日志转移至 [README.md][README]
             * simple_tools 进入 Beta 版本
 * 3.x
     * 3.4x
@@ -186,7 +196,7 @@
                     * __del__ 析构函数会拒绝 self.live 为 False 用户的访问
                 * 安全: [使用更安全的 uid]
                     * 生成方式: 使用 md5 生成(通常的 uuid4)
-                    * 在程序中以 self.info_dict['uid'] 的形式存储
+                    * 在程序中以 `self.info_dict['uid']` 的形式存储
                     * 代替用户的 name 作为唯一的 ID
                     * 单独存储, 比 name 更安全
                 * 程序
@@ -236,7 +246,7 @@
         * 2.5.1 更改: [20220727]
             * 加入 md5_encryption
             * 更新 normal_encryption 函数, 修复一些 bug
-            * 更新 [更新日志](changelog) 的体制
+            * 更新 [更新日志][changelog] 的体制
         * 2.5 更改: [system_ 更新][system_extend] [20220404]
         * 在 [system_.py][system_extend] 下创建 File 类
         * 添加 system_pro 变量声明当前操作系统
@@ -256,7 +266,7 @@
             * 创建 [times.py][times] 文件
             * 在 [times.py][times] 中创建 get_false_unix_time 函数
             * 移动 wait 函数到 [times.py][times] 中
-            * 更新 [__init__.py][__init__] 的 __all__ 变量
+            * 更新 [\_\_init\_\_.py][__init__] 的 \_\_all\_\_ 变量
     * 2.3x
         * 2.3.1 更改: [20220226]
             * 创建 [hash_values.py][hash_values] 文件
@@ -290,7 +300,7 @@
             * 创建 file_remove, 大规模升级 system_.py
             * 修正 get_file_path_of_generator 的 bug
             * 加入常量 EOF = -1, NULL = None, null = 0
-            * 删除 [__init__.py][__init__] 的 absoluteEncryption
+            * 删除 [\_\_init\_\_.py][__init__] 的 absoluteEncryption
             * 创建 [data_base.py][data_base] 数据库.
 * 1.x
     * 1.8x
@@ -303,10 +313,10 @@
             * 更新 Users,
             * pw 用 md5 加密.
         * 1.7 更改:
-            * 删除 [__init__.py][__init__] 的 review, digitalDecryption, draw1, draw2, breakpoint_
+            * 删除 [\_\_init\_\_.py][__init__] 的 review, digitalDecryption, draw1, draw2, breakpoint_
             * 修正 breakpoint_ 中 exit_ 的 bug
             * 创建 [randoms.py][randoms] 并添加 createRandomList
-            * 删除 [__init__.py][__init__] 的 passed, EuclideanAlgorithm.
+            * 删除 [\_\_init\_\_.py][__init__] 的 passed, EuclideanAlgorithm.
     * 1.6x
         * 1.6.13 更改:
             * 修正 get_file_path 的 bug.
@@ -320,9 +330,9 @@
             * 2.把 get_files 改名为 get_file_path.
         * 1.6.9 更改:
             * 1.更新 EuclideanAlgorithm
-            * 2.删除 [__init__.py][__init__] 的 bl.
+            * 2.删除 [\_\_init\_\_.py][__init__] 的 bl.
         * 1.6.8 更改:
             * 1.把 divisionAlgorithm 函数更名为 EuclideanAlgorithm,
-            * 2.删除 [__init__.py][__init__] 的 conversionSystem.
+            * 2.删除 [\_\_init\_\_.py][__init__] 的 conversionSystem.
         * 1.6.7 更改:
             * 加进 get_file_name 和 get_files 两个函数在 default.py 中.

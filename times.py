@@ -54,7 +54,15 @@ def get_time_stamp(v_time=NULL, busy=False, **kwargs) -> str:
 
     properties_format = kwargs
     if 'presets' not in properties_format:
-        pv_year, pv_month, pv_day, pv_week, pv_hour_12, pv_hour, pv_minute, pv_second = prop_time_presets[0]
+        pv_year, pv_month, pv_day, pv_week, pv_hour_12, pv_hour, pv_minute, pv_second = \
+            prop_years[properties_format.get('pf_year', 0)], \
+                prop_months[properties_format.get('pf_month', 0)], \
+                prop_days[properties_format.get('pf_day', 0)], \
+                prop_weeks[properties_format.get('pf_week', 0)], \
+                prop_local_12_hours[properties_format.get('pf_hour_12', 0)], \
+                prop_hours[properties_format.get('pf_hour', 0)], \
+                prop_minutes[properties_format.get('pf_minute', 0)], \
+                prop_seconds[properties_format.get('pf_second', 0)]
     elif properties_format.get('presets', -1) < 0:
         pv_year, pv_month, pv_day, pv_week, pv_hour_12, pv_hour, pv_minute, pv_second = prop_time_presets[0]
     else:

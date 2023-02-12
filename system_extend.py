@@ -7,7 +7,7 @@ from simple_tools.data_base import NULL, ST_WORK_SPACE
 from simple_tools.passed import pass_
 from simple_tools.times import get_time_stamp as gettime, wait
 from stat import *
-from traceback import print_exc, format_exc
+from traceback import format_exc
 
 SYSTEM_EXTEND_WORK_SPACE = os.path.join(ST_WORK_SPACE, 'system_extend')
 
@@ -205,35 +205,41 @@ def file_remove(file_path=fp, all_files=False, all_folders=False,
     new_path = file_path  # 文件路径
     delete_dir = True
 
-    for a000 in generate_file_path(new_path, abspath=True, folders=all_folders, all_files=all_files):
-        if os.path.exists(a000):  # 如果文件存在
+    def only_remove(file_or_dir):
+        nonlocal delete_dir
+        if os.path.exists(file_or_dir):  # 如果文件存在
             if confirms:
-                select = input('确定删除%s吗?(<Any> or <space>)' % a000)
+                select = input('确定删除%s吗?(<Any> or <space>)' % file_or_dir)
             else:
                 select = True
             if select:
                 # 删除文件，可使用以下两种方法。
                 if forces:
-                    os.chmod(a000, S_IWRITE)
+                    os.chmod(file_or_dir, S_IWRITE)
                 if not quiet:
-                    print('删除文件 - %s' % a000)
-                if os.path.isfile(a000):
-                    os.remove(a000)
+                    print('删除文件 - %s' % file_or_dir)
+                if os.path.isfile(file_or_dir):
+                    os.remove(file_or_dir)
                     # os.unlink(path)
                 elif all_folders:
-                    os.rmdir(a000)
+                    os.rmdir(file_or_dir)
                 else:
-                    print('跳过%s' % a000)
+                    print('跳过%s' % file_or_dir)
                     delete_dir = False
             else:
                 print('操作已取消')
                 delete_dir = False
         else:
-            print('错误 - 找不到\"%s\"' % a000)  # 否则返回文件不存在
+            print('错误 - 找不到\"%s\"' % file_or_dir)  # 否则返回文件不存在
             delete_dir = False
-            return 1
+            # return 1
 
-    if delete_dir:
+    for a000 in generate_file_path(new_path, abspath=True, folders=all_folders, all_files=all_files,
+                                   do_file=lambda f: only_remove(f), do_dir=lambda f2: only_remove(f2)):
+        # print('将要删除的文件:', a000, 'Size:', os.path.getsize(a000))
+        pass_()
+
+    if delete_dir and os.path.exists(new_path):
         os.rmdir(new_path)
     return 0
 
@@ -399,6 +405,26 @@ def generate_file_path(file_path=fp, abspath=NULL, folders=False, __deep=0, **kw
     \n include: 包含的文件夹, (未指定就是全部)
     \n exclude: 排除的文件夹, (格式: 推荐元组, 但也可以用列表)
     \n case_sensitive: [针对 include]是否区分大小写, 默认为 False(不区分)
+    \n do_file: 针对每一个文件要做什么
+    \n do_dir: 针对每一个文件夹要做什么
+
+    示例:
+    ```python
+
+        for i in generate_file_path('H:/2020/Temp', folders=True,
+                                do_file=lambda f: print(f, 'isfile:', os.path.isfile(f)),
+                                do_dir=lambda f2: print(f2, 'isdir:', os.path.isdir(f2))):
+            pass
+    ```
+    --------
+    或者是这样
+    ```python
+        # 删除 `H:/2020/Temp` 中的所有文件（文件夹）
+        for i in generate_file_path('H:/2020/Temp', folders=True,
+                                do_file=lambda f: os.unlink(f),
+                                do_dir=lambda f2: os.rmdir(f2)):
+            print('Delete file:', i)
+    ```
 
     :param file_path: 目标文件或路径
     :param abspath: 使用绝对路径
@@ -417,6 +443,8 @@ def generate_file_path(file_path=fp, abspath=NULL, folders=False, __deep=0, **kw
     include = extension.get('include', NULL)
     exclude = extension.get('exclude', NULL)
     case_sensitive = extension.get('case_sensitive', False)
+    do_file = extension.get('do_file', pass_)
+    do_dir = extension.get('do_dir', pass_)
     # extension.get('', default=NULL)
 
     for file in fx:
@@ -436,13 +464,16 @@ def generate_file_path(file_path=fp, abspath=NULL, folders=False, __deep=0, **kw
                     yield str(os.path.join(file_path, file))
                 else:
                     yield str(file)
+                do_file(str(os.path.join(os.path.abspath(file_path), file)))
         else:
             for a000 in generate_file_path(os.path.join(file_path, file) + '/', abspath=abspath, folders=folders,
                                            from_size=from_size, to_size=to_size, suffix=suffix, include=include,
-                                           exclude=exclude, case_sensitive=case_sensitive):
+                                           exclude=exclude, case_sensitive=case_sensitive, do_file=do_file,
+                                           do_dir=do_dir):
                 yield a000
             if folders:
                 yield os.path.join(file_path, file)
+                do_dir(os.path.join(file_path, file))
 
 
 def get_file_size(path_var=fp, all_files=True, details=False, **kwargs):

@@ -1,43 +1,43 @@
 # simple_tools - 一个用 python 写的简易工具包
 
 -----
-<span id="menu">索引:</span>
+<a id="_menu">索引:</id>
 
-1. [索引](#menu)
-2. [概述](#summary)
-3. [文件](#projects)
-4. [依赖的插件](#depend_on)
-5. [bug追踪](#bug_report)
-6. [下一个版本的预告](#next_version)
-7. [更新日志](#changelog)
-8. [文件历史记录](#file_history)
-9. [你知道吗](#do_you_know)
+1. [索引](#_menu)
+2. [概述](#_summary)
+3. [文件](#_projects)
+4. [依赖的插件](#_depend_on)
+5. [bug追踪](#_bug_report)
+6. [下一个版本的预告](#_next_version)
+7. [更新日志](#_changelog)
+8. [文件历史记录](#_file_history)
+9. [你知道吗](#_do_you_know)
 
 -----
-<span id="summary">概述</span>
+<a id="_summary">概述</id>
 
-[回到顶部](#menu)
+[回到顶部](#_menu)
 
 ## 概述
 
 作者: 8388688
 
-version: 4.2-Beta1
+version: 4.4-beta1
 
-最后修改时间：2023-01-12
+最后修改时间：2023-02-12
 ~~(以此证明我还活着)~~
 
 -----
-<span id="projects">文件</span>
+<a id="_projects">文件</id>
 
-[回到顶部](#menu)
+[回到顶部](#_menu)
 
 ## 文件
 
 -----
-<span id="depend_on">依赖的插件</span>
+<a id="_depend_on">依赖的插件</id>
 
-[回到顶部](#menu)
+[回到顶部](#_menu)
 
 ## 依赖的插件
 
@@ -55,9 +55,9 @@ version: 4.2-Beta1
 * . . . . . .
 
 -----
-<span id="bug_report">bug追踪</span>
+<a id="_bug_report">bug追踪</id>
 
-[回到顶部](#menu)
+[回到顶部](#_menu)
 
 ## bug 追踪
 
@@ -71,9 +71,9 @@ version: 4.2-Beta1
 - [x] st-000003. ...
 
 -----
-<span id="next_version">下一个版本</span>
+<a id="_next_version">下一个版本</id>
 
-[回到顶部](#menu)
+[回到顶部](#_menu)
 
 ## 下一个版本的预告
 
@@ -82,23 +82,23 @@ Release-4.2:
 - 更新 maths.py 文件
 
 -----
-<span id="changelog">更新日志</span>
+<a id="_changelog">更新日志</id>
 
-[更新日志](changelog.md)
+[-> 传送门 <-](changelog.md)
 
-[回到顶部](#menu)
+[回到顶部](#_menu)
 
 -----
-<span id="file_history">文件历史记录</span>
+<a id="_file_history">文件历史记录</id>
 
-[回到顶部](#menu)
+[回到顶部](#_menu)
 
 ### 保存的历史版本(按照时间顺序排序)
 
 -----
-<span id="do_you_know">你知道吗</span>
+<a id="_do_you_know">你知道吗</id>
 
-[回到顶部](#menu)
+[回到顶部](#_menu)
 
 ### 你知道吗
 

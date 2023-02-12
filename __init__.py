@@ -1,5 +1,3 @@
-__version__ = '4.3'
-
 from simple_tools.data_base import *
 
 from simple_tools.data_process import *
@@ -30,4 +28,4 @@ if __name__ == '__main__':
           encr_decr.__all__, game_disposition.__all__, gui_extend.__all__, hash_values.__all__,
           maths.__all__, passed.__all__, randoms.__all__, system_extend.__all__, times.__all__, )
 else:
-    print(__name__, __version__)
+    print(__name__, default.__version__)
