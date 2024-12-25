@@ -1,33 +1,33 @@
 from time import time, localtime, strftime, sleep
-from simple_tools.data_base import NULL, null
 
-__all__ = ['get_time_stamp', 'wait']
+__all__ = ['timestamp', 'wait']
 
 
-def get_time_stamp(v_time=NULL, busy=False, **kwargs) -> str:
+def timestamp(v_time=None, busy=False, idiotMode=False, **kwargs) -> str:
     """获取美化的时间
 
-    在 module1 v3.3 更新的版本上，我们准备了 23,529,242,880 种不同的时间戳格式以及 5 个预设值，打造属于自己的时间戳。
-    注意: kwargs 中 presets 可选项是一个 int 值:
-    > 为 0 表示不使用预设值
-    > 大于 0 时使用预设值的第 (presets - 1) 个值
-    > 不设置或设置为负数时则使用默认预设值
-    no_beauty: 不使用任何装饰
+    \n 在 simple_tools v3.3 更新的版本上，我们准备了 23,529,242,880 种不同的时间戳格式以及 5 个预设值，打造属于自己的时间戳。
+    \n 注意: kwargs 中 presets 可选项是一个 int 值:
+    \n > 为 0 表示不使用预设值
+    \n > 大于 0 时使用预设值的第 (presets - 1) 个值
+    \n > 不设置或设置为负数时则使用默认预设值
+    \n no_beauty: 不使用任何装饰
 
     @param v_time: 要转换的 unix 时间戳
     @param busy: 精确到小数点后的时间
+    @param idiotMode: 傻瓜模式
     @param kwargs: 高级选项
     @return: 一个字符串
     """
-    prop_seconds = ('', '%S', '%S ', '%SZ', '%S秒', '%S秒 ')
-    prop_minutes = ('', '%M', '%M ', '%M,', '%M-', '%M.', '%M/', '%M:', '%M\\', '%M_', '%M分', '%M分 ')
-    prop_hours = ('', '%H', '%H ', '%H,', '%H-', '%H.', '%H/', '%H:', '%H\\', '%H_', '%H时', '%H时 ',
-                  '%I', '%I ', '%I,', '%I-', '%I.', '%I/', '%I:', '%I\\', '%I_', '%I时', '%I时 ')
-    prop_local_12_hours = ('', ' %p', '%p', '%p ', '%p:', ':%p')
-    prop_days = ('', '%d', '%d ', '%d,', '%d-', '%d.', '%d/', '%d:', '%dT', '%d\\', '%d_', '%d日', '%d日 ')
-    prop_months = ('', '%m', '%m ', '%m,', '%m-', '%m.', '%m/', '%m:', '%m\\', '%m_', '%m月', '%m月 ')
     prop_years = ('', '%Y', '%Y ', '%Y,', '%Y-', '%Y.', '%Y/', '%Y:', '%Y\\', '%Y_', '%Y年', '%Y年 ',
                   '%y', '%y ', '%y,', '%y-', '%y.', '%y/', '%y:', '%y\\', '%y_', '%y年', '%y年 ')
+    prop_months = ('', '%m', '%m ', '%m,', '%m-', '%m.', '%m/', '%m:', '%m\\', '%m_', '%m月', '%m月 ')
+    prop_days = ('', '%d', '%d ', '%d,', '%d-', '%d.', '%d/', '%d:', '%dT', '%d\\', '%d_', '%d日', '%d日 ')
+    prop_hours = ('', '%H', '%H ', '%H,', '%H-', '%H.', '%H/', '%H:', '%H\\', '%H_', '%H时', '%H时 ',
+                  '%I', '%I ', '%I,', '%I-', '%I.', '%I/', '%I:', '%I\\', '%I_', '%I时', '%I时 ')
+    prop_minutes = ('', '%M', '%M ', '%M,', '%M-', '%M.', '%M/', '%M:', '%M\\', '%M_', '%M分', '%M分 ')
+    prop_seconds = ('', '%S', '%S ', '%SZ', '%S秒', '%S秒 ')
+    prop_local_12_hours = ('', ' %p', '%p', '%p ', '%p:', ':%p')
     prop_weeks = ('', ' %A', ' %a', ' %w', '%A', '%A ', '%a', '%a ', '%w', '%w ')
     prop_time_presets = (
         (
@@ -50,19 +50,28 @@ def get_time_stamp(v_time=NULL, busy=False, **kwargs) -> str:
             prop_years[1], prop_months[1], prop_days[8], prop_weeks[0],
             prop_local_12_hours[0], prop_hours[1], prop_minutes[1], prop_seconds[3]
         ),  # 通用 unix 时间, example: "yyyymmddThhmmssZ"
+        (
+            prop_years[4], prop_months[4], prop_days[8], prop_weeks[0],
+            prop_local_12_hours[0], prop_hours[5], prop_minutes[5], prop_seconds[3]
+        ),  # 通用 unix 时间, example: "yyyy-mm-ddThh.mm.ssZ"
     )
 
     properties_format = kwargs
     if 'presets' not in properties_format:
+        if not idiotMode:
+            seq = (0, 0, 0, 0, 0, 0, 0, 0)
+        else:
+            seq = (4, 4, 2, 0, 0, 7, 7, 1)
         pv_year, pv_month, pv_day, pv_week, pv_hour_12, pv_hour, pv_minute, pv_second = \
-            prop_years[properties_format.get('pf_year', 0)], \
-                prop_months[properties_format.get('pf_month', 0)], \
-                prop_days[properties_format.get('pf_day', 0)], \
-                prop_weeks[properties_format.get('pf_week', 0)], \
-                prop_local_12_hours[properties_format.get('pf_hour_12', 0)], \
-                prop_hours[properties_format.get('pf_hour', 0)], \
-                prop_minutes[properties_format.get('pf_minute', 0)], \
-                prop_seconds[properties_format.get('pf_second', 0)]
+            prop_years[properties_format.get('pf_year', seq[0])], \
+                prop_months[properties_format.get('pf_month', seq[1])], \
+                prop_days[properties_format.get('pf_day', seq[2])], \
+                prop_weeks[properties_format.get('pf_week', seq[3])], \
+                prop_local_12_hours[properties_format.get('pf_hour_12', seq[4])], \
+                prop_hours[properties_format.get('pf_hour', seq[5])], \
+                prop_minutes[properties_format.get('pf_minute', seq[6])], \
+                prop_seconds[properties_format.get('pf_second', seq[7])]
+
     elif properties_format.get('presets', -1) < 0:
         pv_year, pv_month, pv_day, pv_week, pv_hour_12, pv_hour, pv_minute, pv_second = prop_time_presets[0]
     else:
@@ -106,7 +115,7 @@ def get_time_stamp(v_time=NULL, busy=False, **kwargs) -> str:
     else:
         properties_finally = prop_des[properties_format.get('pf_beauty', 2)]
 
-    if v_time == NULL:
+    if v_time is None:
         v_time = time()
     format_time = properties_finally
     if busy:
@@ -115,7 +124,7 @@ def get_time_stamp(v_time=NULL, busy=False, **kwargs) -> str:
         return strftime(format_time, localtime(v_time))
 
 
-def wait(seconds=null, busy_loop=NULL):
+def wait(seconds=0, busy_loop=None):
     """等待
 
     具体略
@@ -126,17 +135,19 @@ def wait(seconds=null, busy_loop=NULL):
     \n 当 busy_loop 被启用时，如果 seconds 的值很大，将会非常占用系统资源，所以除非对精确度要求很高，否则一般不建议启用 busy_loop。
     """
     cache_times = time()
-    if busy_loop is NULL:
-        if seconds == null:
+    if busy_loop is None:
+        if seconds == 0:
             pass
-        elif seconds < 0.015625:
-            while time() - cache_times < seconds:
-                pass
         else:
             sleep(seconds)
+            while time() - cache_times < seconds % 1:
+                pass
     elif busy_loop:
         while time() - cache_times < seconds:
             pass
     else:
         sleep(seconds)
     return seconds
+
+
+get_time_stamp = time_stamp = timestamp
