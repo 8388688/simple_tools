@@ -1,12 +1,10 @@
-from simple_tools.data_base import NULL
 from random import randint
-from time import time
-from os import getenv, mkdir as md, system
-from os.path import exists, join
+from os import getenv, mkdir as md
+from os.path import join
 
 from simple_tools.data_base import usernameList, EMPTY_UUID
-from simple_tools.hash_values import get_md5, uuid_generator
-from simple_tools.system_extend import file_remove, safe_md
+from simple_tools.hash import get_md5, uuid_generator
+from simple_tools.system_extend import del_tree, safe_md
 
 __all__ = ['Person', 'Users']
 
@@ -30,8 +28,8 @@ class Person:
 
     def __str__(self):
         return self.name + '的资料：\n生命值:' + str(self.life) + '\n饥饿值:' + str(self.hunger) \
-            + '\n经验值' + str(self.experience) + '\n体力:' + str(self.physicalStrength) \
-            + '\n防御值' + str(self.defense)
+            + '\n经验值:' + str(self.experience) + '\n体力:' + str(self.physicalStrength) \
+            + '\n防御值:' + str(self.defense)
 
     def __del__(self):
         del self.life, self.hunger, self.experience, self.physicalStrength, self.defense, self.foods
@@ -42,7 +40,7 @@ class Person:
 class Users:
     USER_INIT_INFO = {'diamond': 60, 'money': 500, 'live': True, 'state': 0}
     CAPABLE_USER_TYPE_LIST = ('register', 'vip_register')
-    WORK_SPACE = join(getenv('APPDATA'), 'module1', 'game_disposition', 'class_users')
+    WORK_SPACE = join(str(getenv('APPDATA')), 'simple_tools', 'game_disposition', 'class_users')
     TEMP_USER_NAME = '临时用户'
 
     safe_md(WORK_SPACE, quiet=True)
@@ -67,9 +65,9 @@ class Users:
         cache_naf.close()
         del cache_naf
 
-    def __init__(self, name=NULL, mode=0, psd='', encoding='UTF-8'):  # mode: 0 = register, 1 = login
+    def __init__(self, name=None, mode=0, psd='', encoding='UTF-8'):  # mode: 0 = register, 1 = login
         if mode == 0:
-            if name is NULL:
+            if name is None:
                 name = usernameList[0][randint(0, len(usernameList[0]))] + '的' + usernameList[3][
                     randint(0, len(usernameList[3]))] + usernameList[1][randint(0, len(usernameList[1]))]
             if name not in Users.UserNameList:
@@ -112,8 +110,7 @@ class Users:
             print('删除', self.name, '的信息')
             if self.name in Users.UserNameList and self.name != Users.TEMP_USER_NAME:
                 Users.UserNameList.remove(self.name)
-                file_remove(join(Users.USER_WORK_SPACE, self.name),
-                            all_files=True, all_folders=True, forces=True)
+                del_tree(join(Users.USER_WORK_SPACE, self.name), all_files=True, all_folders=True, forces=True)
             else:
                 print('试图删除 %s 用户时出现错误' % self.name)
                 return
@@ -138,12 +135,10 @@ class Users:
 
         返回一个随机名字, 与 User 配对使用
         """
+
         u = usernameList[0][randint(0, len(usernameList[0]) - 1)] + '的' + usernameList[3][
-            randint(0, len(usernameList[3]) - 1)] + usernameList[1][randint(0, len(usernameList[1]) - 1)]
-        while u in Users.UserNameList:
-            u = usernameList[0][randint(0, len(usernameList[0]) - 1)] + '的' + usernameList[3][
-                randint(0, len(usernameList[3]) - 1)] + usernameList[1][
-                    randint(0, len(usernameList[1]) - 1)]
+            randint(0, len(usernameList[3]) - 1)] + usernameList[1][randint(0, len(usernameList[1]) - 1)] + \
+            usernameList[3][randint(0, len(usernameList[3]) - 1)]
         return u
 
     def save_user_info(self):
@@ -163,7 +158,7 @@ class Users:
         else:
             print(self, '不属于正式用户')
 
-    def login(self, name, password=NULL, encoding='utf-8'):
+    def login(self, name, password=None, encoding='utf-8'):
         if name in Users.UserNameList:
             # self.info_dict = {}
             # self.info_dict.update({'name': name})
@@ -233,9 +228,9 @@ class Users:
     def register(self):
         pass
 
-    def rename(self, newname=NULL):
+    def rename(self, newname=None):
         if self.info_dict['state'] == 1:
-            if newname is NULL:
+            if newname is None:
                 pass
             else:
                 self.info_dict['name'] = newname

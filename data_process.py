@@ -1,8 +1,12 @@
-from simple_tools.data_base import NULL
+from simple_tools.data_base import tabs_bl
+from simple_tools.default import deprecated
 
-__all__ = ['binary_search', 'bl_properties', 'generate_bl_properties',
-           'dimensional_list', 'filter_', 'search_to_str_in_list',
-           'bl', 'review', 'review']
+__all__ = ['binary_search', 'bl_properties_gen', 'generate_bl_properties',
+           'dimensional_list', 'filter_', 'list2str',
+           'search_to_str_in_list', 'review', "equals_list",
+           "to_bytes_auto", "list2bytes", "bytes2list",
+
+           "bl_properties", ]
 
 
 def binary_search(list2, item):
@@ -20,178 +24,56 @@ def binary_search(list2, item):
     return None
 
 
-def bl_properties(seqs, line_num=False, truly_number=False, __deep=0, __lines='', __numbers=(), **kwargs):
-    """bl 装饰
+def bl_properties(*args, **kwargs):
+    print(args)
+    print(kwargs)
+    deprecated(bl_properties, bl_properties_gen)
 
-    kwargs: title = None, 对于大列表套小列表的情况时的自定义表头
 
-    提出时间：202204051955xx
-    创建时间：20220406080946
-    最后修改时间：20230126113413
-    最后运行时间：20230126113422
+def bl_properties_gen(seq, title: None | str = "\033[0;31m目前暂时无法遍历 dict 和 set 类型\033[0m", digital=False,
+                      __prefix_list=()):
+    prefix = list(__prefix_list)
 
-    :param seqs: 要遍历的元素
-    :param line_num: 是否加行号，默认为 False
-    :param truly_number: 使用常规编号，而不是索引编号
-    :param __deep: 遍历深度
-    :param __lines:
-    :param __numbers:
-    :return:
-    """
+    SEQUENCES_LINE = (list, tuple)
+    SEQUENCES_LIST = SEQUENCES_LINE + (dict, set)
 
-    def convert_list_to_str(lists, step=' '):
-        """
+    if title is not None:
+        print(title)
 
-        前置一个列表转换 str 的函数
-        """
-        if type(lists) in {list, set, tuple}:
-            seq_armor = ''
-            for a001 in lists:
-                seq_armor += str(a001) + step
-            return seq_armor
-        else:
-            print('输入类型不正确')
-            return lists
-
-    fill_name = '<List>'
-    values = list(seqs) if type(seqs) == set else seqs
-    sequence_class_list = {set, list, tuple, dict}
-    special_list = {dict, }
-    signs = __lines
-
-    title = kwargs.get('title', NULL)
-
-    for x in range(len(values)):
-        if type(values) in special_list:
-            bl_properties(seqs=tuple(zip(values.keys(), values.values())), line_num=line_num,
-                          truly_number=truly_number, __deep=__deep, __lines=__lines, __numbers=__numbers,
-                          title='dict')
-            return type(values)
-        elif type(values[x]) in sequence_class_list:  # 大列表套小列表（大数组套小数组）
-            if line_num:
-                cb = convert_list_to_str(__numbers, '>') + str(x + 1 if truly_number else x) + ':'
+    # if type(seq) in SEQUENCES_LIST:
+    if type(seq) in SEQUENCES_LINE:
+        for i in range(len(seq)):
+            if i + 1 == len(seq):
+                prefix_passed = tabs_bl[0]
             else:
-                cb = ''
-            print(signs + ('└-' if x == len(values) - 1 else '├-') + cb + type(values[x]).__name__)
-            if x == len(values) - 1:
-                cb = '  '
+                prefix_passed = tabs_bl[1]
+
+            # print(i)
+            yld = list2str(prefix + [prefix_passed[0], ] + [str(i) + ". " if digital else ""], "")
+            if type(seq[i]) in SEQUENCES_LINE:
+                yield yld + str(type(seq[i]))
+                # print(yld, type(seq[i]), sep="")
+                prefix.append(prefix_passed[1])
+                for item in bl_properties_gen(seq[i], title=None, digital=digital, __prefix_list=prefix):
+                    yield item
+                prefix.pop(-1)
             else:
-                cb = '│ '
-            if truly_number:
-                cb2 = x + 1
-            else:
-                cb2 = x
-            bl_properties(seqs=values[x], line_num=line_num, truly_number=truly_number, __deep=__deep + 1,
-                          __lines=signs + cb, __numbers=tuple(list(__numbers) + [cb2, ]), title=title)
-        else:
-            if x == len(values) - 1:
-                cb = '└-'
-            else:
-                cb = '├-'
-            if line_num:
-                cb2 = convert_list_to_str(__numbers, '>') + str(x + 1 if truly_number else x) + ':'
-            else:
-                cb2 = ''
-            print(signs + cb, cb2, values[x], sep='')
-
-
-def generate_bl_properties(seqs, line_num=False, truly_number=False, __deep=0, __lines='', __numbers=()):
-    """bl 装饰
-
-    提出时间：20220423174418
-    创建时间：20220423175444
-    最后修改时间：20220423200512
-    最后运行时间：20220423200623
-
-    :param seqs: 要遍历的元素
-    :param line_num: 是否加行号，默认为 False
-    :param truly_number: 使用常规编号，而不是索引编号
-    :param __deep: 遍历深度
-    :param __lines: 行标
-    :param __numbers: 索引编号
-    :return:
-    """
-
-    def convert_list_to_str(lists, step=' '):
-        """
-
-        前置一个列表转换 str 的函数
-        """
-        if type(lists) in {list, set, tuple}:
-            seq_armor = ''
-            for a001 in lists:
-                seq_armor += str(a001) + step
-            return seq_armor
-        else:
-            print('输入类型不正确')
-            return lists
-
-    fill_name = '<List>'
-    sequence_class_list = {list, tuple, set, dict}
-    values = list(seqs) if type(seqs) == set else seqs
-    signs = __lines
-    if type(values) == dict:
-        for x in values:
-            if type(values[x]) in sequence_class_list:
-                if line_num:
-                    cb = convert_list_to_str(__numbers, '>') + str(x + 1 if truly_number else x) + ':'
-                else:
-                    cb = ''
-                yield signs + ('└-' if x == list(values.keys())[-1] else '├-') + cb + str(x)
-                if x == list(values.keys())[-1]:
-                    cb = '  '
-                else:
-                    cb = '│ '
-                if truly_number:
-                    cb2 = x + 1
-                else:
-                    cb2 = x
-                for t in generate_bl_properties(seqs=values[x], line_num=line_num, truly_number=truly_number,
-                                                __deep=__deep + 1, __lines=signs + cb,
-                                                __numbers=tuple(list(__numbers) + [cb2, ])):
-                    yield t
-            else:
-                if x == len(values) - 1:
-                    cb = '└-'
-                else:
-                    cb = '├-'
-                if line_num:
-                    cb2 = convert_list_to_str(__numbers, '>') + str(x + 1 if truly_number else x) + ':'
-                else:
-                    cb2 = ''
-                yield signs + cb + cb2 + (str(x) + ':' + str(values[x])
-                                          if type(values) == dict else str(values[x]))
+                yield yld + str(seq[i])
+                # print(yld, seq[i], sep="")
     else:
-        for x in range(len(values)):
-            if type(values[x]) in sequence_class_list:
-                if line_num:
-                    cb = convert_list_to_str(__numbers, '>') + str(x + 1 if truly_number else x) + ':'
-                else:
-                    cb = ''
-                yield signs + ('└-' if x == len(values) - 1 else '├-') + cb + type(values[x]).__name__
-                if x == len(values) - 1:
-                    cb = '  '
-                else:
-                    cb = '│ '
-                if truly_number:
-                    cb2 = x + 1
-                else:
-                    cb2 = x
-                for t in generate_bl_properties(seqs=values[x], line_num=line_num, truly_number=truly_number,
-                                                __deep=__deep + 1, __lines=signs + cb,
-                                                __numbers=tuple(list(__numbers) + [cb2, ])):
-                    yield t
-            else:
-                if x == len(values) - 1:
-                    cb = '└-'
-                else:
-                    cb = '├-'
-                if line_num:
-                    cb2 = convert_list_to_str(__numbers, '>') + str(x + 1 if truly_number else x) + ':'
-                else:
-                    cb2 = ''
-                yield signs + cb + cb2 + (str(values[x]) + ':' + str(values[x].values())
-                                          if type(values) == dict else str(values[x]))
+        print(seq)
+
+
+def list2str(lst, sep: str = '') -> str:
+    str_l = ""
+    if lst:
+        for i in lst[:-1]:
+            str_l += str(i) + sep
+        str_l += str(lst[-1])
+    else:
+        pass
+        # print("传入参数不能为空！")
+    return str_l
 
 
 def dimensional_list(value_list):
@@ -252,7 +134,7 @@ def filter_(v_str, pattern=('int',), contrary=False, returns=False, auto_convert
     cache_dict = trash = ''
     class_ = pattern
     if 'control' in class_ or 'con' in class_:
-        if type(base_string) == int or type(base_string) == float:
+        if type(base_string) is int or type(base_string) is float:
             if not contrary:
                 cache_dict = ''
             else:
@@ -277,7 +159,7 @@ def filter_(v_str, pattern=('int',), contrary=False, returns=False, auto_convert
             else:
                 cache_dict = str(cache_dict)
     elif 'int' in class_:
-        if type(base_string) == int or type(base_string) == float:
+        if type(base_string) is int or type(base_string) is float:
             if not contrary:
                 cache_dict = int(base_string)
             else:
@@ -336,7 +218,7 @@ def filter_(v_str, pattern=('int',), contrary=False, returns=False, auto_convert
                     else:
                         cache_dict = str(cache_dict)
     elif 'float' in class_:
-        if type(base_string) == int or type(base_string) == float:
+        if type(base_string) is int or type(base_string) is float:
             if not contrary:
                 cache_dict = float(base_string)
             else:
@@ -485,12 +367,21 @@ def filter_(v_str, pattern=('int',), contrary=False, returns=False, auto_convert
         return cache_dict
 
 
-def search_to_str_in_list(testlist=NULL, input_object=NULL, list_tips='输入一个列表：', obj_tips='输入一个str'):
+def search_to_str_in_list(input_object=None, testlist=None, **kwargs):
+    list_tips = kwargs.get('list_tips', '输入一个列表：')
+    obj_tips = kwargs.get('obj_tips', '输入一个str')
+    recursion = kwargs.get('recursion', False)
+    insensitive_data = kwargs.get('insensitive_data', False)
     output_list = []
     cache_output_list = []
-    if testlist is NULL:
+    if testlist is None:
         testlist = eval(input(list_tips))
-    if input_object is NULL:
+    elif recursion:
+        testlist = dimensional_list(testlist)
+    else:
+        pass
+
+    if input_object is None:
         obj2 = input(obj_tips)
     else:
         obj2 = input_object
@@ -498,11 +389,17 @@ def search_to_str_in_list(testlist=NULL, input_object=NULL, list_tips='输入一
     # 因为 OPL(output_list)只是读取 testlist 的内容
     # 并且在读取完后要对 OPL 进行 resort
     for a000 in testlist:
-        if (type(obj2) in [str, list, set, dict] and obj2 in a000) or obj2 == a000:
-            cache_output_list.append(a000)
-    length1 = len(cache_output_list)
+        if type(a000) in [list, set, dict]:
+            for _ in search_to_str_in_list(obj2, a000,
+                                           recursion=recursion, list_tips=list_tips,
+                                           obj_tips=obj_tips, insensitive_data=insensitive_data):
+                cache_output_list.append(_)
+        else:
+            if ((obj2 in a000) if not insensitive_data else (str(obj2) in str(a000))) or (
+                    obj2 == a000 if not insensitive_data else (str(obj2) == str(a000))):
+                cache_output_list.append(a000 if not insensitive_data else str(a000))
     for a000 in cache_output_list:
-        if type(obj2) in [str, list, set, dict]:
+        if type(a000) in [str, ]:
             if a000 == obj2:
                 output_list.append([-1, a000])
             else:
@@ -520,71 +417,74 @@ def search_to_str_in_list(testlist=NULL, input_object=NULL, list_tips='输入一
     del output_list[::]
     for a000 in range(len(cache_output_list)):
         output_list.append(cache_output_list[a000][1])
-    print('搜索结果：', output_list)
-    del output_list, cache_output_list, length1
+    # print('搜索结果：', output_list)
+    del cache_output_list
+    return output_list
 
 
-def bl(value, sep=':', line_sign=0, lines=False, all_values=False):
-    """WARNING: `bl` has stopped supporting in simple_tools 4.3-alpha2+"""
-    print('\033[0;31m' + bl.__doc__ + '\033[0m')
-    review(value, sep, line_sign, lines, all_values)
-    return -1
+def review(value, *args, **kwargs):
+    deprecated(review, bl_properties_gen)
+    print(args)
+    print(kwargs)
+    for i in bl_properties_gen(value):
+        print(i)
 
 
-def review(value, sep=':', line_sign=0, lines=False, all_values=True, deep=0, decorate=True, dict_sign=':'):
-    """review是检视的意思，它的作用等价于bl
-
-    line_sign 和 decorate 互相冲突，line_sign 的优先级高于 decorate
-    检视优先级中，dictionary 的优先级为 1，list，tuple，set，str 的优先级为 2，其他类型的优先级为 3
-
-    :param line_sign: 加行号标志
-    :param value: 判断输入的是什么类型
-    :param sep: 第n项和第n+1项之间的分隔符
-    :param lines: 空行，默认为 False
-    :param all_values: 全部遍历
-    :param deep: 递归深度，不要更改这个参数
-    :param decorate: 装饰
-    :param dict_sign: 字典分隔符
-    :return: void
-    """
-
-    count = cache_count = 0
-    deeps = deep
-    if type(value) == dict:
-        if lines:
-            print()
-        for a000 in value:
-            if type(a000) == list or type(a000) == tuple or type(a000) == set or type(a000) == dict:
-                review(a000, sep=sep, line_sign=line_sign, lines=lines, all_values=all_values, deep=deep + 1,
-                       decorate=decorate)
-            elif line_sign:
-                count += 1
-                print(str(count) + sep + str(a000) + dict_sign + str(value[a000]))
-            elif decorate:
-                if a000 == value[-1]:
-                    print('├ ' * (deeps - 1) + '└ ', str(a000) + dict_sign + str(value[a000]), sep='')
-                else:
-                    print('├ ' * deeps, str(a000) + dict_sign + str(value[a000]), sep='')
-            else:
-                print(str(a000) + dict_sign + str(value[a000]))
-    elif type(value) == str or type(value) == list or type(value) == tuple or type(value) == set:
-        if lines:
-            print()
-        for a000 in value:
-            if type(a000) == list or type(a000) == tuple or type(a000) == set or type(a000) == dict:
-                review(a000, sep=sep, line_sign=line_sign, lines=lines, all_values=all_values, deep=deep + 1,
-                       decorate=decorate)
-            elif line_sign:
-                count += 1
-                print(count, sep, str(a000), sep='')
-            elif decorate:
-                if a000 == value[-1]:
-                    print('├ ' * (deeps - 1) + '└ ', a000, sep='')
-                else:
-                    print('├ ' * deeps, a000, sep='')
-            else:
-                print(a000)
+def equals_list(*args: list | set | tuple):
+    k_equ = True
+    if not args:
+        k_equ = False
     else:
-        print('输入类型不正确')
-        return 1
-    del cache_count
+        std_ch = args[0]
+        for i in args:
+            i_ch = list(i)
+            for j in std_ch:
+                if j in i_ch:
+                    i_ch.pop(i_ch.index(j))
+                else:
+                    k_equ = False
+            if i_ch:
+                k_equ = False
+    return k_equ
+
+
+def to_bytes_auto(code: int):
+    RATE = 256  # 不可随意修改，因为 \xff 最多表示 0 - 255 这 256 个数码
+    i = 0
+    while code // (RATE ** i) != 0:
+        i += 1
+    return code.to_bytes(i)
+
+
+def list2bytes(seq: list):
+    bytes_ret = b""
+    for i in seq:
+        bytes_ret += to_bytes_auto(i)
+
+    return bytes_ret
+
+
+def bytes2list(context: bytes, coding="utf-8", chunks=1):
+    """虽然名为 bytes2list 但也兼具 str2list 的功能
+
+    @param context:
+    @param coding:
+    @param chunks:
+    @return:
+    """
+    text_list = []
+    for ch in range(0, len(context), chunks):
+        i = context[ch: ch + chunks]
+        if type(i) is str:
+            print("\033[0;30m尽量避免使用 str 类型，推荐 bytes 类型\033[0m;")
+            text_list.append(int.from_bytes(bytes=i.encode(coding)))
+        elif type(i) is int:
+            text_list.append(i)
+        elif type(i) is bytes:
+            text_list.append(int.from_bytes(bytes=i))
+            # print("skip:", i)
+    # print("转列表:", text_list)
+    return text_list
+
+
+generate_bl_properties = bl_properties_gen
