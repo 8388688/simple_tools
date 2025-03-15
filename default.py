@@ -1,3 +1,4 @@
+import sys
 from http.client import RemoteDisconnected
 from os.path import join
 from traceback import format_exc
@@ -9,9 +10,9 @@ from requests.exceptions import ConnectTimeout, ConnectionError
 from simple_tools.data_base import ST_WORK_SPACE
 from simple_tools.system_extend import delete
 
-__all__ = ['clear_module_cache', 'get_update', "deprecated", "invoke"]
-__version__ = "4.7-pre1"
-version_code = 20240920001
+__all__ = ['clear_module_cache', 'get_update', "deprecated", "invoke", "is_exec"]
+__version__ = "4.7-pre2"
+version_code = 20250315001
 
 LOG_FILE_PATH = join(ST_WORK_SPACE, 'default', 'get_update.txt', )
 log_file_entity = open(LOG_FILE_PATH, 'a')
@@ -19,21 +20,23 @@ log_file_entity.close()
 
 
 def clear_module_cache():
-    print('在清除缓存后，程序会强制退出，以避免缓存缺失带来的问题。')
-    print('准备清除缓存。')
+    print("在清除缓存后，程序会强制退出，以避免缓存缺失带来的问题。")
+    print("准备清除缓存。")
     delete(ST_WORK_SPACE, all_files=True, all_folders=True, forces=True)
-    print('Complete!')
+    print("Complete!")
     exit(0)
 
 
 def deprecated(fx, recommend=None):
-    print(f"\033[0;31m{fx.__name__} 已弃用{"，推荐使用 " + recommend.__name__ if recommend is not None else ""}\033[0m")
-    return 0
+    context = f"{fx.__name__} 已弃用{"，推荐使用 " + recommend.__name__ if recommend is not None else ""}"
+    print(context)
+    return context
 
 
 def invoke(fx, fx_api):
-    print(f"\033[0;36m{fx.__name__} 调用的是 {fx_api.__name__} 的 API\033[0m")
-    return 0
+    context = f"\033[0;36m{fx.__name__} 调用的是 {fx_api.__name__} 的 API\033[0m"
+    print(context)
+    return context
 
 
 def get_update():
@@ -101,6 +104,10 @@ def get_update():
                   '2. https://lanzoux.com/ie3SB0mjnlsj')
     else:
         print("暂无更新。")
+
+
+def is_exec():
+    return hasattr(sys, '_MEIPASS')
 
 
 if __name__ == '__main__':

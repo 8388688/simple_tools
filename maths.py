@@ -37,9 +37,10 @@ def average_generator(*args):
 
 
 def convert_system(*args, **kwargs):
+    import warnings
+    warnings.warn(deprecated(convert_system, scientific_notate), DeprecationWarning, stacklevel=4)
     print(args)
     print(kwargs)
-    deprecated(convert_system, scientific_notate)
 
 
 def scientific_notate(figure: int | float, rate=1000, keep_decimal_digit=3, custom_seq=science_tuple) -> str:
@@ -347,7 +348,9 @@ def dec2r_convert(fig, r, figure_type="auto"):
     @param figure_type:
     @return:
     """
-    deprecated(dec2r_convert, dec_to_r_convert)
+    import warnings
+    warnings.warn(deprecated(dec2r_convert, dec_to_r_convert), DeprecationWarning, stacklevel=4)
+
     DIGITAL_CHARSET_PREPARED = (
         '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H',
         'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z')

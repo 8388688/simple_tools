@@ -522,6 +522,7 @@ def file_suffix(file_path=fp, sort=True, show_details=False):
 
 
 def safe_md(file_name_or_file_path, quiet=False):
+    # raise DeprecationWarning: 将被 os.makedirs 替代
     try:
         tell = "%s 存在\n" % file_name_or_file_path
         mkdir(file_name_or_file_path) if not exists(file_name_or_file_path) else pass_()
@@ -531,7 +532,7 @@ def safe_md(file_name_or_file_path, quiet=False):
         safe_md(join(dirname(file_name_or_file_path), basename(file_name_or_file_path)))
     except FileExistsError:
         tell = "创建文件夹时出现错误 - %s 文件已存在\n" % file_name_or_file_path
-    except:
+    except OSError:
         tell = "[未知错误]错误如下:\n" + format_exc()
     else:
         tell = "%s 已成功创建\n" % file_name_or_file_path

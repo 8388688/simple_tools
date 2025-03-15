@@ -1,5 +1,6 @@
 from simple_tools.data_base import tabs_bl
 from simple_tools.default import deprecated
+from typing import Generator
 
 __all__ = ['binary_search', 'bl_properties_gen', 'generate_bl_properties',
            'dimensional_list', 'filter_', 'list2str',
@@ -25,9 +26,10 @@ def binary_search(list2, item):
 
 
 def bl_properties(*args, **kwargs):
+    import warnings
+    warnings.warn(deprecated(bl_properties, bl_properties_gen), DeprecationWarning, stacklevel=4)
     print(args)
     print(kwargs)
-    deprecated(bl_properties, bl_properties_gen)
 
 
 def bl_properties_gen(seq, title: None | str = "\033[0;31m目前暂时无法遍历 dict 和 set 类型\033[0m", digital=False,
@@ -76,16 +78,17 @@ def list2str(lst, sep: str = '') -> str:
     return str_l
 
 
-def dimensional_list(value_list):
+def dimensional_list(value_list) -> Generator:
     output_list = []
+    del output_list  # 不再需要
     for a001 in value_list:
         if type(a001) in [list, tuple, set]:
             for a002 in dimensional_list(a001):
-                output_list.append(a002)
+                yield a002
         else:
-            output_list.append(a001)
+            yield a001
 
-    return output_list
+    # return output_list
 
 
 def filter_(v_str, pattern=('int',), contrary=False, returns=False, auto_convert=True):
@@ -225,7 +228,8 @@ def filter_(v_str, pattern=('int',), contrary=False, returns=False, auto_convert
                 cache_dict = 0.0
         else:
             for a000 in base_string:
-                if 57 >= ord(a000) >= 48 or '.' not in cache_dict and a000 == '.' or (a000 == '-' and cache_dict == ''):
+                if 57 >= ord(a000) >= 48 or '.' not in cache_dict and a000 == '.' or (
+                        a000 == '-' and cache_dict == '' and "unsigned" not in class_):
                     if contrary:
                         trash += a000
                     else:
@@ -377,7 +381,7 @@ def search_to_str_in_list(input_object=None, testlist=None, **kwargs):
     if testlist is None:
         testlist = eval(input(list_tips))
     elif recursion:
-        testlist = dimensional_list(testlist)
+        testlist = list(dimensional_list(testlist))
     else:
         pass
 
@@ -423,7 +427,9 @@ def search_to_str_in_list(input_object=None, testlist=None, **kwargs):
 
 
 def review(value, *args, **kwargs):
-    deprecated(review, bl_properties_gen)
+    """@deprecated"""
+    import warnings
+    warnings.warn(deprecated(review, bl_properties_gen), DeprecationWarning, stacklevel=4)
     print(args)
     print(kwargs)
     for i in bl_properties_gen(value):

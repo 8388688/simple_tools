@@ -10,9 +10,11 @@ __all__ = [
 
 
 def absolute_encryption(*args, **kwargs):
+    """@deprecated"""
+    import warnings
+    warnings.warn(deprecated(absolute_encryption), DeprecationWarning, stacklevel=4)
     print(args)
     print(kwargs)
-    deprecated(absolute_encryption)
 
 
 def digital_decryption(value1, print_=False, steps='\\'):  # 数字解密
@@ -40,9 +42,10 @@ def digital_decryption(value1, print_=False, steps='\\'):  # 数字解密
 
 
 def file_encryption(*args, **kwargs):
+    import warnings
+    warnings.warn(deprecated(file_encryption), DeprecationWarning, stacklevel=4)
     print(args)
     print(kwargs)
-    deprecated(file_encryption)
 
 
 def md5_encryption(string, encr_func=get_md5):
@@ -62,15 +65,17 @@ def md5_encryption(string, encr_func=get_md5):
 
 
 def normal_encryption(*args, **kwargs):
+    import warnings
+    warnings.warn(deprecated(normal_encryption), DeprecationWarning, stacklevel=4)
     print(args)
     print(kwargs)
-    deprecated(normal_encryption)
 
 
 def normal_encryption_with_bytes(*args, **kwargs):
+    import warnings
+    warnings.warn(deprecated(normal_encryption_with_bytes), DeprecationWarning, stacklevel=4)
     print(args)
     print(kwargs)
-    deprecated(normal_encryption_with_bytes)
 
 
 def rsa_crypt(context: list | tuple, mode: int = 0, quiet=True):
