@@ -1,20 +1,11 @@
-from simple_tools.default import deprecated
+from simple_tools.misc import deprecated
 from simple_tools.hash import get_md5
 from simple_tools.data_process import list2bytes, bytes2list
 
 __all__ = [
-    'absolute_encryption', 'digital_decryption', 'file_encryption',
-    'md5_encryption', 'normal_encryption', 'normal_encryption_with_bytes',
+    'digital_decryption', 'md5_encryption',
     "rsa_crypt", "rsa_crypt_easy",
 ]
-
-
-def absolute_encryption(*args, **kwargs):
-    """@deprecated"""
-    import warnings
-    warnings.warn(deprecated(absolute_encryption), DeprecationWarning, stacklevel=4)
-    print(args)
-    print(kwargs)
 
 
 def digital_decryption(value1, print_=False, steps='\\'):  # 数字解密
@@ -41,19 +32,12 @@ def digital_decryption(value1, print_=False, steps='\\'):  # 数字解密
     return decrypt
 
 
-def file_encryption(*args, **kwargs):
-    import warnings
-    warnings.warn(deprecated(file_encryption), DeprecationWarning, stacklevel=4)
-    print(args)
-    print(kwargs)
-
-
 def md5_encryption(string, encr_func=get_md5):
     """WARNING: function md5_encryption is still an Experimental Features.
-    
-    :param string: 
-    :param encr_func: 
-    :return: 
+
+    :param string:
+    :param encr_func:
+    :return:
     """
     print('\033[1;31m' + md5_encryption.__doc__ + '\033[0m')
     v_str = list(string)
@@ -62,20 +46,6 @@ def md5_encryption(string, encr_func=get_md5):
         a_str.append(encr_func(v_str[a000]))
 
     return a_str
-
-
-def normal_encryption(*args, **kwargs):
-    import warnings
-    warnings.warn(deprecated(normal_encryption), DeprecationWarning, stacklevel=4)
-    print(args)
-    print(kwargs)
-
-
-def normal_encryption_with_bytes(*args, **kwargs):
-    import warnings
-    warnings.warn(deprecated(normal_encryption_with_bytes), DeprecationWarning, stacklevel=4)
-    print(args)
-    print(kwargs)
 
 
 def rsa_crypt(context: list | tuple, mode: int = 0, quiet=True):

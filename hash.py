@@ -2,26 +2,27 @@ from time import time
 from hashlib import md5, sha1, sha224, sha256, sha384, sha512, \
     blake2b, blake2s, \
     sha3_224, sha3_256, sha3_384, sha3_512
+import hashlib
 from uuid import uuid1, uuid3, uuid4, uuid5, NAMESPACE_DNS
 
 from simple_tools.data_base import EMPTY_UUID
 from simple_tools.maths import dec_to_r_convert
 
-__all__ = ['get_md5', 'get_hash_values', 'uuid_generator']
+__all__ = ["get_md5", "get_hash_values", "uuid_generator"]
 
 
-def get_md5(string, encoding='utf-8', ratios=16):
+def get_md5(string, encoding="utf-8", ratios=16):
     return get_hash_values(string, encoding, 0, ratios)
 
 
-def get_hash_values(string, encoding='utf-8', pattern=0, ratios=16):  # 此处0不能换成 null，因为它是一个索引而非空值。
+def get_hash_values(string, encoding="utf-8", pattern=0, ratios=16):  # 此处0不能换成 null，因为它是一个索引而非空值。
     base = (md5,
             sha1, sha224, sha256, sha384, sha512,
             blake2b, blake2s,
             sha3_224, sha3_256, sha3_384, sha3_512,)
     choice = base[pattern % len(base)]
     data_bytes = choice(string.encode(encoding=encoding)).digest()
-    return dec_to_r_convert(int.from_bytes(data_bytes, byteorder='big'), ratios)
+    return dec_to_r_convert(int.from_bytes(data_bytes, byteorder="big"), ratios)
 
 
 def uuid_gen(mode='time_mac', string=None, numeric=False):

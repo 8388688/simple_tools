@@ -1,5 +1,5 @@
 from simple_tools.data_base import tabs_bl
-from simple_tools.default import deprecated
+from simple_tools.misc import deprecated
 from typing import Generator
 
 __all__ = ['binary_search', 'bl_properties_gen', 'generate_bl_properties',
@@ -11,6 +11,9 @@ __all__ = ['binary_search', 'bl_properties_gen', 'generate_bl_properties',
 
 
 def binary_search(list2, item):
+    import warnings
+    warnings.warn(deprecated("binary_search"),
+                  PendingDeprecationWarning, stacklevel=4)
     low = 0
     high = len(list2) - 1
     while low <= high:
@@ -27,13 +30,14 @@ def binary_search(list2, item):
 
 def bl_properties(*args, **kwargs):
     import warnings
-    warnings.warn(deprecated(bl_properties, bl_properties_gen), DeprecationWarning, stacklevel=4)
+    warnings.warn(deprecated("bl_properties", bl_properties_gen),
+                  DeprecationWarning, stacklevel=4)
     print(args)
     print(kwargs)
 
 
-def bl_properties_gen(seq, title: None | str = "\033[0;31m目前暂时无法遍历 dict 和 set 类型\033[0m", digital=False,
-                      __prefix_list=()):
+def bl_properties_gen(
+        seq, title: None | str = "\033[0;31m目前暂时无法遍历 dict 和 set 类型\033[0m", digital=False, __prefix_list=()):
     prefix = list(__prefix_list)
 
     SEQUENCES_LINE = (list, tuple)
@@ -51,7 +55,8 @@ def bl_properties_gen(seq, title: None | str = "\033[0;31m目前暂时无法遍�
                 prefix_passed = tabs_bl[1]
 
             # print(i)
-            yld = list2str(prefix + [prefix_passed[0], ] + [str(i) + ". " if digital else ""], "")
+            yld = list2str(prefix + [prefix_passed[0], ] +
+                           [str(i) + ". " if digital else ""], "")
             if type(seq[i]) in SEQUENCES_LINE:
                 yield yld + str(type(seq[i]))
                 # print(yld, type(seq[i]), sep="")
@@ -67,6 +72,11 @@ def bl_properties_gen(seq, title: None | str = "\033[0;31m目前暂时无法遍�
 
 
 def list2str(lst, sep: str = '') -> str:
+    import warnings
+    warnings.warn(
+        f"{deprecated(list2str)}\n与之相等价的函数：str.join(sep, lst)",
+        DeprecationWarning, stacklevel=4
+    )
     str_l = ""
     if lst:
         for i in lst[:-1]:
@@ -401,7 +411,8 @@ def search_to_str_in_list(input_object=None, testlist=None, **kwargs):
         else:
             if ((obj2 in a000) if not insensitive_data else (str(obj2) in str(a000))) or (
                     obj2 == a000 if not insensitive_data else (str(obj2) == str(a000))):
-                cache_output_list.append(a000 if not insensitive_data else str(a000))
+                cache_output_list.append(
+                    a000 if not insensitive_data else str(a000))
     for a000 in cache_output_list:
         if type(a000) in [str, ]:
             if a000 == obj2:
@@ -429,7 +440,8 @@ def search_to_str_in_list(input_object=None, testlist=None, **kwargs):
 def review(value, *args, **kwargs):
     """@deprecated"""
     import warnings
-    warnings.warn(deprecated(review, bl_properties_gen), DeprecationWarning, stacklevel=4)
+    warnings.warn(f"{deprecated('review', bl_properties_gen)}",
+                  DeprecationWarning, stacklevel=4)
     print(args)
     print(kwargs)
     for i in bl_properties_gen(value):

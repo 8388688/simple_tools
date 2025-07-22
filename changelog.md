@@ -7,7 +7,7 @@
 
 [data_process]: data_process.py
 
-[default]: default.py
+[default]: misc.py
 
 [encr_decr]: encr_decr.py
 
@@ -37,6 +37,17 @@
 
 * 4.x
     * 4.7 更新 \[**简并更新**\]:
+        * 4.7 Release
+            * 2025-07-22
+            * 移除了几乎所有的 I/O 操作（现在不再在 %APPDATA% 下自动创建无用的文件夹了）
+            * list2str 现已弃用，预计下个版本（4.8）移除
+            * encr_decr.py: 移除 absolute_encryption, file_encryption, normal_encryption, normal_encryption_with_bytes
+            * game_disposition.py: 移除 Person，弃用 Users 并移除相关代码，预计下个版本（4.8）移除 game_disposition.py 本体
+            * 移除 decomposition 的安全锁功能
+            <!-- 以下为 2025-03-15 修改 -->
+            * Deleted: 彻底移除 `convert_system()` 函数
+            * Modified: 改进 tree_fp_gen 函数
+            * Fixed: fp_gen 在 files=true, folders=false 时，无论 skip_sl 设置为何值都无法输出符号链接
         * 4.7-pre2 \[2025-02-03-20-42-43\]
             * Modified: 移除 [randoms][randoms] 中的 `create_random_list` 的 `returns=True` 参数，一律使用返回值。
             * Fixed: `filter_()` 函数 `"float"` 模式无法启用 `"unsigned"` 参数。
@@ -137,7 +148,7 @@
             * Add some error code in `get_update()`
             * Update `get_update()` as headers and mirror source code.
         * 4.4-pre1 \[2023-02-03-20-10-46\] \(version_code: 20230203002\)
-            * Owned version code (yyyymmdd\<num\>)  
+            * Owned version code (yyyymmdd\<num\>)
               example: 20230203001
             * Auto upgrade itself
             * Publish [first release](https://github.com/8388688/simple_tools/releases/tag/4.4-pre1)

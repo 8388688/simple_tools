@@ -1,27 +1,20 @@
 import os
-from builtins import open as fopen
-from os import getcwd, remove, rename, listdir, rmdir, mkdir, chmod, stat
-from os.path import abspath as os_abspath, basename, dirname, exists, join, islink, isfile, getsize, isjunction, isdir
+from os import getcwd, remove, rename, listdir, rmdir, chmod, stat
+from os.path import abspath as os_abspath, dirname, exists, join, islink, isfile, getsize, isjunction, isdir
 from random import randrange
-from stat import *
+# from stat import *
 from sys import getdefaultencoding as gde
 from traceback import format_exc
 
-from simple_tools.data_base import ST_WORK_SPACE, pass_, tabs_bl
+from simple_tools.data_base import pass_, tabs_bl
 from simple_tools.times import timestamp as gettime
-
-SYSTEM_EXTEND_WORK_SPACE = join(ST_WORK_SPACE, 'system_extend')
-
-log_file_path = join(SYSTEM_EXTEND_WORK_SPACE, 'logs.txt')
-log_file_entity = fopen(log_file_path, 'a')
-log_file_entity.write(gettime(idiotMode=True, presets=2) + '\n' + 'file:' + __name__ + '\n' + 'path:' + __file__)
-log_file_entity.close()
+from simple_tools.misc import deprecated
 
 __all__ = [
     "fp",
 
     "file_pattern", "del_tree", "get_file_name", "get_fname",
-    "get_fp", "fp_gen", "file_suffix", "safe_md",
+    "get_fp", "fp_gen",
     "quick_create_file", "safe_delete", "tree_fp_gen",
     "listdir_p_gen", "listdir_p",
 
@@ -30,102 +23,6 @@ __all__ = [
 ]
 
 fp = getcwd()
-
-"""
-class File:
-    def __init__(self, file_path):
-        print(f'WARNING: function {File.__name__} is still a Experimental Features')
-        if exists(file_path):
-            self.file_path = os_abspath(file_path)
-            self.fp = dirname(file_path)
-            self.name = file_path.split('\\')[-1] if system_pro == 'windows' else (
-                file_path.split('/')[-1] if system_pro == 'mac-os' else file_path)
-
-            file_stat = stat(file_path)
-
-            if S_ISREG(file_stat[0]):  # 判断是否一般文件
-                self.file_mode = 'Regular file'
-            elif S_ISLNK(file_stat[0]):  # 判断是否链接文件
-                self.file_mode = 'Shortcut'
-            elif S_ISSOCK(file_stat[0]):  # 判断是否套接字文件
-                self.file_mode = 'Socket'
-            elif S_ISFIFO(file_stat[0]):  # 判断是否命名管道
-                self.file_mode = 'Named pipe'
-            elif S_ISBLK(file_stat[0]):  # 判断是否块设备
-                self.file_mode = 'Block special device'
-            elif S_ISCHR(file_stat[0]):  # 判断是否字符设置
-                self.file_mode = 'Character special device'
-            elif S_ISDIR(file_stat[0]):  # 判断是否目录
-                self.file_mode = 'directory'
-            # 额外的两个函数
-            elif S_IMODE(file_stat[0]):
-                self.file_mode = 'chmod format'
-            elif S_IFMT(file_stat[0]):
-                self.file_mode = 'type of fiel'
-            else:
-                self.file_mode = 'unknown'
-            # print(S_IMODE(file_stat[0]))  # 返回文件权限的chmod格式
-            # print(S_IFMT(file_stat[0]))  # 返回文件的类型
-
-            self.create_time = self.ct = stat(file_path).st_ctime  # 文件创建时间
-            self.access_time = self.at = stat(file_path).st_atime  # 文件最后访问时间
-            self.modification_time = self.mt = stat(file_path).st_mtime  # 文件最后修改时间
-            self.permission = file_stat.st_mode  # 权限模式
-            self.inode_number = file_stat.st_ino  # inode number
-            self.device = file_stat.st_dev  # device
-            self.num_link = file_stat.st_nlink  # number of hard links
-            self.user_id = file_stat.st_uid  # 所有用户的user id
-            self.group_id = file_stat.st_gid  # 所有用户的group id
-            self.file_size = file_stat.st_size
-
-            if isfile(file_path):
-                self.size = getsize(file_path)
-                self.suffix = self.name.split('.')[-1]
-            else:
-                # self.size = get_file_size(file_path)
-                self.size = None
-                self.suffix = None
-
-            '''
-            stat.S_ISUID: Set user ID on execution.                      不常用
-            stat.S_ISGID: Set group ID on execution.                    不常用
-            stat.S_ENFMT: Record locking enforced.                                          不常用
-            stat.S_ISVTX: Save text image after execution.                                在执行之后保存文字和图片
-            stat.S_IREAD: Read by owner.                                                           对于拥有者读的权限
-            stat.S_IWRITE: Write by owner.                                                         对于拥有者写的权限
-            stat.S_IEXEC: Execute by owner.                                                       对于拥有者执行的权限
-            stat.S_IRWXU: Read, write, and execute by owner.                          对于拥有者读写执行的权限
-            stat.S_IRUSR: Read by owner.                                                            对于拥有者读的权限
-            stat.S_IWUSR: Write by owner.                                                          对于拥有者写的权限
-            stat.S_IXUSR: Execute by owner.                                                       对于拥有者执行的权限
-            stat.S_IRWXG: Read, write, and execute by group.                           　　　　　　对于同组的人读写执行的权限
-            stat.S_IRGRP: Read by group.                                                             对于同组读的权限
-            stat.S_IWGRP: Write by group.                                                           对于同组写的权限
-            stat.S_IXGRP: Execute by group.                                                        对于同组执行的权限
-            stat.S_IRWXO: Read, write, and execute by others.                          对于其他组读写执行的权限
-            stat.S_IROTH: Read by others.                                                           对于其他组读的权限
-            stat.S_IWOTH: Write by others.                                                         对于其他组写的权限
-            stat.S_IXOTH: Execute by others.                                                      对于其他组执行的权限
-            '''
-
-    def read(self):
-        pass
-
-    def write(self):
-        pass
-
-    def rename(self):
-        pass
-
-    def move(self):
-        pass
-
-    def copy(self):
-        pass
-
-    def delete(self):
-        pass
-"""
 
 
 def file_pattern(file_path=fp, binary=True, easy_options=False):
@@ -225,8 +122,8 @@ def del_tree(file_path=fp, all_files=False, all_folders=False,
             if select:
                 # 删除文件，可使用以下两种方法。
                 if forces:
-                    chmod(file_or_dir, S_IRWXU)
-                    chmod(file_or_dir, S_IWRITE)
+                    chmod(file_or_dir, stat.S_IRWXU)
+                    chmod(file_or_dir, stat.S_IWRITE)
                 if not quiet:
                     print('删除文件 - %s' % file_or_dir)
                 if isfile(file_or_dir):
@@ -283,44 +180,39 @@ def get_fname(file_dir=fp, command=listdir, expert_mode=False):
             string = string.encode(gde())
             print(string)
 
-    with fopen(join(SYSTEM_EXTEND_WORK_SPACE, 'lastrun.txt'), 'ab+') as traceback_file:
-        traceback_file.write(('-' * 10 + gettime(idiotMode=True) + '-' * 10 + '\n').encode(gde()))
-
-        if isfile(file_dir):
-            # return []
-            return [file_dir, ] if not expert_mode else ([file_dir, ], button)
+    if isfile(file_dir):
+        # return []
+        return [file_dir, ] if not expert_mode else ([file_dir, ], button)
+    else:
+        try:
+            ret = command(file_dir) if not expert_mode else (
+                command(file_dir), button)
+        except FileNotFoundError:
+            button = 3
+        except PermissionError:
+            button = 5
+        except UnicodeEncodeError:
+            button = 6
+        except IndexError:
+            button = 2
+        except OSError as e:
+            # button = e.winerror
+            button = 7
+        except Exception as e:
+            button = 1
         else:
-            try:
-                ret = command(file_dir) if not expert_mode else (command(file_dir), button)
+            button = 0
 
-            except FileNotFoundError:
-                button = 3
-            except PermissionError:
-                button = 5
-            except UnicodeEncodeError:
-                button = 6
-            except IndexError:
-                button = 2
-            except OSError:
-                button = 7
-            except:
-                button = 1
+        if button != 0:
+            _fprint('%s\"%s\"' % (key_val[button], file_dir))
+            _fprint(format_exc())
+        if button == 0:
+            return ret
+        else:
+            if expert_mode:
+                return key_val[button][1], button
             else:
-                button = 0
-
-            if button != 0:
-                _fprint('%s\"%s\"' % (key_val[button], file_dir))
-            traceback_event = format_exc()
-            traceback_file.write(traceback_event.encode(gde()))
-            traceback_file.write('\n'.encode(gde()))
-            traceback_file.close()
-            if button == 0:
-                return ret
-            else:
-                if expert_mode:
-                    return key_val[button][1], button
-                else:
-                    return key_val[button][1]
+                return key_val[button][1]
 
 
 def get_fp(file_path=fp, abspath=None, folders=False) -> tuple:
@@ -424,7 +316,8 @@ def fp_gen(file_path=fp, abspath=0, files=True, folders=False,
     case_sensitive = extension.get("case_sensitive", False)
     do_dir_pre = extension.get("do_dir_pre", pass_)
     do_dir_later = extension.get("do_dir_later", pass_)
-    skip_symlink = extension.get("skip_sl", 2)  # 0 = Exclude, 1 = Direct, 2 = Follow
+    # 0 = Exclude, 1 = Direct, 2 = Follow
+    skip_symlink = extension.get("skip_sl", 2)
     from_root_fp = extension.get("__from_root_fp", "")
 
     # 以下为准备废弃的参数
@@ -463,7 +356,7 @@ def fp_gen(file_path=fp, abspath=0, files=True, folders=False,
                 else:
                     yld = abs_fp
 
-                if files:
+                if files or ((islink(abs_fp) or isjunction(abs_fp)) and skip_symlink in [1, ]):
                     yield yld
                     do_file(yld)
                 else:
@@ -489,13 +382,14 @@ def fp_gen(file_path=fp, abspath=0, files=True, folders=False,
             can_yield = ((not include) or list(
                 filter(lambda pi: (pi in abs_fp) if case_sensitive else (pi.lower() in abs_fp.lower()),
                        include))) and ((not exclude) or not list(
-                filter(lambda pe: (pe in abs_fp) if case_sensitive else (pe.lower() in abs_fp.lower()),
-                       exclude)))
+                           filter(lambda pe: (pe in abs_fp) if case_sensitive else (pe.lower() in abs_fp.lower()),
+                                  exclude)))
             if folders and topdown and can_yield:
                 yield yld
                 do_dir(yld)
             temp_kwargs = kwargs
-            temp_kwargs.update({"__from_root_fp": join(from_root_fp, abs_fp_depart[1])})
+            temp_kwargs.update(
+                {"__from_root_fp": join(from_root_fp, abs_fp_depart[1])})
             for a000 in fp_gen(abs_fp + os.sep, abspath=abspath, files=files, folders=folders, **temp_kwargs):
                 yield a000
 
@@ -506,37 +400,20 @@ def fp_gen(file_path=fp, abspath=0, files=True, folders=False,
                 do_dir(yld)
 
 
-def file_suffix(file_path=fp, sort=True, show_details=False):
-    fp_ = file_path
-    keys = []
-
-    for i in fp_gen(fp_, abspath=2, files=True, folders=False):
-        keys.append(str.lower(i.split('.')[-1]))
-        if show_details:
-            print(i)
-
-    if sort:
-        keys = sorted(list(set(keys)))
-    # log_file_entity.writelines(keys)
-    return keys
+def file_suffix(*args, **kwargs):
+    import warnings
+    warnings.warn(f"{deprecated(file_suffix)}",
+                  DeprecationWarning, stacklevel=4)
 
 
 def safe_md(file_name_or_file_path, quiet=False):
+    import warnings
+    warnings.warn(f"{deprecated(safe_md, os.makedirs)}",
+                  DeprecationWarning, stacklevel=4)
+    if quiet:
+        print(f"创建 {file_name_or_file_path}")
+    os.makedirs(file_name_or_file_path, exist_ok=True)
     # raise DeprecationWarning: 将被 os.makedirs 替代
-    try:
-        tell = "%s 存在\n" % file_name_or_file_path
-        mkdir(file_name_or_file_path) if not exists(file_name_or_file_path) else pass_()
-    except FileNotFoundError:
-        tell = "创建文件夹时出现错误: 指定的文件夹不存在 - %s\n正在重新创建. . .\n" % file_name_or_file_path
-        safe_md(dirname(file_name_or_file_path))
-        safe_md(join(dirname(file_name_or_file_path), basename(file_name_or_file_path)))
-    except FileExistsError:
-        tell = "创建文件夹时出现错误 - %s 文件已存在\n" % file_name_or_file_path
-    except OSError:
-        tell = "[未知错误]错误如下:\n" + format_exc()
-    else:
-        tell = "%s 已成功创建\n" % file_name_or_file_path
-    print(tell, end="") if not quiet else pass_()
 
 
 def quick_create_file(file_path, size):
@@ -580,13 +457,14 @@ def safe_delete(file_path, buffering=16777216):
         print('COMPLETE! - %s => %s' % (i, new_name))
 
 
-def tree_fp_gen(__fp, files=True, header=None, __prefix=""):
+def tree_fp_gen(__fp, files=True, header=None, __prefix="", keepend=True):
     bucket_fname = listdir(__fp)
     bucket_fp = list(map(lambda x: join(__fp, x), bucket_fname))
+    suffix = "\n" if keepend else ""
     if not __prefix:
         if header is None:
             header = __fp
-        print(header)
+        yield header + suffix
     for i in range(len(bucket_fp)):
         decorate = __prefix
         if i + 1 == len(bucket_fp):
@@ -596,11 +474,11 @@ def tree_fp_gen(__fp, files=True, header=None, __prefix=""):
 
         yld = decorate + dec_presets[0] + bucket_fname[i]
         if isdir(bucket_fp[i]):
-            yield yld + "<dir>"
+            yield yld + "<dir>" + suffix
             for item in tree_fp_gen(bucket_fp[i], files=files, __prefix=decorate + dec_presets[1]):
                 yield item
         elif files:
-            yield yld
+            yield yld + suffix
         else:
             pass
 
@@ -618,4 +496,3 @@ delete = file_remove = del_tree
 get_file_path = get_fp
 get_files = generate_file_path = get_fp_gen = fp_gen
 get_file_name = get_fname
-get_file_suffix = file_suffix

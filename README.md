@@ -1,22 +1,22 @@
 # simple_tools - 一个用 python 写的简易工具包
 
 -----
-<a id="_menu">索引:</id>
+<a id="menu">索引:</id>
 
-1. [索引](#_menu)
-2. [概述](#_summary)
-3. [依赖的插件](#_depend_on)
-4. [bug追踪](#_bug_report)
-5. [下一个版本的预告](#_next_version)
-6. [更新日志](#_changelog)
-7. [文件历史记录](#_file_history)
-8. [其他](#_others)
-9. [你知道吗](#_do_you_know)
+1. [索引](#menu)
+2. [概述](#summary)
+3. [依赖的插件](#depend_on)
+4. [bug追踪](#bug_report)
+5. [下一个版本的预告](#next_version)
+6. [更新日志](#changelog)
+7. [文件历史记录](#file_history)
+8. [其他](#others)
+9. [你知道吗](#do_you_know)
 
 -----
-<a id="_summary">概述</id>
+<a id="summary">概述</id>
 
-[回到顶部](#_menu)
+[回到顶部](#menu)
 
 ## 概述
 
@@ -26,9 +26,9 @@
 ~~(以此证明我还活着)~~
 
 -----
-<a id="_depend_on">依赖的插件</id>
+<a id="depend_on">依赖的插件</id>
 
-[回到顶部](#_menu)
+[回到顶部](#menu)
 
 ## 依赖的插件
 
@@ -39,14 +39,13 @@
 * python.stat
 * python.sys
 * python.uuid
-*
 * python.requests
 * . . . . . .
 
 -----
-<a id="_bug_report">bug追踪</id>
+<a id="bug_report">bug追踪</id>
 
-[回到顶部](#_menu)
+[回到顶部](#menu)
 
 ## bug 追踪
 
@@ -60,9 +59,9 @@
 - [ ] st-000003. ...
 
 -----
-<a id="_next_version">下一个版本</id>
+<a id="next_version">下一个版本</id>
 
-[回到顶部](#_menu)
+[回到顶部](#menu)
 
 ## 下一个版本的预告
 
@@ -71,23 +70,23 @@ Release-4.6
 - 更新 [system_extend.py](system_extend.py) 的一些功能
 
 -----
-<a id="_changelog">更新日志</id>
+<a id="changelog">更新日志</id>
 
 [-> 传送门 <-](changelog.md)
 
-[回到顶部](#_menu)
+[回到顶部](#menu)
 
 -----
-<a id="_file_history">文件历史记录</id>
+<a id="file_history">文件历史记录</id>
 
-[回到顶部](#_menu)
+[回到顶部](#menu)
 
 ### 保存的历史版本(按照时间顺序排序)
 
 -----
-<a id="_others">其他</id>
+<a id="others">其他</id>
 
-[回到顶部](#_menu)
+[回到顶部](#menu)
 
 - 函数命名规则
     - 尾部带有 "_gen" / "_generator" 后缀的 **[函数](https://zh.wikipedia.org/wiki/子程序)** 为生成器（such
@@ -96,9 +95,9 @@ Release-4.6
     - 尾部带有 "_fiet"(**fi**le **e**n**t**ity) 的变量为存储文件实例的 **变量**（such as `top10file_fiet`）。
 
 -----
-<a id="_do_you_know">你知道吗</id>
+<a id="do_you_know">你知道吗</id>
 
-[回到顶部](#_menu)
+[回到顶部](#menu)
 
 ### 你知道吗
 

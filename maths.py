@@ -5,40 +5,36 @@ from time import time
 from simple_tools.data_base import ST_WORK_SPACE
 from simple_tools.data_base import science_tuple, pass_
 from simple_tools.data_process import filter_
-from simple_tools.default import deprecated, invoke
-from simple_tools.system_extend import safe_md
+from simple_tools.misc import deprecated, invoke
 
 __all__ = [
-    'add1', 'average_generator', 'convert_system', 'is_prime',
-    'dec_to_r_convert', 'decomposition', 'decomposition_gui',
-    'get_prime_range', 'generate_prime_range',
+    "add1", "average_generator", "is_prime",
+    "dec_to_r_convert", "decomposition", "decomposition_gui",
+    "get_prime_range", "generate_prime_range",
     "prime_range_gen",
-    'r_to_dec_convert', 'saving_decomposition',
-    'r2dec_convert', 'dec2r_convert',
+    "r_to_dec_convert", "saving_decomposition",
+    "r2dec_convert", "dec2r_convert",
     "scientific_notate", "gcd", "gcd_legacy"
 ]
 
-LOCAL_WORK_SPACE = join(ST_WORK_SPACE, 'maths')
-safe_md(LOCAL_WORK_SPACE, quiet=True)
 
-
-def average_generator(*args):
+def average_gen(*args):
     count1 = 0
     l1 = []
     sum1 = 0
     for a000 in args:
-        l1.append(filter_(a000, ('f_dec', 'int',)))
+        l1.append(filter_(a000, ("f_dec", "int",)))
     for a000 in l1:
         count1 += 1
         c = sum1
         sum1 = (c * count1 - c + a000) / count1
         yield sum1
-        del c
 
 
 def convert_system(*args, **kwargs):
     import warnings
-    warnings.warn(deprecated(convert_system, scientific_notate), DeprecationWarning, stacklevel=4)
+    warnings.warn(deprecated("convert_system", scientific_notate),
+                  DeprecationWarning, stacklevel=4)
     print(args)
     print(kwargs)
 
@@ -64,9 +60,9 @@ def scientific_notate(figure: int | float, rate=1000, keep_decimal_digit=3, cust
 def is_prime(n=None):
     key_ = True
     if n is None:
-        n = filter_(input('>>>'), ('unsigned', 'f_dec', 'int'))
+        n = filter_(input(">>>"), ("unsigned", "f_dec", "int"))
     else:
-        n = filter_(n, ('unsigned', 'f_dec', 'int'))
+        n = filter_(n, ("unsigned", "f_dec", "int"))
     for a000 in range(2, ceil(sqrt(n + 1)), 1):
         if n % a000 == 0:
             key_ = False
@@ -74,7 +70,7 @@ def is_prime(n=None):
     return key_
 
 
-def decomposition_gui(int1=None, tip1='输入一个整数', record=True):
+def decomposition_gui(int1=None, tip1="输入一个整数", record=True):
     """分解质因数 - 已弃用
 
     :param int1: 当 int1 为 None 的时候，弹出 tip1 提示输入
@@ -82,25 +78,27 @@ def decomposition_gui(int1=None, tip1='输入一个整数', record=True):
     :param record: 是否将此次分解记录，默认为 True
     :return: 以元组的格式返回分解后的质因数
     """
+    import warnings
+    warnings.warn(invoke("decomposition_gui", decomposition),
+                  PendingDeprecationWarning)
 
     if int1 is None:
-        a = filter_(input(tip1), ('unsigned', 'f_dec', 'int'))
+        a = filter_(input(tip1), ("unsigned", "f_dec", "int"))
     else:
         if type(int1) is not int:
-            a = filter_(int1, ('unsigned', 'f_dec', 'int'))
+            a = filter_(int1, ("unsigned", "f_dec", "int"))
         else:
             a = int1
 
-    invoke(decomposition_gui, decomposition)
     obj_list = decomposition(a)
     if record:
-        file_name = join(ST_WORK_SPACE, 'primeNumber.s8l')
-        open(file_name, 'a').close()
-        file = open(file_name, 'r+')
+        file_name = join(ST_WORK_SPACE, "primeNumber.s8l")
+        open(file_name, "a").close()
+        file = open(file_name, "r+")
         fr = file.read()
         for i in obj_list:
             if str(i) not in fr:
-                file.write(str(i) + ', ')
+                file.write(str(i) + ", ")
         file.close()
     if int1 is None:
         print(obj_list)
@@ -120,9 +118,9 @@ def decomposition(frequently, **kwargs):
     :param kwargs: 可选项
     :return:
     """
-    frequently_var, start_time, i, decomposition_list = abs(frequently), time(), 1, []
-    max_safe_time, quiet, safe_tip = kwargs.get('max_safe_time', -1), kwargs.get('quiet', None), kwargs.get(
-        'safe_tip', '\033[0;31m启动安全锁\033[0m')
+    frequently_var, start_time, i, decomposition_list = abs(
+        frequently), time(), 1, []
+    quiet = kwargs.get("quiet", None)
     while i * i <= frequently_var:
         i += 1
         while frequently_var % i == 0:
@@ -130,17 +128,15 @@ def decomposition(frequently, **kwargs):
             decomposition_list.append(i)
         if not quiet:
             print(
-                f'正在计算第{len(decomposition_list) + 1}个质因数, 总进度'
-                f'{round(i / sqrt(frequently_var) * 10000) / 100 if i / sqrt(frequently_var) <= 1 else 100}%')
-        if 0 <= max_safe_time < time() - start_time:
-            print(safe_tip) if not quiet else pass_
-            break
+                f"正在计算第{len(decomposition_list) + 1}个质因数, 总进度"
+                f"{round(i / sqrt(frequently_var) * 10000) / 100 if i / sqrt(frequently_var) <= 1 else 100}%"
+            )
     else:
         used_time = time() - start_time
-        print(f'用时{used_time}秒\n' if not quiet else '', end='')
+        print(f"用时{used_time}秒\n" if not quiet else "", end="")
 
     decomposition_list.append(frequently_var)
-    while 1 in decomposition_list:
+    while (1 in decomposition_list):
         decomposition_list.remove(1)
 
     return decomposition_list
@@ -153,6 +149,9 @@ def gcd_legacy(a, b):
     @param b:
     @return:
     """
+    import warnings
+    warnings.warn(deprecated("gcd_legacy", gcd), PendingDeprecationWarning)
+
     if b == 0:
         return a
     else:
@@ -173,42 +172,47 @@ def add1(*args):
     :param args:
     :return:
     """
-    print(f'WARNING: function {add1.__name__} is still a Experimental Features.')
+    print(
+        f"WARNING: function {add1.__name__} is still a Experimental Features.")
     count = 0
 
     def add(a, b):
-        a1 = filter_(a, 'float')
-        b1 = filter_(b, 'float')
-        print('a1=', a1, ' b1=', b1, sep='')
+        a1 = filter_(a, "float")
+        b1 = filter_(b, "float")
+        print("a1=", a1, " b1=", b1, sep="")
         l1 = l2 = None
         print(a1, b1)
         if int(a1) == a1 and int(b1) == b1:
             r = int(a1) + int(b1)
         else:
-            if '.' in a1:
-                l1 = a1.split('.')
-            if '.' in b1:
-                l2 = b1.split('.')
+            if "." in a1:
+                l1 = a1.split(".")
+            if "." in b1:
+                l2 = b1.split(".")
             r1 = int(l1[0]) + int(l2[0])
             if len(l1[1]) >= len(l2[1]):
-                l2[1] += '0' * (len(l1) - len(l2))
+                l2[1] += "0" * (len(l1) - len(l2))
             else:
-                l1[1] += '0' * (len(l2) - len(l1))
+                l1[1] += "0" * (len(l2) - len(l1))
             r2 = int(l1[1]) + int(l2[1])
-            r = str(r1) + '.' + str(r2)
-        print('r=', r)
+            r = str(r1) + "." + str(r2)
+        print("r=", r)
 
         return r
 
     list1 = list(args)
     for a000 in range(0, len(list1), 1):
-        list1[a000] = str(filter_(list1[a000], 'float'))
+        list1[a000] = str(filter_(list1[a000], "float"))
     for a000 in range(0, len(list1), 2):
         count += add(count, list1[a000])
     return count
 
 
 def get_prime_range(start=2, end=100, step=1):  # 埃拉托斯特尼筛法 - 改进版
+    import warnings
+    warnings.warn(invoke("get_prime_range", prime_range_gen),
+                  PendingDeprecationWarning)
+
     print(f"\033[0;36m{prime_range_gen.__name__} 效率更高\033[0m")
     DELETED_CODE = -2  # -2 表示将要被删除的
     prime_list = list(range(2, end, 1))
@@ -265,15 +269,16 @@ def r_to_dec_convert(values, r):  # R: 无符号十进制整型数
     :param r:
     :return:
     """
-    value_r = filter_(r, ('unsigned', 'int'))
+    value_r = filter_(r, ("unsigned", "int"))
     output = count = 0
     for a000 in str(values):
         if 58 > ord(a000) >= 48:
             output += int(a000) * value_r ** (len(str(values)) - count)
         elif 65 <= ord(a000) < 91 or 97 <= ord(a000) < 123:
-            output += (ord(a000.upper()) - 55) * value_r ** (len(str(values)) - count)
+            output += (ord(a000.upper()) - 55) * \
+                value_r ** (len(str(values)) - count)
         else:
-            print('Invalid values!')
+            print("Invalid values!")
             return -1
         count += 1
 
@@ -297,13 +302,13 @@ def dec_to_r_convert(val, r, **kwargs):
 
     add: DEFAULT_DIGITAL_CHARSET_PREPARED 中提供的字符集最多只能支持到三十六进制，如果你使用六十进位制，可以参考下面我们的预设:
 
-    ('A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J',
-    'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T',
-    'U', 'V', 'W', 'X', 'Y', 'Z', 'a', 'b', 'c', 'd',
-    'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n',
-    'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x',
-    'y', 'z', '0', '1', '2', '3', '4', '5', '6', '7',
-    '8', '9', '-', '/') # 64 进位制，很少用到
+    ("A", "B", "C", "D", "E", "F", "G", "H", "I", "J",
+    "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T",
+    "U", "V", "W", "X", "Y", "Z", "a", "b", "c", "d",
+    "e", "f", "g", "h", "i", "j", "k", "l", "m", "n",
+    "o", "p", "q", "r", "s", "t", "u", "v", "w", "x",
+    "y", "z", "0", "1", "2", "3", "4", "5", "6", "7",
+    "8", "9", "-", "/") # 64 进位制，很少用到
 
     注意: 这里的字符 A 代表的是十进制的数字 0.
     同样的，这里的数字 0 也不代表十进制的 0，而是十进制的 52.
@@ -315,9 +320,9 @@ def dec_to_r_convert(val, r, **kwargs):
     """
     # val = int(val)
     DEFAULT_DIGITAL_CHARSET_PREPARED = (
-        '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H',
-        'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z')
-    charset = kwargs.get('charset', DEFAULT_DIGITAL_CHARSET_PREPARED)
+        "0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "A", "B", "C", "D", "E", "F", "G", "H",
+        "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z")
+    charset = kwargs.get("charset", DEFAULT_DIGITAL_CHARSET_PREPARED)
 
     if r <= len(charset):
         charset = tuple(charset[0: r])
@@ -325,13 +330,13 @@ def dec_to_r_convert(val, r, **kwargs):
         print("参数 r 错误!")
         return -2
 
-    val = filter_(val, ('unsigned', 'int'))
+    val = filter_(val, ("unsigned", "int"))
     output = str(charset[val % r])
 
     while val // r > 0:  # repeat until "val < r"
         val //= r
         output = str(charset[val % r]) + output
-        # print(f'{val=},{r=},{output=}') # 早期的调试程序段
+        # print(f"{val=},{r=},{output=}") # 早期的调试程序段
 
     return output
 
@@ -349,11 +354,12 @@ def dec2r_convert(fig, r, figure_type="auto"):
     @return:
     """
     import warnings
-    warnings.warn(deprecated(dec2r_convert, dec_to_r_convert), DeprecationWarning, stacklevel=4)
+    warnings.warn(deprecated("dec2r_convert", dec_to_r_convert),
+                  DeprecationWarning, stacklevel=4)
 
     DIGITAL_CHARSET_PREPARED = (
-        '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H',
-        'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z')
+        "0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "A", "B", "C", "D", "E", "F", "G", "H",
+        "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z")
 
     if r < len(DIGITAL_CHARSET_PREPARED):
         digital_charset = tuple(DIGITAL_CHARSET_PREPARED[0: r])  # 设置准备的字符
@@ -379,5 +385,5 @@ saving_decomposition = decomposition
 r2dec_convert = r_to_dec_convert
 # dec2r_convert = dec_to_r_convert
 generate_prime_range = prime_range_gen
-
+average_generator = average_gen
 # get_prime_range = lambda start, end, step: list(generate_prime_range(start=start, end=end, step=step))

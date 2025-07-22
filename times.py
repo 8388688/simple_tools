@@ -7,7 +7,7 @@ def timestamp(v_time=None, busy=False, idiotMode=False, **kwargs) -> str:
     """获取美化的时间
 
     \n 在 simple_tools v3.3 更新的版本上，我们准备了 23,529,242,880 种不同的时间戳格式以及 5 个预设值，打造属于自己的时间戳。
-    \n 注意: kwargs 中 presets 可选项是一个 int 值:
+    \n 注意: kwargs 中 presets 可选项是一个 int 值：
     \n > 为 0 表示不使用预设值
     \n > 大于 0 时使用预设值的第 (presets - 1) 个值
     \n > 不设置或设置为负数时则使用默认预设值
