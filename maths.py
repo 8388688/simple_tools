@@ -1,20 +1,17 @@
 from math import sqrt, ceil
-from os.path import join
 from time import time
 
-from simple_tools.data_base import ST_WORK_SPACE
 from simple_tools.data_base import science_tuple, pass_
 from simple_tools.data_process import filter_
 from simple_tools.misc import deprecated, invoke
 
 __all__ = [
     "add1", "average_generator", "is_prime",
-    "dec_to_r_convert", "decomposition", "decomposition_gui",
-    "get_prime_range", "generate_prime_range",
-    "prime_range_gen",
-    "r_to_dec_convert", "saving_decomposition",
-    "r2dec_convert", "dec2r_convert",
-    "scientific_notate", "gcd", "gcd_legacy"
+    "dec_to_r_convert", "decomposition",
+    "generate_prime_range",
+    "prime_range_gen", "r_to_dec_convert",
+    "r2dec_convert",
+    "scientific_notate", "gcd"
 ]
 
 
@@ -29,14 +26,6 @@ def average_gen(*args):
         c = sum1
         sum1 = (c * count1 - c + a000) / count1
         yield sum1
-
-
-def convert_system(*args, **kwargs):
-    import warnings
-    warnings.warn(deprecated("convert_system", scientific_notate),
-                  DeprecationWarning, stacklevel=4)
-    print(args)
-    print(kwargs)
 
 
 def scientific_notate(figure: int | float, rate=1000, keep_decimal_digit=3, custom_seq=science_tuple) -> str:
@@ -68,42 +57,6 @@ def is_prime(n=None):
             key_ = False
             break
     return key_
-
-
-def decomposition_gui(int1=None, tip1="输入一个整数", record=True):
-    """分解质因数 - 已弃用
-
-    :param int1: 当 int1 为 None 的时候，弹出 tip1 提示输入
-    :param tip1: 输入提示，（当 int1 不为 None 的时候直接忽略此参数）
-    :param record: 是否将此次分解记录，默认为 True
-    :return: 以元组的格式返回分解后的质因数
-    """
-    import warnings
-    warnings.warn(invoke("decomposition_gui", decomposition),
-                  PendingDeprecationWarning)
-
-    if int1 is None:
-        a = filter_(input(tip1), ("unsigned", "f_dec", "int"))
-    else:
-        if type(int1) is not int:
-            a = filter_(int1, ("unsigned", "f_dec", "int"))
-        else:
-            a = int1
-
-    obj_list = decomposition(a)
-    if record:
-        file_name = join(ST_WORK_SPACE, "primeNumber.s8l")
-        open(file_name, "a").close()
-        file = open(file_name, "r+")
-        fr = file.read()
-        for i in obj_list:
-            if str(i) not in fr:
-                file.write(str(i) + ", ")
-        file.close()
-    if int1 is None:
-        print(obj_list)
-    else:
-        return obj_list
 
 
 def decomposition(frequently, **kwargs):
@@ -140,22 +93,6 @@ def decomposition(frequently, **kwargs):
         decomposition_list.remove(1)
 
     return decomposition_list
-
-
-def gcd_legacy(a, b):
-    """gcd 递归版 - 已弃用
-
-    @param a:
-    @param b:
-    @return:
-    """
-    import warnings
-    warnings.warn(deprecated("gcd_legacy", gcd), PendingDeprecationWarning)
-
-    if b == 0:
-        return a
-    else:
-        return gcd_legacy(b, a % b)
 
 
 def gcd(a, b):
@@ -208,33 +145,11 @@ def add1(*args):
     return count
 
 
-def get_prime_range(start=2, end=100, step=1):  # 埃拉托斯特尼筛法 - 改进版
+def get_prime_range(start=2, end=100, step=1):
     import warnings
-    warnings.warn(invoke("get_prime_range", prime_range_gen),
-                  PendingDeprecationWarning)
-
-    print(f"\033[0;36m{prime_range_gen.__name__} 效率更高\033[0m")
-    DELETED_CODE = -2  # -2 表示将要被删除的
-    prime_list = list(range(2, end, 1))
-    # prime_list = list(range(start, end, step))
-    lim_max = sqrt(end)
-    start_n = -1
-    while start_n <= lim_max:
-        start_n += 1
-        for i in range(len(prime_list)):
-            if prime_list[i] != prime_list[start_n] and prime_list[i] % prime_list[start_n] == 0:
-                prime_list[i] = DELETED_CODE
-            else:
-                pass
-
-        while DELETED_CODE in prime_list:
-            # 重复执行删除 prime_list 中第一个值为 -2 的元素, 直到 prime_list 中没有值为 -2 的元素
-            prime_list.remove(DELETED_CODE)
-
-    db = set(list(range(start, end, step)))
-    final_prime_list = sorted(list(db & set(prime_list)))
-
-    return final_prime_list
+    warnings.warn(f"{invoke(get_prime_range, prime_range_gen)}",
+                  DeprecationWarning, stacklevel=4)
+    return [i for i in prime_range_gen(start, end, step)]
 
 
 def prime_range_gen(start=2, end=100, step=1):
@@ -345,45 +260,5 @@ def r1_to_r2_convert(val, r1, r2):
     return dec_to_r_convert(r_to_dec_convert(val, r1), r2)
 
 
-def dec2r_convert(fig, r, figure_type="auto"):
-    """已弃用
-
-    @param fig:
-    @param r:
-    @param figure_type:
-    @return:
-    """
-    import warnings
-    warnings.warn(deprecated("dec2r_convert", dec_to_r_convert),
-                  DeprecationWarning, stacklevel=4)
-
-    DIGITAL_CHARSET_PREPARED = (
-        "0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "A", "B", "C", "D", "E", "F", "G", "H",
-        "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z")
-
-    if r < len(DIGITAL_CHARSET_PREPARED):
-        digital_charset = tuple(DIGITAL_CHARSET_PREPARED[0: r])  # 设置准备的字符
-    else:
-        print("参数 r 错误!")
-        return -1
-
-    fig = filter_(fig, ("float",))
-    fig_int = fig // 1
-    fig_int_list = []
-    fig_fra = fig % 1  # 此处也可替换为 `fig_fra = fig - fig_int`
-    fig_fra_list = []
-    fig_int_string = 0
-    while fig_int // r != 0:  # repeat until(fig_int // r == 0)
-        fig_int, cache_fil_item = divmod(fig_int, r)
-        fig_int_list.append(cache_fil_item)
-        fig_int_string += digital_charset[cache_fil_item]
-
-    return fig_int_string
-
-
-saving_decomposition = decomposition
 r2dec_convert = r_to_dec_convert
-# dec2r_convert = dec_to_r_convert
-generate_prime_range = prime_range_gen
 average_generator = average_gen
-# get_prime_range = lambda start, end, step: list(generate_prime_range(start=start, end=end, step=step))

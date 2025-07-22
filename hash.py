@@ -5,7 +5,6 @@ from hashlib import md5, sha1, sha224, sha256, sha384, sha512, \
 import hashlib
 from uuid import uuid1, uuid3, uuid4, uuid5, NAMESPACE_DNS
 
-from simple_tools.data_base import EMPTY_UUID
 from simple_tools.maths import dec_to_r_convert
 
 __all__ = ["get_md5", "get_hash_values", "uuid_generator"]
@@ -15,7 +14,7 @@ def get_md5(string, encoding="utf-8", ratios=16):
     return get_hash_values(string, encoding, 0, ratios)
 
 
-def get_hash_values(string, encoding="utf-8", pattern=0, ratios=16):  # 此处0不能换成 null，因为它是一个索引而非空值。
+def get_hash_values(string, encoding="utf-8", pattern=0, ratios=16):
     base = (md5,
             sha1, sha224, sha256, sha384, sha512,
             blake2b, blake2s,
@@ -39,7 +38,7 @@ def uuid_gen(mode='time_mac', string=None, numeric=False):
         ret = uuid5(NAMESPACE_DNS, string)
     else:
         print('无效的模式 - %s' % mode_c)
-        ret = EMPTY_UUID
+        ret = "00000000-0000-0000-0000-000000000000"
 
     if numeric:
         ret = str(ret.hex)

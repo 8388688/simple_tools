@@ -5,13 +5,10 @@
 
 1. [索引](#menu)
 2. [概述](#summary)
-3. [依赖的插件](#depend_on)
-4. [bug追踪](#bug_report)
-5. [下一个版本的预告](#next_version)
-6. [更新日志](#changelog)
-7. [文件历史记录](#file_history)
-8. [其他](#others)
-9. [你知道吗](#do_you_know)
+3. [更新日志](#changelog)
+4. [文件历史记录](#file_history)
+5. [其他](#others)
+6. [你知道吗](#do_you_know)
 
 -----
 <a id="summary">概述</id>
@@ -22,52 +19,13 @@
 
 作者: 8388688
 
-最后修改时间：2024-06-27
+最后修改时间：2025-07-22
 ~~(以此证明我还活着)~~
-
------
-<a id="depend_on">依赖的插件</id>
-
-[回到顶部](#menu)
-
-## 依赖的插件
-
-* python.io
-* python.math
-* python.os
-* python.random
-* python.stat
-* python.sys
-* python.uuid
-* python.requests
-* . . . . . .
-
------
-<a id="bug_report">bug追踪</id>
-
-[回到顶部](#menu)
-
-## bug 追踪
-
-- [ ] = 未解决
-- [x] = 已解决
-
------
-
-- [ ] st-000001. 简化 filter_()
-- [ ] st-000002. fp_gen() 遍历文件夹时 include 参数不起作用
-- [ ] st-000003. ...
 
 -----
 <a id="next_version">下一个版本</id>
 
 [回到顶部](#menu)
-
-## 下一个版本的预告
-
-Release-4.6
-
-- 更新 [system_extend.py](system_extend.py) 的一些功能
 
 -----
 <a id="changelog">更新日志</id>

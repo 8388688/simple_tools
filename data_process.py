@@ -3,7 +3,7 @@ from simple_tools.misc import deprecated
 from typing import Generator
 
 __all__ = ['binary_search', 'bl_properties_gen', 'generate_bl_properties',
-           'dimensional_list', 'filter_', 'list2str',
+           'dimensional_list', 'filter_',
            'search_to_str_in_list', 'review', "equals_list",
            "to_bytes_auto", "list2bytes", "bytes2list",
 
@@ -30,7 +30,7 @@ def binary_search(list2, item):
 
 def bl_properties(*args, **kwargs):
     import warnings
-    warnings.warn(deprecated("bl_properties", bl_properties_gen),
+    warnings.warn(f"{deprecated(bl_properties, bl_properties_gen)} 将于 4.9 版本移除",
                   DeprecationWarning, stacklevel=4)
     print(args)
     print(kwargs)
@@ -55,8 +55,8 @@ def bl_properties_gen(
                 prefix_passed = tabs_bl[1]
 
             # print(i)
-            yld = list2str(prefix + [prefix_passed[0], ] +
-                           [str(i) + ". " if digital else ""], "")
+            yld = "".join(prefix + [prefix_passed[0], ] +
+                          [str(i) + ". " if digital else ""])
             if type(seq[i]) in SEQUENCES_LINE:
                 yield yld + str(type(seq[i]))
                 # print(yld, type(seq[i]), sep="")
@@ -69,23 +69,6 @@ def bl_properties_gen(
                 # print(yld, seq[i], sep="")
     else:
         print(seq)
-
-
-def list2str(lst, sep: str = '') -> str:
-    import warnings
-    warnings.warn(
-        f"{deprecated(list2str)}\n与之相等价的函数：str.join(sep, lst)",
-        DeprecationWarning, stacklevel=4
-    )
-    str_l = ""
-    if lst:
-        for i in lst[:-1]:
-            str_l += str(i) + sep
-        str_l += str(lst[-1])
-    else:
-        pass
-        # print("传入参数不能为空！")
-    return str_l
 
 
 def dimensional_list(value_list) -> Generator:
@@ -440,7 +423,7 @@ def search_to_str_in_list(input_object=None, testlist=None, **kwargs):
 def review(value, *args, **kwargs):
     """@deprecated"""
     import warnings
-    warnings.warn(f"{deprecated('review', bl_properties_gen)}",
+    warnings.warn(f"{deprecated('review', bl_properties_gen)} 将于 4.10 版本移除",
                   DeprecationWarning, stacklevel=4)
     print(args)
     print(kwargs)

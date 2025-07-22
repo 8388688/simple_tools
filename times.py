@@ -1,9 +1,13 @@
 from time import time, localtime, strftime, sleep
 
-__all__ = ['timestamp', 'wait']
+from simple_tools.misc import deprecated
+
+__all__ = ['wait', ]
 
 
 def timestamp(v_time=None, busy=False, idiotMode=False, **kwargs) -> str:
+    import warnings
+    warnings.warn(f"{deprecated(timestamp)} 将在 3.9 版本被移除")
     """获取美化的时间
 
     \n 在 simple_tools v3.3 更新的版本上，我们准备了 23,529,242,880 种不同的时间戳格式以及 5 个预设值，打造属于自己的时间戳。
@@ -21,14 +25,18 @@ def timestamp(v_time=None, busy=False, idiotMode=False, **kwargs) -> str:
     """
     prop_years = ('', '%Y', '%Y ', '%Y,', '%Y-', '%Y.', '%Y/', '%Y:', '%Y\\', '%Y_', '%Y年', '%Y年 ',
                   '%y', '%y ', '%y,', '%y-', '%y.', '%y/', '%y:', '%y\\', '%y_', '%y年', '%y年 ')
-    prop_months = ('', '%m', '%m ', '%m,', '%m-', '%m.', '%m/', '%m:', '%m\\', '%m_', '%m月', '%m月 ')
-    prop_days = ('', '%d', '%d ', '%d,', '%d-', '%d.', '%d/', '%d:', '%dT', '%d\\', '%d_', '%d日', '%d日 ')
+    prop_months = ('', '%m', '%m ', '%m,', '%m-', '%m.',
+                   '%m/', '%m:', '%m\\', '%m_', '%m月', '%m月 ')
+    prop_days = ('', '%d', '%d ', '%d,', '%d-', '%d.', '%d/',
+                 '%d:', '%dT', '%d\\', '%d_', '%d日', '%d日 ')
     prop_hours = ('', '%H', '%H ', '%H,', '%H-', '%H.', '%H/', '%H:', '%H\\', '%H_', '%H时', '%H时 ',
                   '%I', '%I ', '%I,', '%I-', '%I.', '%I/', '%I:', '%I\\', '%I_', '%I时', '%I时 ')
-    prop_minutes = ('', '%M', '%M ', '%M,', '%M-', '%M.', '%M/', '%M:', '%M\\', '%M_', '%M分', '%M分 ')
+    prop_minutes = ('', '%M', '%M ', '%M,', '%M-', '%M.',
+                    '%M/', '%M:', '%M\\', '%M_', '%M分', '%M分 ')
     prop_seconds = ('', '%S', '%S ', '%SZ', '%S秒', '%S秒 ')
     prop_local_12_hours = ('', ' %p', '%p', '%p ', '%p:', ':%p')
-    prop_weeks = ('', ' %A', ' %a', ' %w', '%A', '%A ', '%a', '%a ', '%w', '%w ')
+    prop_weeks = ('', ' %A', ' %a', ' %w', '%A',
+                  '%A ', '%a', '%a ', '%w', '%w ')
     prop_time_presets = (
         (
             prop_years[4], prop_months[4], prop_days[2], prop_weeks[0],
@@ -64,29 +72,37 @@ def timestamp(v_time=None, busy=False, idiotMode=False, **kwargs) -> str:
             seq = (4, 4, 2, 0, 0, 7, 7, 1)
         pv_year, pv_month, pv_day, pv_week, pv_hour_12, pv_hour, pv_minute, pv_second = \
             prop_years[properties_format.get('pf_year', seq[0])], \
-                prop_months[properties_format.get('pf_month', seq[1])], \
-                prop_days[properties_format.get('pf_day', seq[2])], \
-                prop_weeks[properties_format.get('pf_week', seq[3])], \
-                prop_local_12_hours[properties_format.get('pf_hour_12', seq[4])], \
-                prop_hours[properties_format.get('pf_hour', seq[5])], \
-                prop_minutes[properties_format.get('pf_minute', seq[6])], \
-                prop_seconds[properties_format.get('pf_second', seq[7])]
+            prop_months[properties_format.get('pf_month', seq[1])], \
+            prop_days[properties_format.get('pf_day', seq[2])], \
+            prop_weeks[properties_format.get('pf_week', seq[3])], \
+            prop_local_12_hours[properties_format.get('pf_hour_12', seq[4])], \
+            prop_hours[properties_format.get('pf_hour', seq[5])], \
+            prop_minutes[properties_format.get('pf_minute', seq[6])], \
+            prop_seconds[properties_format.get('pf_second', seq[7])]
 
     elif properties_format.get('presets', -1) < 0:
-        pv_year, pv_month, pv_day, pv_week, pv_hour_12, pv_hour, pv_minute, pv_second = prop_time_presets[0]
+        pv_year, pv_month, pv_day, pv_week, pv_hour_12, pv_hour, pv_minute, pv_second = prop_time_presets[
+            0]
     else:
         pv_year, pv_month, pv_day, pv_week, pv_hour_12, pv_hour, pv_minute, pv_second = \
             prop_time_presets[properties_format.get('presets', -1)]
     properties = (
-        pv_year + pv_month + pv_day + pv_week + pv_hour_12 + pv_hour + pv_minute + pv_second,
-        pv_week + pv_year + pv_month + pv_day + pv_hour_12 + pv_hour + pv_minute + pv_second,
-        pv_month + pv_year + pv_day + pv_week + pv_hour_12 + pv_hour + pv_minute + pv_second,
-        pv_week + pv_month + pv_year + pv_day + pv_hour_12 + pv_hour + pv_minute + pv_second,
-        pv_day + pv_month + pv_year + pv_week + pv_hour_12 + pv_hour + pv_minute + pv_second,
-        pv_week + pv_day + pv_year + pv_month + pv_hour_12 + pv_hour + pv_minute + pv_second,
+        pv_year + pv_month + pv_day + pv_week +
+        pv_hour_12 + pv_hour + pv_minute + pv_second,
+        pv_week + pv_year + pv_month + pv_day +
+        pv_hour_12 + pv_hour + pv_minute + pv_second,
+        pv_month + pv_year + pv_day + pv_week +
+        pv_hour_12 + pv_hour + pv_minute + pv_second,
+        pv_week + pv_month + pv_year + pv_day +
+        pv_hour_12 + pv_hour + pv_minute + pv_second,
+        pv_day + pv_month + pv_year + pv_week +
+        pv_hour_12 + pv_hour + pv_minute + pv_second,
+        pv_week + pv_day + pv_year + pv_month +
+        pv_hour_12 + pv_hour + pv_minute + pv_second,
     )  # 时间格式
 
-    properties_beauty = properties[properties_format.get('pf_format', 1)]  # 未装饰前的时间格式
+    properties_beauty = properties[properties_format.get(
+        'pf_format', 1)]  # 未装饰前的时间格式
 
     prop_des = (
         properties_beauty,

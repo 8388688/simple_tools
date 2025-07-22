@@ -1,6 +1,5 @@
 import os
-from os import getcwd, remove, rename, listdir, rmdir, chmod, stat
-from os.path import abspath as os_abspath, dirname, exists, join, islink, isfile, getsize, isjunction, isdir
+import stat
 from random import randrange
 # from stat import *
 from sys import getdefaultencoding as gde
@@ -8,7 +7,7 @@ from traceback import format_exc
 
 from simple_tools.data_base import pass_, tabs_bl
 from simple_tools.times import timestamp as gettime
-from simple_tools.misc import deprecated
+from simple_tools.misc import deprecated, invoke
 
 __all__ = [
     "fp",
@@ -22,7 +21,8 @@ __all__ = [
     "get_file_path"
 ]
 
-fp = getcwd()
+
+fp = os.getcwd()
 
 
 def file_pattern(file_path=fp, binary=True, easy_options=False):
@@ -52,21 +52,21 @@ def file_pattern(file_path=fp, binary=True, easy_options=False):
     undef_code = (-4, -5)
     button = -1
     now_fp = fp
-    if exists(file_path):
-        if isfile(file_path):
-            if getsize(file_path) <= 1:
+    if os.path.exists(file_path):
+        if os.path.isfile(file_path):
+            if os.path.getsize(file_path) <= 1:
                 button = 3
             else:
                 button = 4
-        elif isdir(file_path):
+        elif os.path.isdir(file_path):
             try:
-                listdir(file_path)
+                os.listdir(file_path)
             except PermissionError:
                 button = -3
             except MemoryError:
                 button = -5
             else:
-                if listdir(file_path):
+                if os.listdir(file_path):
                     button = 2
                 else:
                     button = 1
@@ -110,11 +110,11 @@ def del_tree(file_path=fp, all_files=False, all_folders=False,
 
     def only_remove(file_or_dir):
         nonlocal delete_dir
-        if not exists(file_or_dir) and exists(file_or_dir + os.sep):
+        if not os.path.exists(file_or_dir) and os.path.exists(file_or_dir + os.sep):
             only_remove(file_or_dir + os.sep)
             print("Windows 特色畸形文件 - %s" % file_or_dir)
             return "Windows 特色畸形文件 - %s" % file_or_dir
-        if exists(file_or_dir):  # 如果文件存在
+        if os.path.exists(file_or_dir):  # 如果文件存在
             if confirms:
                 select = input('确定删除%s吗?(<Any> or <space>)' % file_or_dir)
             else:
@@ -122,19 +122,19 @@ def del_tree(file_path=fp, all_files=False, all_folders=False,
             if select:
                 # 删除文件，可使用以下两种方法。
                 if forces:
-                    chmod(file_or_dir, stat.S_IRWXU)
-                    chmod(file_or_dir, stat.S_IWRITE)
+                    os.chmod(file_or_dir, stat.S_IRWXU)
+                    os.chmod(file_or_dir, stat.S_IWRITE)
                 if not quiet:
                     print('删除文件 - %s' % file_or_dir)
-                if isfile(file_or_dir):
-                    remove(file_or_dir)
+                if os.path.isfile(file_or_dir):
+                    os.remove(file_or_dir)
                     # unlink(path)
                 elif all_folders:
                     try:
-                        rmdir(file_or_dir + os.sep)
+                        os.rmdir(file_or_dir + os.sep)
                     except NotADirectoryError:
                         print("WARNING: 出现一个与目标文件夹名称相同的非文件夹")
-                        remove(file_or_dir)
+                        os.remove(file_or_dir)
                 else:
                     print('跳过%s' % file_or_dir)
                     delete_dir = False
@@ -156,7 +156,7 @@ def del_tree(file_path=fp, all_files=False, all_folders=False,
     return 0
 
 
-def get_fname(file_dir=fp, command=listdir, expert_mode=False):
+def get_fname(file_dir=fp, command=os.listdir, expert_mode=False):
     key_val = (('命令成功完成', []),
                ('出错了(未知错误)', []),
                ('出错了(内置错误: 下标越界)', []),
@@ -180,7 +180,7 @@ def get_fname(file_dir=fp, command=listdir, expert_mode=False):
             string = string.encode(gde())
             print(string)
 
-    if isfile(file_dir):
+    if os.path.isfile(file_dir):
         # return []
         return [file_dir, ] if not expert_mode else ([file_dir, ], button)
     else:
@@ -216,7 +216,10 @@ def get_fname(file_dir=fp, command=listdir, expert_mode=False):
 
 
 def get_fp(file_path=fp, abspath=None, folders=False) -> tuple:
-    print(f"\033[0;36m{get_fp.__name__} 使用 {fp_gen.__name__} 的 API。\033[0m")
+    import warnings
+    warnings.warn(f"{deprecated(get_fp, fp_gen)} 此函数将在 4.9 版本移除",
+                  PendingDeprecationWarning, stacklevel=4)
+    print(f"{invoke(get_fp, fp_gen)}")
     print(f"\033[0;31m由于 {get_fp.__name__} 函数受 API 限制，无法启用过滤器。\033[0m")
     print(f"\033[0;31m推荐使用 {fp_gen.__name__} 函数。\033[0m")
     return tuple(fp_gen(file_path=file_path, abspath=abspath, folders=folders))
@@ -246,8 +249,8 @@ def fp_gen(file_path=fp, abspath=0, files=True, folders=False,
     \n ```python
     \n     # 删除 `H:/2020/Temp` 中的所有文件（文件夹）
     \n     for i in fp_gen('H:/2020/Temp', folders=True,
-    \n                             do_file=lambda f: print(f, 'isfile:', isfile(f)),
-    \n                             do_dir=lambda f2: print(f2, 'isdir:', isdir(f2))):
+    \n                             do_file=lambda f: print(f, 'isfile:', os.path.isfile(f)),
+    \n                             do_dir=lambda f2: print(f2, 'isdir:', os.path.isdir(f2))):
     \n         pass
     \n ```
     \n --------
@@ -257,8 +260,8 @@ def fp_gen(file_path=fp, abspath=0, files=True, folders=False,
     \n ```python
     \n     # 删除 `H:/2020/Temp` 中的所有文件（文件夹）
     \n     for i in fp_gen('H:/2020/Temp', folders=True,
-    \n                             do_file=lambda f: unlink(f),
-    \n                             do_dir=lambda f2: rmdir(f2)):
+    \n                             do_file=lambda f: os.unlink(f),
+    \n                             do_dir=lambda f2: os.rmdir(f2)):
     \n         print('Delete file:', i)
     \n ```
     \n
@@ -327,10 +330,11 @@ def fp_gen(file_path=fp, abspath=0, files=True, folders=False,
 
     for file in fx[0]:
         abs_fp_depart = (file_path, file, from_root_fp)
-        abs_fp = join(abs_fp_depart[0], abs_fp_depart[1])
-        if isfile(abs_fp) or ((islink(abs_fp) or isjunction(abs_fp)) and skip_symlink in [0, 1]):
-            f_size = getsize(abs_fp) if isfile(abs_fp) else None
-            if (islink(abs_fp) or isjunction(abs_fp)) and skip_symlink in [0, ]:
+        abs_fp = os.path.join(abs_fp_depart[0], abs_fp_depart[1])
+        if os.path.isfile(abs_fp) or ((os.path.islink(abs_fp) or os.path.isjunction(abs_fp)) and skip_symlink in [0, 1]):
+            f_size = os.path.getsize(
+                abs_fp) if os.path.isfile(abs_fp) else None
+            if (os.path.islink(abs_fp) or os.path.isjunction(abs_fp)) and skip_symlink in [0, ]:
                 continue
             elif (to_size is None or f_size is None or f_size < to_size) \
                     and (f_size is None or from_size <= f_size) and \
@@ -342,36 +346,36 @@ def fp_gen(file_path=fp, abspath=0, files=True, folders=False,
                         filter(lambda pe: (pe in abs_fp) if case_sensitive else (pe.lower() in abs_fp.lower()),
                                exclude))):
                 if abspath is True or abspath == 1:
-                    yld = join(os_abspath(file_path), file)
+                    yld = os.path.join(os.path.abspath(file_path), file)
                 elif abspath is None or abspath == 0:
                     yld = abs_fp
                 elif abspath is False or abspath == 2:
                     yld = file
                 elif abspath == 3:
-                    yld = join(abs_fp_depart[2], file)
+                    yld = os.path.join(abs_fp_depart[2], file)
                 elif abspath == -1:
-                    yld = (join(os_abspath(file_path), file), file, join(abs_fp_depart[2], file),
+                    yld = (os.path.join(os.path.abspath(file_path), file), file, os.path.join(abs_fp_depart[2], file),
                            get_fname(abs_fp, expert_mode=True)[1])
                     # format: (<abspath>, <filename>, <相对内容根的路径>, <返回码: int>)
                 else:
                     yld = abs_fp
 
-                if files or ((islink(abs_fp) or isjunction(abs_fp)) and skip_symlink in [1, ]):
+                if files or ((os.path.islink(abs_fp) or os.path.isjunction(abs_fp)) and skip_symlink in [1, ]):
                     yield yld
                     do_file(yld)
                 else:
                     pass
         else:
             if abspath is True or abspath == 1:
-                yld = join(os_abspath(file_path), file)
+                yld = os.path.join(os.path.abspath(file_path), file)
             elif abspath is None or abspath == 0:
                 yld = abs_fp
             elif abspath is False or abspath == 2:
                 yld = file
             elif abspath == 3:
-                yld = join(abs_fp_depart[2], file)
+                yld = os.path.join(abs_fp_depart[2], file)
             elif abspath == -1:
-                yld = (join(os_abspath(file_path), file), file, join(abs_fp_depart[2], file),
+                yld = (os.path.join(os.path.abspath(file_path), file), file, os.path.join(abs_fp_depart[2], file),
                        get_fname(abs_fp, expert_mode=True)[1])
                 # format: (<abspath>, <filename>, <相对内容根的路径>, <返回码: int>)
             else:
@@ -389,7 +393,7 @@ def fp_gen(file_path=fp, abspath=0, files=True, folders=False,
                 do_dir(yld)
             temp_kwargs = kwargs
             temp_kwargs.update(
-                {"__from_root_fp": join(from_root_fp, abs_fp_depart[1])})
+                {"__from_root_fp": os.path.join(from_root_fp, abs_fp_depart[1])})
             for a000 in fp_gen(abs_fp + os.sep, abspath=abspath, files=files, folders=folders, **temp_kwargs):
                 yield a000
 
@@ -398,22 +402,6 @@ def fp_gen(file_path=fp, abspath=0, files=True, folders=False,
             if folders and not topdown and can_yield:
                 yield yld
                 do_dir(yld)
-
-
-def file_suffix(*args, **kwargs):
-    import warnings
-    warnings.warn(f"{deprecated(file_suffix)}",
-                  DeprecationWarning, stacklevel=4)
-
-
-def safe_md(file_name_or_file_path, quiet=False):
-    import warnings
-    warnings.warn(f"{deprecated(safe_md, os.makedirs)}",
-                  DeprecationWarning, stacklevel=4)
-    if quiet:
-        print(f"创建 {file_name_or_file_path}")
-    os.makedirs(file_name_or_file_path, exist_ok=True)
-    # raise DeprecationWarning: 将被 os.makedirs 替代
 
 
 def quick_create_file(file_path, size):
@@ -425,7 +413,7 @@ def quick_create_file(file_path, size):
 
 def safe_delete(file_path, buffering=16777216):
     for i in fp_gen(file_path, folders=False):
-        size = getsize(i)
+        size = os.path.getsize(i)
         file = open(i, "w", buffering=buffering)
         while size > 0:
             print("生成字节")
@@ -449,17 +437,18 @@ def safe_delete(file_path, buffering=16777216):
             file.write(buffer)
             size -= len(buffer)
         file.close()
-        new_name = join(dirname(i), "RUN_AWAY.txt" +
-                        gettime(no_beauty=True, idiotMode=False,
+        new_name = os.path.join(
+            os.path.dirname(i), "RUN_AWAY.txt" +
+            gettime(no_beauty=True, idiotMode=False,
                                 pf_year=1, pf_month=1, pf_day=1, pf_hour=1, pf_minute=1, pf_second=1))
-        rename(i, new_name)
-        remove(new_name)
+        os.rename(i, new_name)
+        os.remove(new_name)
         print('COMPLETE! - %s => %s' % (i, new_name))
 
 
 def tree_fp_gen(__fp, files=True, header=None, __prefix="", keepend=True):
-    bucket_fname = listdir(__fp)
-    bucket_fp = list(map(lambda x: join(__fp, x), bucket_fname))
+    bucket_fname = os.listdir(__fp)
+    bucket_fp = [os.path.join(__fp, x) for x in bucket_fname]
     suffix = "\n" if keepend else ""
     if not __prefix:
         if header is None:
@@ -473,7 +462,7 @@ def tree_fp_gen(__fp, files=True, header=None, __prefix="", keepend=True):
             dec_presets = tabs_bl[1]
 
         yld = decorate + dec_presets[0] + bucket_fname[i]
-        if isdir(bucket_fp[i]):
+        if os.path.isdir(bucket_fp[i]):
             yield yld + "<dir>" + suffix
             for item in tree_fp_gen(bucket_fp[i], files=files, __prefix=decorate + dec_presets[1]):
                 yield item
@@ -488,8 +477,8 @@ def listdir_p(__fp):
 
 
 def listdir_p_gen(__fp):
-    for i in listdir(__fp):
-        yield join(__fp, i)
+    for i in os.listdir(__fp):
+        yield os.path.join(__fp, i)
 
 
 delete = file_remove = del_tree
